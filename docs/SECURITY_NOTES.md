@@ -10,6 +10,7 @@
 - Use Django password hashing.
 - Use Django sessions.
 - Use established auth/verification mechanisms.
+- Use django-allauth regular accounts for public signup, email verification, password reset, email change, enumeration protection and rate limits.
 - No custom authentication protocol.
 - No custom token cryptography.
 - Development and production secrets must be separated.
@@ -20,9 +21,13 @@
 - Email required and unique case-insensitively.
 - Email normalized consistently.
 - Email-only login is the preferred initial direction.
+- Email-only means email plus password, not passwordless magic-code login.
 - Verification links expire and are single-use.
 - Resend verification has cooldown.
 - Signup, login, verification resend and password reset must be rate-limited.
+- django-allauth rate limits must remain enabled; do not set `ACCOUNT_RATE_LIMITS = False`.
+- Account rate limits require a real Django cache backend; `DummyCache` is forbidden for account flows.
+- Development/test may initially use `LocMemCache`; production shared-cache strategy remains open.
 - Account-sensitive forms must not unnecessarily reveal whether an email exists.
 - Password reset uses verified email channel.
 - Registration never grants Wagtail Admin access automatically.
@@ -32,6 +37,10 @@
 Email verification confirms control of a mailbox and prevents repeated registration with the same unique email. It does not prove that one physical person owns only one account and does not prevent deliberate registration with multiple email addresses.
 
 MVP security remains proportional. CAPTCHA, Turnstile, SMS, mandatory 2FA, social login, identity documents and enterprise identity providers are not required for MVP.
+
+Initial allauth scope excludes `allauth.socialaccount`, social providers, MFA, headless API, phone-number authentication, magic-code login, WebAuthn and JWT flows.
+
+Client-IP extraction behind reverse proxy must not trust arbitrary `X-Forwarded-For`. `ALLAUTH_TRUSTED_PROXY_COUNT` and `ALLAUTH_TRUSTED_CLIENT_IP_HEADER` are configured only after actual Caddy/Nginx topology is known.
 
 ## Ownership and permissions
 
@@ -103,3 +112,5 @@ Core Framehold Engine and built-in themes must not require telemetry, analytics,
 ## Runtime assumptions
 
 Production security guidance should assume Linux VPS, typically Ubuntu or Debian-like server. Avoid relying on case-insensitive filesystem behavior, Windows-specific paths or backslash-only paths.
+
+Foundation runtime uses PostgreSQL, not SQLite. No silent SQLite fallback is accepted for development, tests or production.

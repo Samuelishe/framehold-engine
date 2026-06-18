@@ -6,7 +6,7 @@
 
 Пока нет.
 
-Framehold Engine сейчас находится на documentation-only стадии. Планируемые технологии вроде Django, Wagtail, PostgreSQL, Tailwind CSS, Alpine.js, HTMX, PhotoSwipe, Pillow и libvips на этом этапе не vendored и не bundled в репозитории.
+Framehold Engine сейчас находится на documentation-only стадии. Принятые или планируемые технологии вроде Django, Wagtail, django-allauth, django-environ, Psycopg, uv, Ruff, pytest, PostgreSQL, Tailwind CSS, Alpine.js, HTMX, PhotoSwipe, Pillow и libvips на этом этапе не vendored и не bundled в репозитории.
 
 ## Формат будущей записи
 

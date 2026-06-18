@@ -52,6 +52,7 @@ Publicly registered and email-verified user who owns one Portfolio in the MVP.
 - access global settings;
 - install or upload theme code;
 - receive Wagtail staff/admin access automatically.
+- receive social login, MFA, headless API or other allauth extras without explicit project decision.
 
 ## Public Visitor
 
@@ -77,6 +78,7 @@ Publicly registered and email-verified user who owns one Portfolio in the MVP.
 - Suspended Portfolio is not public.
 - Account deletion removes public access immediately, blocks login/edit/upload operations and revokes active sessions.
 - Self-registered users are regular non-staff users.
+- Ordinary self-registered users authenticate through email-plus-password and django-allauth account flows; this does not grant staff capabilities.
 - The sole Site Administrator account must not be deletable through ordinary Portfolio Owner deletion flow without safe replacement/admin procedure.
 
 ## Publication and visibility

@@ -6,6 +6,10 @@
 - Django-проект еще не инициализирован.
 - Wagtail еще не инициализирован.
 - Прикладного кода нет.
+- `pyproject.toml` еще не создан.
+- `uv.lock` еще не создан.
+- `.python-version` еще не создан.
+- Dependencies не установлены.
 - Миграций, моделей, views, templates, CSS, JavaScript, форм, тестов, email integration и Docker configuration нет.
 - Production deployment еще не существует.
 - Корневой `README.md` теперь является GitHub landing page на английском языке.
@@ -37,6 +41,17 @@
 - No mandatory telemetry, analytics, phone-home behavior, external fonts or public CDN dependency.
 - Account deletion uses a two-phase lifecycle: immediate lockout/public removal, then idempotent cleanup.
 - MVP vertical slice is documented in `PRODUCT_VISION.md` and `REQUIREMENTS.md`.
+- Technical foundation decisions accepted: CPython 3.14, Django 5.2 LTS, Wagtail 7.4 LTS with minimum patch 7.4.2.
+- Dependency management direction accepted: uv, root `pyproject.toml`, committed `uv.lock`, `.python-version`, project-local `.venv`.
+- Accepted direct foundation dependencies: Django, Wagtail, django-allauth, django-environ and `psycopg[binary]`.
+- Account foundation uses django-allauth regular accounts with email-plus-password login, mandatory email verification and no `socialaccount` in foundation.
+- Custom User contract accepted: `apps.accounts`, `accounts.User(AbstractUser)`, no `username`, unique normalized email as `USERNAME_FIELD`.
+- Database direction accepted: PostgreSQL 18 with Psycopg 3; no SQLite fallback in dev/test/production settings.
+- Settings split accepted: `framehold.settings.base/dev/test/prod` with django-environ.
+- Development Compose direction accepted: future `compose.dev.yml` contains PostgreSQL `db` service only; Django runs directly through uv/PyCharm/terminal.
+- Development tooling accepted: Ruff, pytest, pytest-django and pytest-cov.
+- Initial app boundaries accepted: `apps.accounts` during foundation and `apps.sitecontent` only if required for minimal Wagtail global CMS/root page.
+- First migrations must be PostgreSQL-first and after custom User, split settings and database configuration are ready.
 - Исходный сценарий Irwyn, Polina и отца Irwyn остается первым intended use case, но не ограничивает продукт.
 
 ## Что уже сделано
@@ -48,19 +63,24 @@
 - Обновлена документация под модель public registration, Portfolio Owner, Framehold Dashboard, curated themes и media presentation.
 - Добавлены документы по account deletion/data lifecycle, content rights/media access, open-source/third-party policy и privacy/operator responsibilities.
 - Добавлены root `LICENSE`, `THIRD_PARTY_NOTICES.md` и `licenses/README.md`.
+- Добавлен `docs/TECHNICAL_FOUNDATION.md` с контрактом Stage 1/2 foundation implementation.
 
 ## Следующие архитектурные вопросы
 
 Перед инициализацией доменной реализации нужно явно решить:
 
-- exact authentication package для registration, verification и password reset;
 - exact quotas and upload limits;
 - exact private-source/public-delivery media storage implementation;
 - exact storage cleanup strategy for source originals, public full-resolution assets and renditions.
-- exact custom User implementation details;
-- dependency management and package versions;
 - decoder/image backend.
+
+Перед foundation implementation технически остаются уточнения исполнения, но не архитектурного выбора:
+
+- exact latest compatible patch versions resolved by `uv.lock`;
+- exact initial Wagtail scaffold cleanup;
+- whether `apps.sitecontent` is required immediately for minimal root/home page;
+- exact production cache backend for allauth rate limits, later.
 
 ## Следующий шаг
 
-Следующие шаги: technical documentation readiness pass; dependency/auth/tooling/version decisions; Django/Wagtail foundation implementation; media spike before real uploads.
+Следующий шаг: Stage 1/2 foundation implementation. Следующая задача должна создать uv project metadata, dependency lock, Django/Wagtail scaffold, custom User, settings split, PostgreSQL development service, minimal Wagtail site, first migrations and foundation tests. Media spike remains required before real uploads, but does not block foundation implementation.

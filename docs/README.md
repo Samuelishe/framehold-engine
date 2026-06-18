@@ -8,9 +8,9 @@
 - `REQUIREMENTS.md` — функциональные и нефункциональные требования, включая регистрацию, dashboard, ownership, темы, media viewer и upload safety.
 - `ARCHITECTURE.md` — архитектурное направление, логические зоны системы, границы Framehold Dashboard и Wagtail Admin.
 - `DECISIONS.md` — компактный журнал принятых архитектурных решений.
-- `DATA_MODEL.md` — черновая модель User, Portfolio, Album, Photo, AlbumPhoto и SiteSettings с открытыми Django/Wagtail решениями.
+- `DATA_MODEL.md` — концептуальная модель User, Portfolio, Album, Photo, AlbumPhoto и SiteSettings с cardinalities и invariants.
 - `PERMISSIONS.md` — роли Site Administrator, Portfolio Owner и Public Visitor, account states и suspension rules.
-- `REGISTRATION_AND_ACCOUNTS.md` — registration flow, email verification, account lifecycle, password reset, onboarding и открытый выбор auth package.
+- `REGISTRATION_AND_ACCOUNTS.md` — registration flow, email verification, account lifecycle, password reset, onboarding и django-allauth direction.
 - `OWNERSHIP_AND_ISOLATION.md` — portfolio ownership invariants, server-side scoping, direct object access protection и future permission tests.
 - `ACCOUNT_DELETION_AND_DATA_LIFECYCLE.md` — self-service Delete account and all data, cleanup scope, idempotency, backups, restore behavior and future tests.
 - `PUBLIC_SITE.md` — theme-driven публичные страницы, URL options, public viewer и правила выдачи только опубликованного non-suspended контента.
@@ -22,6 +22,7 @@
 - `PRIVACY_AND_OPERATOR_RESPONSIBILITIES.md` — distinction between software project, deployed instance, operator, Portfolio Owners and Public Visitors.
 - `UI_DESIGN.md` — визуальное направление публичного интерфейса, mobile rules, theme families и viewer UX.
 - `TECH_STACK.md` — выбранный стек, custom User model с начала, planned email infrastructure и невыбранные альтернативы.
+- `TECHNICAL_FOUNDATION.md` — точный контракт Stage 1/2: версии, uv, dependencies, custom User, settings, PostgreSQL, migrations и validation commands.
 - `DEVELOPMENT.md` — планируемый локальный процесс разработки, email backend/mail-catcher и ограничения по отсутствующей реализации.
 - `DEPLOYMENT.md` — планируемый VPS deployment, production email, public origin, quotas и backup assumptions.
 - `SECURITY_NOTES.md` — правила безопасности для registration, verification, ownership, upload safety, EXIF и suspension.

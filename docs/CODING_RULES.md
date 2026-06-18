@@ -15,11 +15,20 @@
 - Держать migrations reviewable.
 - Избегать overengineering.
 - Не добавлять dependencies без понятной причины.
+- Use uv project workflow; do not add parallel requirements files, Poetry or PDM.
+- Do not manually edit `uv.lock`.
+- Do not use SQLite fallback silently.
 
 ## Auth and accounts
 
 - Custom User must exist before first permanent application migrations.
+- Foundation custom User contract: `apps.accounts`, `accounts.User(AbstractUser)`, no `username`, unique normalized email.
+- Never put Portfolio data into User.
+- Use `settings.AUTH_USER_MODEL` in model fields and `get_user_model()` in runtime code.
 - Use established libraries/mechanisms for registration, email verification and password reset.
+- Use django-allauth regular accounts for signup, verification, password reset and email change.
+- Do not enable `allauth.socialaccount`, social providers, MFA, headless API, phone auth, magic-code login, WebAuthn or JWT flows without explicit decision.
+- Keep django-allauth rate limits enabled.
 - Do not implement custom password hashing.
 - Do not implement custom session handling.
 - Do not implement custom token cryptography.
@@ -88,3 +97,13 @@
 ## Django/Wagtail
 
 Use Django/Wagtail built-ins for auth, sessions, permissions, admin, migrations and image handling where appropriate, but keep Portfolio Owner UI in Framehold Dashboard, not ordinary Wagtail Admin.
+
+## Foundation boundaries
+
+- Initial foundation may create `apps.accounts` and `apps.sitecontent` only if Wagtail root/global CMS needs require it.
+- Do not create empty Django apps for speculative architecture.
+- Do not create Portfolio, Album, Photo, AlbumPhoto, Dashboard, public_site or themes during foundation.
+- Do not create production Docker infrastructure during foundation.
+- First migrations must run only after custom User, settings split and PostgreSQL configuration are ready.
+- Do not migrate against SQLite and then recreate migration history for PostgreSQL.
+- Use Ruff for formatting/linting and pytest/pytest-django/pytest-cov for tests in the initial toolchain.

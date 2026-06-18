@@ -33,7 +33,8 @@
 - `docs/OPEN_SOURCE_AND_THIRD_PARTY_POLICY.md` — AGPL, third-party policy, asset licensing and release audit direction.
 - `docs/PRIVACY_AND_OPERATOR_RESPONSIBILITIES.md` — software versus deployed instance responsibilities and planned legal/configurable pages.
 - `docs/UI_DESIGN.md` — визуальное направление, responsive rules, theme families и viewer behavior.
-- `docs/TECH_STACK.md` — planned stack, custom User, auth package need и production email direction.
+- `docs/TECH_STACK.md` — selected stack, custom User, django-allauth, uv, PostgreSQL и production email direction.
+- `docs/TECHNICAL_FOUNDATION.md` — implementation contract для Stage 1/2: runtime versions, uv, dependencies, custom User, settings, PostgreSQL, tooling и migration order.
 - `docs/DEVELOPMENT.md` — planned local development, email backend/mail-catcher и migration constraints.
 - `docs/DEPLOYMENT.md` — planned VPS deployment, production email, public origin, quotas and backups.
 - `docs/SECURITY_NOTES.md` — security rules for registration, verification, ownership, uploads, EXIF and themes.

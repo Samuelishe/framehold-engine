@@ -72,6 +72,16 @@
 - `LICENSE`
 - `licenses/README.md`
 
+Для project foundation, dependency changes, settings, custom User, migrations, PostgreSQL, development tooling и Docker development environment задач дополнительно читать:
+
+- `docs/TECHNICAL_FOUNDATION.md`
+- `docs/TECH_STACK.md`
+- `docs/DEVELOPMENT.md`
+- `docs/DEPLOYMENT.md`
+- `docs/DATA_MODEL.md`
+- `docs/REGISTRATION_AND_ACCOUNTS.md`
+- `docs/SECURITY_NOTES.md`
+
 Для documentation-only задач дополнительно читать:
 
 - `docs/README.md`
@@ -100,6 +110,7 @@
 - Когда меняются viewer/lightbox, captions, EXIF или media policy, обновлять `docs/MEDIA_PRESENTATION.md`.
 - Когда меняется media access, public full-size delivery, copyright notice или user-content rights, обновлять `docs/CONTENT_RIGHTS_AND_MEDIA_ACCESS.md`.
 - Когда меняются стек или решения по зависимостям, обновлять `docs/TECH_STACK.md`.
+- Когда меняются foundation versions, dependency policy, settings structure, custom User contract, app boundaries или migration ordering, обновлять `docs/TECHNICAL_FOUNDATION.md`, `docs/TECH_STACK.md`, `docs/DEVELOPMENT.md`, `docs/DECISIONS.md` и `docs/PROJECT_STATE.md` where relevant.
 - Когда меняются предположения по деплою, обновлять `docs/DEPLOYMENT.md`.
 - Когда меняются предположения по безопасности, обновлять `docs/SECURITY_NOTES.md`.
 - Когда меняется лицензия проекта, обновлять `LICENSE`, `README.md`, `docs/OPEN_SOURCE_AND_THIRD_PARTY_POLICY.md`, `THIRD_PARTY_NOTICES.md` при необходимости и `docs/FILE_INDEX.md`.
@@ -117,7 +128,15 @@
 - Arbitrary user-supplied theme code, arbitrary template execution, arbitrary JavaScript injection и arbitrary CSS injection не входят в MVP.
 - Raw EXIF нельзя рендерить публично; использовать только allowlist и явные настройки видимости.
 - Social features нельзя вводить без отдельного явного product decision.
-- Первые постоянные миграции нельзя создавать до custom User model, PostgreSQL/dev settings и initial image strategy review.
+- Первые постоянные миграции нельзя создавать до custom User model, PostgreSQL/dev settings и применения принятой standard Wagtail Image strategy.
+- Never run first migrations before custom User is configured.
+- Never add a parallel dependency-management system.
+- Never manually edit `uv.lock`.
+- Never add SQLite fallback silently.
+- Never add `allauth.socialaccount`, MFA, headless allauth functionality, social login, phone login или magic-code login без explicit decision.
+- Never put Portfolio data into User.
+- Never add empty Django apps purely for speculative architecture.
+- Never create production Docker infrastructure during the foundation milestone.
 - Перед изменением standard Wagtail Image strategy нужен explicit architecture review.
 - Нельзя добавлять unlicensed copied assets.
 - Нельзя добавлять arbitrary commercial-use restrictions к AGPL project license.

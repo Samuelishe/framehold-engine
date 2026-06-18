@@ -4,31 +4,55 @@
 
 ### Python 3.14
 
-Планируемая основная версия языка. Совместимость библиотек нужно проверить на этапе инициализации.
+Accepted runtime: CPython 3.14 series. Future metadata uses `requires-python = ">=3.14,<3.15"` and `.python-version` contains `3.14`.
 
-### Django
+Use latest stable Python 3.14 patch available. Do not use Python 3.15 pre-release, free-threaded CPython baseline, or Python 3.10-3.13 support matrix in initial metadata.
 
-Server-side основа с ORM, migrations, auth, sessions, password hashing, forms and security mechanisms.
+### Django 5.2 LTS
+
+Accepted initial framework branch: Django 5.2 LTS.
+
+Initial constraint direction: `Django>=5.2.15,<5.3`.
+
+Django provides server-side ORM, migrations, auth, sessions, password hashing, forms and security mechanisms. Do not select Django 6.0 for foundation.
 
 ### Custom Django User model
 
-Custom User должен существовать с самого начала, до первых permanent application migrations. Preferred initial direction is email-only login.
+Custom User должен существовать с самого начала, до первых permanent application migrations. Accepted contract: `apps.accounts`, `accounts.User(AbstractUser)`, no `username`, unique normalized `email`, `USERNAME_FIELD = "email"`.
 
 ### Standard Wagtail Image initially
 
 Initial implementation uses the standard Wagtail Image model referenced by Framehold `Photo`. Custom Wagtail image model is not planned initially.
 
-### Mature registration/email verification package
+### django-allauth regular accounts
 
-Нужна established package для registration, mandatory email verification, password reset and related account flows. Точный выбор не сделан. `django-allauth` является кандидатом, но не выбран окончательно.
+Accepted package: `django-allauth>=65.18.0,<66`.
 
-### Wagtail
+Use only `allauth` and `allauth.account` in foundation. Do not enable `allauth.socialaccount`, social providers, MFA, headless API, magic-code login, phone auth, WebAuthn or JWT flows without separate decision.
+
+### Wagtail 7.4 LTS
+
+Accepted initial Wagtail branch: Wagtail 7.4 LTS.
+
+Initial constraint direction: `wagtail>=7.4.2,<7.5`. Wagtail 7.4.0 and 7.4.1 are not acceptable for initial foundation.
 
 Используется для Wagtail Admin, global CMS content, settings and image-related capabilities where appropriate. Self-registered Portfolio Owners не получают Wagtail Admin access автоматически.
 
-### PostgreSQL
+### uv dependency management
 
-Primary DB для development и production.
+Accepted dependency workflow: uv, root `pyproject.toml`, committed `uv.lock`, committed `.python-version`, project-local `.venv`, `[tool.uv] package = false`.
+
+Do not maintain parallel requirements files. Do not use Poetry or PDM alongside uv. Do not manually edit `uv.lock`.
+
+### PostgreSQL 18 and Psycopg 3
+
+Primary DB для development и production: PostgreSQL 18 series. Driver: Psycopg 3 with initial dependency `psycopg[binary]>=3.3.4,<4`.
+
+No SQLite fallback in dev, test or production settings.
+
+### django-environ
+
+Accepted for typed environment-variable access, `DATABASE_URL` parsing, optional local `.env` loading and strict required settings. Initial constraint: `django-environ>=0.13,<0.14`.
 
 ### Linux production target
 
@@ -56,7 +80,15 @@ Production email delivery planned through SMTP-compatible provider. Provider not
 
 ### Docker Compose
 
-Планируется позже для environment/deployment, но не создается на documentation stage.
+Initial development Compose direction: future `compose.dev.yml` contains PostgreSQL `db` service only. Django runs directly through uv-managed `.venv` for PyCharm/terminal debugging.
+
+Production Docker Compose remains later deployment stage.
+
+### Ruff and pytest
+
+Accepted initial development tooling: Ruff, pytest, pytest-django and pytest-cov.
+
+Do not add Black, isort, Flake8, pylint, mypy, django-stubs, pre-commit, tox or nox during the foundation milestone.
 
 ### Nginx или Caddy
 
@@ -88,6 +120,7 @@ Project license: GNU Affero General Public License version 3 or later, SPDX `AGP
 - Не реализовывать custom password hashing.
 - Не реализовывать custom session handling.
 - Не реализовывать custom token cryptography.
-- Не pin dependencies до появления реального проекта и проверки совместимости.
+- Не exact-pin dependency patches in `pyproject.toml`; `uv.lock` records exact resolved versions.
 - Не выбирать private/public media storage implementation без отдельного review.
 - Не полагаться на case-insensitive filesystem behavior или Windows-specific production assumptions.
+- Не добавлять dependencies outside accepted foundation set без отдельного решения.

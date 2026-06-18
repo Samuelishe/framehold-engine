@@ -83,7 +83,7 @@
 - Signup, login, verification resend and password reset are rate-limited.
 - Administrator can disable new registrations globally.
 - Password reset uses verified email channel.
-- Exact auth package, rate limits and expiration values remain open.
+- Exact custom rate limits and expiration values remain open; django-allauth is the accepted account package.
 
 ## State requirements
 

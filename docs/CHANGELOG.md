@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Technical foundation readiness
+
+- Added `docs/TECHNICAL_FOUNDATION.md`.
+- Accepted CPython 3.14, Django 5.2 LTS and Wagtail 7.4 LTS.
+- Accepted uv project/dependency workflow with `pyproject.toml`, `uv.lock` and `.python-version`.
+- Selected django-allauth regular accounts for account flows and excluded socialaccount/MFA/headless extras from foundation.
+- Fixed custom User contract: `accounts.User(AbstractUser)` without username and with unique normalized email.
+- Accepted PostgreSQL 18, Psycopg 3, django-environ split settings, database-only development Compose, Ruff and pytest.
+- Documented mandatory PostgreSQL-first migration ordering before foundation implementation.
+
 ## Final product consistency pass before implementation
 
 - Added `docs/PRODUCT_PRINCIPLES.md`.

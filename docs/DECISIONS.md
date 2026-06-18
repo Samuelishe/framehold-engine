@@ -17,7 +17,7 @@
 - Дата или этап: Stage 0.6.
 - Контекст: публичная identity принадлежит Portfolio, а не authentication credentials.
 - Решение: использовать email как login identifier. Не показывать и не требовать public username в MVP. Public identity использует `Portfolio.slug` и `Portfolio.public_name`.
-- Последствия: регистрация проще, путаница username/portfolio slug устраняется, exact auth package остается открытым.
+- Последствия: регистрация проще, путаница username/portfolio slug устраняется. Auth package selection later resolved by DEC-022.
 - Supersedes / Superseded by: supersedes email plus internal username as equal initial direction.
 
 ## DEC-003 — Portfolio and Album are regular Django models
@@ -172,3 +172,93 @@
 - Решение: deletion first blocks access and removes public visibility, then an idempotent cleanup service removes media, domain data, account records and finally active User identity.
 - Последствия: partial file failures remain retryable without restoring public access or losing ownership information prematurely.
 - Supersedes / Superseded by: supersedes one-step deletion as conceptual model.
+
+## DEC-020 — Python, Django, and Wagtail baseline
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: foundation implementation needs exact supported runtime/framework series before dependency metadata exists.
+- Решение: use CPython 3.14, Django 5.2 LTS and Wagtail 7.4 LTS. Initial dependency bounds are Python `>=3.14,<3.15`, Django `>=5.2.15,<5.3`, and Wagtail `>=7.4.2,<7.5`.
+- Последствия: project follows supported LTS series and locks exact patches through `uv.lock`. Framework-series upgrades require separate review.
+- Supersedes / Superseded by: supersedes broad/unresolved framework version direction.
+
+## DEC-021 — uv project and dependency management
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: foundation needs one reproducible dependency workflow across Windows development and Linux production.
+- Решение: use uv with root `pyproject.toml`, committed `uv.lock`, committed `.python-version`, project-local `.venv`, and `[tool.uv] package = false`.
+- Последствия: do not maintain parallel requirements files or use Poetry/PDM. `uv.lock` is machine-managed and exact dependency resolution is reproducible.
+- Supersedes / Superseded by: supersedes open dependency-management decision.
+
+## DEC-022 — django-allauth for account flows
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: Framehold Engine needs mature signup, verification, reset, email change, enumeration protection and rate-limit behavior.
+- Решение: use django-allauth regular accounts for signup, mandatory email verification, email-only login, password reset, email change, enumeration protection, rate limits and future reauthentication.
+- Последствия: do not implement custom auth protocol. Social login, MFA, headless API, phone login and magic-code login are excluded from initial implementation.
+- Supersedes / Superseded by: supersedes auth package as open candidate decision.
+
+## DEC-023 — Exact initial custom User contract
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: `AUTH_USER_MODEL` must be fixed before first migrations.
+- Решение: use `accounts.User(AbstractUser)` without a username field, with unique normalized email as `USERNAME_FIELD` and a minimal custom manager.
+- Последствия: `AUTH_USER_MODEL` must be configured before first migration. Public identity remains in Portfolio. User remains focused on authentication and staff capabilities.
+- Supersedes / Superseded by: supersedes open custom User base decision.
+
+## DEC-024 — PostgreSQL 18 and Psycopg 3
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: development and production should share PostgreSQL behavior from the first real migrations.
+- Решение: use PostgreSQL 18 as development/production database direction and Psycopg 3 with binary extra initially.
+- Последствия: no SQLite fallback in development or tests. Production driver variant may be reviewed later without changing domain code.
+- Supersedes / Superseded by: supersedes generic PostgreSQL direction without version/driver.
+
+## DEC-025 — django-environ and split settings
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: settings need explicit dev/test/prod behavior and typed environment parsing without custom framework.
+- Решение: use django-environ for typed environment configuration and split settings into `base/dev/test/prod`.
+- Последствия: required production settings fail fast. Real secrets remain external. Do not create custom settings framework.
+- Supersedes / Superseded by: none.
+
+## DEC-026 — Initial Django application boundaries
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: foundation should not create speculative empty apps or domain placeholders.
+- Решение: create accounts during foundation and sitecontent only for minimal Wagtail global CMS needs. Add portfolios, dashboard, public_site and themes only in their implementation stages.
+- Последствия: avoid empty apps and generic dumping-ground packages. Dependency direction remains explicit.
+- Supersedes / Superseded by: none.
+
+## DEC-027 — Ruff and pytest development tooling
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: first toolchain should be small and deterministic.
+- Решение: use Ruff, pytest, pytest-django and pytest-cov as initial quality tooling. Defer mypy, django-stubs, pre-commit, tox and duplicate formatters.
+- Последствия: formatting, linting and Django tests have one initial path without overlapping tools.
+- Supersedes / Superseded by: supersedes formatting/linting tools as open decision.
+
+## DEC-028 — PostgreSQL-first initial migrations
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: custom User and database assumptions must be established before permanent migration history.
+- Решение: do not run permanent migrations before custom User, split settings and PostgreSQL development configuration are complete.
+- Последствия: first accounts migration contains custom User. SQLite is not used as temporary migration target.
+- Supersedes / Superseded by: none.
+
+## DEC-029 — Database-only development Compose
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.8.
+- Контекст: local Django debugging should remain simple while still using PostgreSQL behavior.
+- Решение: initial `compose.dev.yml` contains PostgreSQL only; Django runs directly through uv environment for PyCharm/terminal debugging.
+- Последствия: no duplicate local web runtime, reverse proxy, Redis or production container is introduced during foundation.
+- Supersedes / Superseded by: none.

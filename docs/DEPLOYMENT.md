@@ -10,7 +10,7 @@
 - Production OS assumption: Linux, primarily Ubuntu or another Debian-like server distribution.
 - Runtime later: Docker Compose.
 - Web service for Django/Wagtail application.
-- DB service for PostgreSQL.
+- DB service for PostgreSQL 18.
 - Reverse proxy through Caddy or Nginx.
 - HTTPS through Let's Encrypt.
 - Media volume.
@@ -32,6 +32,12 @@ Production requires:
 
 Email provider is not selected yet.
 
+## Database and driver
+
+Production database direction: PostgreSQL 18 series with Psycopg 3. The foundation starts with `psycopg[binary]` for reliable Windows/Linux development; evaluating another Psycopg 3 variant for production image may happen later without changing domain code.
+
+No SQLite fallback is accepted for production, development or tests.
+
 ## Public origin
 
 Registration, verification and password reset links require a configured public origin/domain. This is planned, not implemented.
@@ -46,6 +52,12 @@ Deployment assumptions must account for:
 - backup and restore for both PostgreSQL and media.
 
 Exact quota values remain open.
+
+## Account rate-limit cache
+
+django-allauth rate limits require a real Django cache backend. `DummyCache` is forbidden for account flows. Development/test may use `LocMemCache`; production shared-cache strategy remains open and must be finalized before public production registration. Redis is not required for MVP; database-backed cache may be evaluated.
+
+Client-IP extraction must match actual reverse-proxy topology. Do not trust arbitrary `X-Forwarded-For`; configure allauth proxy settings only after Caddy/Nginx design is known.
 
 ## Security and configuration
 
@@ -66,6 +78,10 @@ Conceptual local filesystem direction:
 After account deletion, public delivery assets controlled by Framehold Engine must stop serving. Source originals, generated renditions, thumbnails and cached media under application control must be removed or queued for retryable cleanup according to the final storage design.
 
 Account/media cleanup must account for Linux filesystem permissions. Future Docker Compose production examples target Linux.
+
+## Development Compose distinction
+
+The first development Compose file is planned as `compose.dev.yml` with PostgreSQL `db` only. It is not production Docker infrastructure and does not include Django web service, reverse proxy, Redis, mail server or object storage.
 
 ## Backup retention and deletion-aware restore
 

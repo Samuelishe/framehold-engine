@@ -25,32 +25,49 @@ Initial documentation foundation.
 - Linux production assumption;
 - repository formatting rules.
 
-## Stage 1: Django/Wagtail foundation planning and project initialization
+## Stage 1: Technical foundation implementation
 
-Must establish:
+- initialize uv application project;
+- create `pyproject.toml`;
+- create `uv.lock`;
+- create `.python-version`;
+- install selected runtime/dev dependencies;
+- scaffold Django/Wagtail;
+- create `apps.accounts` custom User;
+- create minimal `apps.sitecontent` only if required for Wagtail root/global CMS;
+- configure Wagtail Admin;
+- do not migrate yet until PostgreSQL/settings are ready.
 
-- project package;
-- custom User model;
-- standard Wagtail Image strategy;
-- no permanent migrations before PostgreSQL/dev settings are ready.
+Selected foundation stack: CPython 3.14, Django 5.2 LTS, Wagtail 7.4 LTS, django-allauth regular accounts, django-environ, PostgreSQL 18, Psycopg 3, Ruff and pytest.
 
 Stage 1 and Stage 2 are tightly coupled around custom User, PostgreSQL, settings and first migrations.
 
 ## Stage 2: Environment foundation and initial migrations
 
-- split settings;
-- PostgreSQL;
+- split settings: `base/dev/test/prod`;
+- django-environ;
+- `.env.example`;
+- PostgreSQL 18 via `compose.dev.yml`;
+- Psycopg 3;
 - development email backend;
-- environment variables;
-- first permanent migrations only after custom User is configured.
+- test settings;
+- first PostgreSQL migrations only after custom User is configured;
+- email-based superuser;
+- Wagtail Admin smoke test;
+- Ruff/pytest checks.
+
+Stage 1 and Stage 2 may be implemented in one tightly scoped Codex task because migration ordering crosses both stages.
 
 ## Stage 3: Accounts foundation
 
+- django-allauth account-flow implementation;
+- registration pages;
+- mandatory email verification UX;
 - public registration;
-- mandatory email verification;
 - email-only login/logout;
 - password reset;
-- account states.
+- account states;
+- account tests.
 
 ## Stage 4: Portfolio domain
 

@@ -3,7 +3,11 @@
 ## Базовое направление
 
 - Основа проекта: Django/Wagtail.
+- Runtime foundation: CPython 3.14, Django 5.2 LTS, Wagtail 7.4 LTS.
+- Dependency management: uv with root `pyproject.toml`, committed `uv.lock`, `.python-version` and project-local `.venv`.
 - Custom Django User model должен быть создан с самого начала, до первых permanent application migrations.
+- Accepted custom User contract: `apps.accounts`, `accounts.User(AbstractUser)`, no `username`, unique normalized email as `USERNAME_FIELD`.
+- Account flows use django-allauth regular accounts with `allauth` and `allauth.account` only.
 - Portfolio и Album являются regular Django domain models в принятой initial architecture.
 - Photo является Framehold domain model and references the standard Wagtail Image model initially.
 - One domain Photo corresponds to one Wagtail Image asset in the MVP.
@@ -15,19 +19,20 @@
 - Wagtail Admin reserved for Site Administrator and trusted staff.
 - Framehold Dashboard — custom Django UI для Portfolio Owners.
 - Кастомная доменная логика Portfolio, Album, Photo и AlbumPhoto должна жить в Django apps.
-- PostgreSQL — primary DB.
+- PostgreSQL 18 — primary DB. Psycopg 3 with `psycopg[binary]` is initial driver direction.
+- No SQLite fallback in dev, test or production settings.
 - Public frontend на первом этапе server-rendered.
 - Tailwind — основной styling layer.
 - Alpine.js или HTMX допускаются только для локальной интерактивности.
 - PhotoSwipe или аналогичный viewer/lightbox планируется для media presentation.
 - Local filesystem media storage first; S3-compatible storage later.
-- Docker Compose planned later.
+- Initial development Compose planned as database-only `compose.dev.yml` with PostgreSQL `db`; production Docker Compose planned later.
 
 ## Logical areas
 
 ### Framehold Accounts
 
-Custom User, email-only login direction, public registration, email verification, login/logout, password reset, onboarding, account states, suspension and deletion.
+Custom User, django-allauth account flows, email-only/password login, public registration, email verification, login/logout, password reset, onboarding, account states, suspension and deletion.
 
 ### Framehold Portfolio
 
@@ -71,7 +76,7 @@ SiteSettings: registration enabled, publication approval policy, storage quota d
 
 ### Deployment/Runtime Layer
 
-Containers later, reverse proxy, environment variables, PostgreSQL, media volume, email infrastructure, backups and runtime configuration.
+uv project metadata, split settings, environment variables, PostgreSQL 18, database-only development Compose, containers later, reverse proxy, media volume, email infrastructure, backups and runtime configuration.
 
 ## Framehold Dashboard versus Wagtail Admin
 
@@ -87,6 +92,9 @@ Wagtail Admin remains reserved for Site Administrator and explicitly trusted sta
 - Do not put permissions only in frontend.
 - Do not duplicate auth/session/password logic.
 - Do not implement custom auth protocol or custom token cryptography.
+- Do not enable `allauth.socialaccount`, MFA, headless API, magic-code login, phone auth or JWT flows without separate decision.
+- Do not run first migrations before custom User, split settings and PostgreSQL configuration exist.
+- Do not use SQLite as temporary migration target.
 - Do not let public pages query drafts accidentally.
 - Do not let Portfolio Owners edit another portfolio.
 - Do not let templates query unrestricted global Photo or Album collections.
@@ -100,12 +108,14 @@ Wagtail Admin remains reserved for Site Administrator and explicitly trusted sta
 - Avoid Windows-specific production assumptions, case-insensitive filesystem assumptions and backslash-only paths.
 - Do not edit canonical `LICENSE` text or insert third-party notices into it.
 - Do not require mandatory telemetry, analytics, phone-home behavior, external fonts or public CDN services.
+- Do not add parallel dependency-management systems or manually edit `uv.lock`.
+- Do not create production Docker infrastructure during foundation milestone.
 
 ## Open implementation decisions
 
 - Exact publication states.
-- Exact authentication package.
 - Exact quotas and upload limits.
 - Exact private-source/public-delivery media storage implementation.
+- Exact production cache backend for allauth rate limits.
 
 Private-source versus public-delivery storage must be decided before real uploads, preferably through a small technical prototype with standard Wagtail Image, renditions and local filesystem storage. Portfolio/Album as Wagtail Pages and custom Wagtail image model are not part of the accepted initial architecture.

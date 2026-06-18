@@ -42,6 +42,8 @@ The canonical project `LICENSE` must not be used as a third-party notice list. `
 
 At the documentation-only stage there may be no bundled dependencies or assets. Do not pretend planned technologies are already vendored. Do not invent authors, versions, URLs or license identifiers.
 
+Accepted foundation dependencies and tools documented in `docs/TECHNICAL_FOUNDATION.md` are planned selections, not bundled material until dependency metadata and lockfile are actually created. Do not populate `THIRD_PARTY_NOTICES.md` as though Django, Wagtail, django-allauth, django-environ, Psycopg, uv, Ruff or pytest are already included.
+
 ## Software policy
 
 - Only free and open-source software may be intentionally included as a project dependency.

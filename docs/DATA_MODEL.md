@@ -8,13 +8,21 @@
 
 - technical authentication identity;
 - custom Django user model from the beginning;
-- required unique email;
-- email is the preferred login identifier in the initial direction;
+- implementation contract: `apps.accounts`, model `accounts.User`;
+- base class: `django.contrib.auth.models.AbstractUser`;
+- no `username` field in accepted initial model;
+- required unique normalized email;
+- email is the authentication identifier;
+- `USERNAME_FIELD = "email"`;
+- `EMAIL_FIELD = "email"`;
+- `REQUIRED_FIELDS = []`;
 - verification and account state handled through established auth mechanisms.
 
 Public Portfolio identity must not depend on authentication username. Public URLs use `Portfolio.slug`, not `User.username`.
 
 MVP cardinality: User has zero or one Portfolio; Portfolio ownership and Site Administrator privileges are not mutually exclusive.
+
+No avatar, bio, slug, theme, quota, Portfolio settings or presentation fields belong in User. Speculative deletion/moderation fields must not be added to User during foundation.
 
 ## Portfolio
 
@@ -198,6 +206,6 @@ Line breaks may be preserved where appropriate. No owner-supplied HTML, raw Mark
 - Exact publication states.
 - Exact enum names for publication, moderation and discoverability states.
 - Exact storage quota and upload size limits.
-- Exact representation of email verification state.
+- Exact representation of email verification state inside django-allauth/account lifecycle integration.
 - Exact source original / public full-resolution asset / rendition representation.
 - Email and public slug reuse after deletion.
