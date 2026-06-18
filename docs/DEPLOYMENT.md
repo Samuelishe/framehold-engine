@@ -49,3 +49,19 @@ Exact quota values remain open.
 - Separate development and production secrets.
 - No production credentials in Git.
 - Review media URL/storage policy before production use.
+
+## Media access boundary
+
+Production deployment must not expose every uploaded source file through a public `/media/` directory by accident. Private-source versus public-delivery media strategy must be selected before real uploads.
+
+After account deletion, public delivery assets controlled by Framehold Engine must stop serving. Source originals, generated renditions, thumbnails and cached media under application control must be removed or queued for retryable cleanup according to the final storage design.
+
+## Backup retention and deletion-aware restore
+
+Backups must have documented retention. Restore procedures must reapply known deletion state or otherwise prevent deleted accounts from being resurrected into active service indefinitely.
+
+The project must not promise immediate selective deletion from immutable backups before the final backup mechanism is chosen.
+
+## Operator responsibility
+
+Each deployment operator is responsible for privacy information, Terms of Service, provider disclosure, retention periods, abuse contact, copyright/content complaints and legal operation of their instance.

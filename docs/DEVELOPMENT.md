@@ -15,6 +15,8 @@
 - Environment variables outside Git.
 - Settings split after project initialization.
 - Custom User model and image-model strategy review before first permanent migrations.
+- Portfolio and Album are accepted as regular Django domain models.
+- Standard Wagtail Image is accepted as the initial image strategy for Framehold Photo.
 
 ## Development email
 
@@ -42,6 +44,17 @@ Production credentials must not be used in development and must not be committed
 - suspension behavior;
 - theme fallback;
 - public EXIF allowlist.
+- account deletion lifecycle;
+- media access boundaries;
+- third-party notice consistency.
+
+## Licensing and third-party workflow
+
+- Future dependencies/assets require provenance and license review.
+- Update `THIRD_PARTY_NOTICES.md` when dependencies/assets are included, vendored, adapted, removed or upgraded where relevant.
+- Preserve upstream copyright and license headers.
+- Do not add unlicensed copied assets.
+- Future releases need a license/notice audit.
 
 ## Formatting and linting
 

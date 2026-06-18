@@ -8,3 +8,5 @@
 - Добавлен и вычищен корневой `.gitignore` под Python/Django/Wagtail-проект с акцентом на локальные секреты, кэши, виртуальные окружения, локальные БД, медиа и IDE-local state.
 - Из staged-набора исключены локальные файлы `.idea`, чтобы в коммит не попадали привязки PyCharm к конкретному рабочему окружению.
 - Обновлена документация под revised product model: public registration, mandatory email verification, multi-portfolio ownership, Framehold Dashboard, curated theme system, media presentation, upload safety и ownership isolation.
+- Зафиксированы final architecture decisions: custom User from the beginning, Portfolio/Album as regular Django domain models, Framehold Photo referencing standard Wagtail Image initially, Framehold Dashboard as normal Portfolio Owner interface.
+- Добавлены AGPL-3.0-or-later license, English GitHub README, third-party notice policy, public-media/no-DRM policy, user-content rights, account deletion/data lifecycle и operator responsibility documentation.

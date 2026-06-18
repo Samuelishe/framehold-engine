@@ -14,6 +14,10 @@ Server-side основа с ORM, migrations, auth, sessions, password hashing, f
 
 Custom User должен существовать с самого начала, до первых permanent application migrations. Точное поле login/email strategy пока открыто.
 
+### Standard Wagtail Image initially
+
+Initial implementation uses the standard Wagtail Image model referenced by Framehold `Photo`. Custom Wagtail image model is not planned initially.
+
 ### Mature registration/email verification package
 
 Нужна established package для registration, mandatory email verification, password reset and related account flows. Точный выбор не сделан. `django-allauth` является кандидатом, но не выбран окончательно.
@@ -56,7 +60,11 @@ Reverse proxy на VPS later.
 
 ### Storage
 
-Local VPS filesystem media storage first. S3-compatible storage and Cloudflare R2 are future options, not starting requirements.
+Local VPS filesystem media storage first. S3-compatible storage and Cloudflare R2 are future options, not starting requirements. Exact private-source/public-delivery implementation remains open.
+
+### License
+
+Project license: GNU Affero General Public License version 3 or later, SPDX `AGPL-3.0-or-later`.
 
 ## Не выбранные основные пути
 
@@ -77,3 +85,4 @@ Local VPS filesystem media storage first. S3-compatible storage and Cloudflare R
 - Не реализовывать custom session handling.
 - Не реализовывать custom token cryptography.
 - Не pin dependencies до появления реального проекта и проверки совместимости.
+- Не выбирать private/public media storage implementation без отдельного review.

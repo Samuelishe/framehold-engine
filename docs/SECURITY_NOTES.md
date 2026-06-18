@@ -13,6 +13,7 @@
 - No custom authentication protocol.
 - No custom token cryptography.
 - Development and production secrets must be separated.
+- Obscurity of media URLs is not authorization.
 
 ## Registration and verification
 
@@ -52,6 +53,8 @@ MVP security remains proportional. CAPTCHA, Turnstile, SMS, mandatory 2FA, socia
 - Failed/partial uploads must not create broken public entries.
 - Draft/hidden media is not private merely because no public page links to it.
 - Media URL/storage policy must be reviewed separately.
+- Public `/media/` must not accidentally expose every uploaded source file.
+- Source original, public full-resolution asset and public rendition are separate concepts.
 
 ## EXIF and metadata
 
@@ -59,6 +62,19 @@ MVP security remains proportional. CAPTCHA, Turnstile, SMS, mandatory 2FA, socia
 - Public EXIF uses allowlist.
 - GPS coordinates are not displayed by default.
 - EXIF visibility is opt-in or explicitly configurable.
+- Hiding EXIF in UI does not strip metadata embedded in downloadable source files.
+
+## Account deletion security
+
+- Delete account and all data requires authentication.
+- Re-authentication or sufficiently recent authenticated session is required.
+- CSRF protection is required for destructive requests.
+- Deletion must immediately remove public access.
+- Active sessions/tokens must be revoked.
+- Deletion processing must be idempotent.
+- Partial cleanup must be detectable and retryable.
+- Destructive querysets must be explicitly scoped to the deleting owner.
+- Deletion must not rely only on database cascades because files/renditions also need cleanup.
 
 ## Themes
 
@@ -68,3 +84,7 @@ MVP security remains proportional. CAPTCHA, Turnstile, SMS, mandatory 2FA, socia
 - No arbitrary CSS injection.
 - Themes receive only prepared and safely filtered public context.
 - Themes cannot control authorization, ownership, authentication or publication policy.
+
+## Public media and no DRM
+
+Published photographs may be publicly accessible and saveable. Do not use fake DRM, context-menu blocking, overlays, canvas-only rendering or URL hiding as security mechanisms.

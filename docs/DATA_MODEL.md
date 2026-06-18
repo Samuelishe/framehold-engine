@@ -15,6 +15,8 @@ Public Portfolio identity must not depend on authentication username. Public URL
 
 ## Portfolio
 
+Принятое решение: `Portfolio` — regular Django domain model, not a Wagtail Page.
+
 Планируемые поля:
 
 - `owner`
@@ -30,12 +32,15 @@ Public Portfolio identity must not depend on authentication username. Public URL
 - `default_exif_visibility`
 - `publication_state`
 - `suspension_state`
+- possible `original_access_policy`
 - `created_at`
 - `updated_at`
 
 Назначение: публичная identity и presentation boundary одного Portfolio Owner.
 
 ## Album
+
+Принятое решение: `Album` — regular Django domain model, not a Wagtail Page.
 
 Планируемые поля:
 
@@ -53,6 +58,8 @@ Public Portfolio identity must not depend on authentication username. Public URL
 - `updated_at`
 
 ## Photo
+
+Принятое решение: `Photo` — Framehold domain model. Initial implementation references the standard Wagtail Image model. Custom Wagtail image model is not planned initially.
 
 Планируемые поля:
 
@@ -105,30 +112,12 @@ Album and Photo use explicit AlbumPhoto relation. One Photo may appear in multip
 
 ## Open data model decisions
 
-### Portfolio and Album representation
-
-Unresolved:
-
-- regular Django models;
-- Wagtail Page models;
-- hybrid approach.
-
-Wagtail Pages offer revisions and publishing. Regular Django models may simplify self-service ownership isolation and dashboard workflows. This must be decided explicitly before implementation.
-
-### Image representation
-
-Unresolved:
-
-- default Wagtail Image plus Framehold Photo model;
-- custom Wagtail image model;
-- another controlled image asset model.
-
-Changing Wagtail's image model after real migrations/data may be difficult, so this decision must be reviewed before permanent migration history.
-
-### Other open decisions
+## Open data model decisions
 
 - Exact publication states.
 - Whether first public publication requires Site Administrator approval.
 - Exact public URL scheme: `/photographers/<slug>/`, `/portfolio/<slug>/` or another stable route.
 - Exact storage quota and upload size limits.
 - Exact representation of email verification state.
+- Exact source original / public full-resolution asset / rendition representation.
+- Email and public slug reuse after deletion.

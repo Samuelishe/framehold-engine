@@ -4,6 +4,9 @@
 
 - Основа проекта: Django/Wagtail.
 - Custom Django User model должен быть создан с самого начала, до первых permanent application migrations.
+- Portfolio и Album являются regular Django domain models в принятой initial architecture.
+- Photo является Framehold domain model and references the standard Wagtail Image model initially.
+- Custom Wagtail image model is not planned for initial implementation.
 - Wagtail Admin reserved for Site Administrator and trusted staff.
 - Framehold Dashboard — custom Django UI для Portfolio Owners.
 - Кастомная доменная логика Portfolio, Album, Photo и AlbumPhoto должна жить в Django apps.
@@ -41,6 +44,14 @@ Trusted code-defined curated themes, registry, settings schema, capabilities, re
 
 Responsive renditions/previews, public viewer/lightbox, captions, alt text, dates, controlled EXIF и original media policy.
 
+### Framehold Data Lifecycle
+
+Account deletion, immediate public removal, session revocation, owned-data cleanup, media cleanup, idempotent retry, partial-failure detection and backup/restore interaction.
+
+### Repository Governance
+
+AGPL project license, third-party notices, provenance of included assets, and separation between software license and user-content rights.
+
 ### Framehold Public
 
 Theme-driven public pages, safe public querysets and rendered contexts containing only published, non-suspended content.
@@ -73,13 +84,18 @@ Wagtail Admin remains reserved for Site Administrator and explicitly trusted sta
 - Do not hardcode real private data into seed/demo fixtures.
 - Do not allow arbitrary user-supplied theme code in MVP.
 - Do not render raw EXIF publicly.
+- Do not treat a public media directory as authorization.
+- Do not use fake DRM or copy-protection controls as a security feature.
+- Do not edit canonical `LICENSE` text or insert third-party notices into it.
 
 ## Open implementation decisions
 
-- Portfolio and Album representation: regular Django models, Wagtail Page models or hybrid approach.
-- Image representation: default Wagtail Image plus Framehold Photo model, custom Wagtail image model or controlled image asset model.
 - Exact publication states.
 - Whether first public publication requires Site Administrator approval.
 - Canonical public URL scheme.
+- Exact authentication package.
+- Email-only login versus email plus internal username.
+- Exact quotas and upload limits.
+- Exact private-source/public-delivery media storage implementation.
 
-These decisions must be reviewed before domain implementation and before permanent migration history is established.
+Private-source versus public-delivery storage must be decided before real uploads. Portfolio/Album as Wagtail Pages and custom Wagtail image model are not part of the accepted initial architecture.

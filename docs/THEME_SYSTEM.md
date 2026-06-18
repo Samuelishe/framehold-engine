@@ -52,6 +52,8 @@ Theme code остается в repository/application.
 - access to another user's data;
 - whether sensitive EXIF/GPS is permitted;
 - unrestricted database queries.
+- media authorization;
+- required copyright/license notices controlled by the application.
 
 Themes получают prepared and safely filtered public context.
 
@@ -62,8 +64,11 @@ Themes получают prepared and safely filtered public context.
 - Arbitrary JavaScript injection.
 - Arbitrary CSS injection.
 - Per-photo layout fields tightly coupled to one specific theme.
+- Fake copy protection such as context-menu blocking, transparent overlays or canvas-only rendering to hide image URLs.
 
 Theme-specific settings должны валидироваться schema выбранной темы. Если выбранная тема больше не существует, Framehold Engine должен перейти на safe default theme.
+
+Themes may style Open original / Download original controls, but must not override media authorization or hide required application-level licensing/copyright notices.
 
 ## Responsive contract
 

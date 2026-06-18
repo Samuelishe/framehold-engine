@@ -13,6 +13,10 @@
 - Поддерживать public viewer/lightbox across themes.
 - Поддерживать controlled captions, capture dates, alt text и allowlisted EXIF.
 - Поддерживать account/portfolio suspension Site Administrator.
+- Поддерживать self-service Delete account and all data.
+- Поддерживать public published-image saveability without fake DRM.
+- Поддерживать separation между source original, public full-resolution asset и public rendition.
+- Поддерживать third-party attribution and license inventory.
 
 ## Нефункциональные требования
 
@@ -22,6 +26,7 @@
 - Публичный интерфейс должен быть быстрым, responsive и ориентированным на изображения.
 - Security должен быть proportional для MVP без enterprise-heavy требований.
 - Реализация не должна полагаться на реальные приватные данные в репозитории.
+- Repository governance must preserve canonical AGPL license and third-party notices.
 
 ## Public Visitor requirements
 
@@ -32,6 +37,7 @@
 - Не загружать файлы.
 - Не иметь доступа к private dashboard routes и Wagtail Admin.
 - Не иметь social interaction mechanics в MVP.
+- Иметь возможность сохранить или открыть published photographs according to public media policy.
 
 ## Site Administrator requirements
 
@@ -57,6 +63,7 @@
 - Change photo order.
 - Edit titles, captions, alt text, dates и permitted metadata.
 - Publish/unpublish own content subject to final publication policy.
+- Initiate Delete account and all data through Framehold Dashboard.
 - Не получать Wagtail staff/admin access автоматически.
 
 ## Registration and account requirements
@@ -83,6 +90,35 @@
 - Responsive renditions/previews generated.
 - Public access to originals is a deliberate policy decision.
 - GPS metadata must not leak accidentally.
+- Draft, hidden, suspended and deleted media must not become public merely because a URL is known.
+- A public `/media/` directory must not accidentally expose every uploaded source file.
+- Public original/download controls may be configurable later.
+
+## Account deletion requirements
+
+- User-facing action: Delete account and all data.
+- Require re-authentication or sufficiently recent authenticated session.
+- Require explicit irreversible confirmation.
+- Remove public access immediately.
+- Revoke sessions and block login/edit/upload operations.
+- Delete owned active application data and controlled media assets.
+- Deletion must be idempotent and retryable.
+- Deletion must not affect other users' accounts, portfolios or media.
+- Sole Site Administrator protection is required.
+
+## Content rights and attribution requirements
+
+- User content is not automatically AGPL-licensed.
+- Portfolio Owners must upload only content they have rights to use.
+- Downloading a public photograph does not grant reuse permission.
+- Future public UI should display concise copyright/content-rights notice.
+- Third-party code/assets require provenance and license review.
+- `THIRD_PARTY_NOTICES.md` must be updated when relevant material is included or adapted.
+
+## Operator/legal-page requirements
+
+- Future configurable pages should cover Privacy Policy, Terms of Service, license information, third-party notices, contact and copyright/content complaints.
+- Framehold Engine must not claim automatic legal compliance for every deployment.
 
 ## Theme requirements
 
@@ -113,3 +149,4 @@
 - Advanced EXIF exploration.
 - Collaborators.
 - S3/R2 as initial storage.
+- Data export before deletion.

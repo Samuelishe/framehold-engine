@@ -56,6 +56,16 @@ Planned flow:
 - Select theme and configure validated theme settings.
 - Preview public presentation.
 - Publish/unpublish content subject to final publication policy.
+- Open account settings and initiate Delete account and all data.
+
+## Account deletion flow
+
+Framehold Dashboard must provide a clear self-service deletion flow. Ordinary Portfolio Owners must not be required to contact Site Administrator, send manual support email, fill in legal form, or explain a reason.
+
+Deletion and suspension are different operations:
+
+- suspension is reversible and may be performed by Site Administrator;
+- deletion is user-initiated hard deletion of active application data after explicit confirmation.
 
 ## Site Administrator flow
 

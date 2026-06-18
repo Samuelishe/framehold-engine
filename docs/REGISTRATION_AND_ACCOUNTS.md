@@ -40,6 +40,8 @@
 - pending email verification;
 - verified active;
 - suspended;
+- deletion processing;
+- deleted;
 - possibly disabled/deactivated.
 
 Self-registered users являются regular non-staff users. Регистрация никогда не должна автоматически давать `is_staff`, `is_superuser`, Wagtail Admin access, глобальный доступ к Wagtail collections или page tree permissions.
@@ -52,6 +54,21 @@ Site Administrator должен иметь возможность:
 - suspend/reactivate account;
 - inspect/manage portfolios при необходимости;
 - выполнять emergency corrective actions.
+
+## Account deletion entry point
+
+Verified Portfolio Owner должен иметь self-service action **Delete account and all data** в Framehold Dashboard settings.
+
+Требования:
+
+- re-authentication или sufficiently recent authenticated session;
+- explicit irreversible confirmation;
+- immediate public removal of Portfolio;
+- session/token revocation;
+- login, upload and editing blocked after confirmation;
+- deletion of owned active application data and controlled media assets.
+
+Suspension and deletion are different. Suspension is reversible. Deletion is irreversible after confirmation boundary.
 
 ## Ограничение email verification
 
@@ -91,6 +108,8 @@ MVP security должен оставаться пропорциональным.
 - Какая mature authentication package реализует registration и verification.
 - Будет ли выбран `django-allauth` или другое established solution.
 - Точное представление email verification state.
+- Email reuse after deletion.
+- Public slug reuse after deletion.
 
 ## Запреты
 

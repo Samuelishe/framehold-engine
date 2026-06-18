@@ -23,6 +23,9 @@ Ownership isolation — hard requirement для multi-portfolio Framehold Engine
 - Public queries must return only published and non-suspended content.
 - Templates must not query unrestricted global `Photo` or `Album` collections.
 - Public rendering must receive an already filtered, safe context.
+- Deleting Owner A must never remove Owner B's data.
+- Deletion cleanup must be scoped to the deleting owner's account and Portfolio.
+- Direct media URLs for deleted content controlled by Framehold Engine must stop working.
 
 ## Dashboard isolation
 
@@ -45,3 +48,6 @@ Framehold Dashboard показывает и изменяет только тек
 - An unverified account cannot upload or create a portfolio.
 - A suspended account cannot access owner operations.
 - Site Administrator can manage all portfolios.
+- Owner A deletion does not affect Owner B.
+- Public media URLs controlled by Framehold Engine stop serving deleted assets.
+- Deletion retry is safe and does not cross ownership boundaries.

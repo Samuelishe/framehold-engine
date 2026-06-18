@@ -40,6 +40,7 @@ Publicly registered and email-verified user who owns one Portfolio in the MVP.
 - change photo order;
 - edit titles, captions, alt text, dates and permitted metadata;
 - publish and unpublish own content, subject to final publication policy.
+- initiate Delete account and all data for their own account and owned data.
 
 Запрещено:
 
@@ -72,13 +73,17 @@ Publicly registered and email-verified user who owns one Portfolio in the MVP.
 - Pending email verification account cannot finish onboarding, create public Portfolio, upload photographs or publish content.
 - Suspended account cannot perform owner operations.
 - Suspended Portfolio is not public.
+- Account deletion removes public access immediately, blocks login/edit/upload operations and revokes active sessions.
 - Self-registered users are regular non-staff users.
+- The sole Site Administrator account must not be deletable through ordinary Portfolio Owner deletion flow without safe replacement/admin procedure.
 
 ## Publication and visibility
 
 - Public queries return only published and non-suspended content.
+- Published media may be publicly accessible and saveable.
 - Draft/unpublished content is visible only to its Portfolio Owner and Site Administrator through authorized interfaces.
 - Hidden/suspended content must not leak through public URL guesses, templates or unrestricted querysets.
+- Draft, hidden, suspended and deleted media must not be protected only by absence of links.
 
 ## Ownership isolation
 

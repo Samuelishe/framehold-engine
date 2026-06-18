@@ -14,6 +14,7 @@
 - Высококачественные previews/renditions.
 - Captions and metadata near photographs when enabled.
 - Common viewer/lightbox across themes.
+- Clear Open original / Download original controls when enabled.
 - No visitor comments, likes, follows or activity feed.
 
 ## Theme families
@@ -46,11 +47,21 @@ Mobile should use top navigation or compact menu, usually a single-column vertic
 
 Viewer must support keyboard navigation, visible previous/next controls, Escape close, backdrop close, mobile swipe, visible close action, fullscreen where supported, focus trapping and focus restoration. Themes may style the viewer but should not redefine core behavior.
 
+## Account deletion UX
+
+Framehold Dashboard settings must include a clear danger-zone flow for Delete account and all data:
+
+- clear list of deleted data;
+- re-authentication or recent-session confirmation;
+- explicit irreversible confirmation;
+- no accidental one-click deletion.
+
 ## Что важно не делать
 
 - Не переносить визуальный стиль Wagtail Admin в публичную часть.
 - Не превращать публичный сайт в social feed.
 - Не полагаться на theme для authorization, ownership или publication policy.
+- Не добавлять deceptive anti-copy controls.
 - Не пытаться делать final polish до рабочего MVP.
 
 ## Приоритет

@@ -19,6 +19,9 @@
 - Мультиязычный сайт.
 - Collaborator role for shared portfolio editing.
 - Optional CAPTCHA/Turnstile or stronger anti-abuse mechanisms if real abuse appears.
+- Data export before deletion.
+- Advanced copyright/licensing presentation.
+- Advanced per-photo licensing display.
 
 ## Что больше не считается purely future-only
 
@@ -26,5 +29,7 @@
 - Framehold Dashboard.
 - Basic controlled EXIF display.
 - Public viewer/lightbox.
+- Basic account deletion.
+- Basic public image saving.
 
 Эти элементы теперь входят в planned product path.

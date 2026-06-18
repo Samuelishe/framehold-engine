@@ -8,6 +8,28 @@
 
 Framehold Engine должен использовать common viewer/lightbox behavior across themes. Themes могут стилизовать viewer, но core interaction и accessibility behavior должны оставаться consistent.
 
+Framehold Engine is not an anti-copy or DRM-oriented product. Published photographs are expected to be viewable and saveable.
+
+## Media asset concepts
+
+### Source original
+
+Файл, originally uploaded by Portfolio Owner. Может содержать full EXIF, GPS, editing metadata и private metadata.
+
+### Public full-resolution asset
+
+Highest-quality version intentionally made available to Public Visitors. It may be the source original or a generated/sanitized equivalent. Exact implementation remains open.
+
+### Public rendition
+
+Resized/cropped formats for grids, feeds, cards and viewer.
+
+## Original access
+
+Published photograph may expose Open original or Download original. Direct URL to a published full-size image is acceptable. Exact original-download controls may later be configurable at Portfolio or Photo level.
+
+Do not use fake copy protection, browser context-menu disabling, transparent overlays, canvas-only rendering to hide sources, deliberate URL hiding or DRM.
+
 ## Title, caption, alt text, dates, EXIF
 
 - `title` — короткое display name.
@@ -34,6 +56,8 @@ EXIF visibility должен быть opt-in или явно configurable.
 - capture date.
 
 GPS coordinates не отображаются по умолчанию. Raw EXIF JSON нельзя рендерить напрямую.
+
+Hiding EXIF in UI does not remove embedded metadata from downloadable source files. If raw uploaded source is public, embedded GPS and EXIF may also become downloadable. Final source-original/public-original policy must address metadata sanitization.
 
 ## Presentation defaults and overrides
 
@@ -103,5 +127,7 @@ Advanced EXIF exploration остается later feature, но basic controlled 
 - Hidden/draft media не считаются private только потому, что на них нет ссылок.
 - Media URL и storage access policy требуют отдельного review.
 - GPS metadata не должна утекать случайно.
+- Draft, hidden, suspended and deleted media must not be publicly accessible through direct media URLs controlled by Framehold Engine.
+- Public `/media/` must not accidentally expose every uploaded source file.
 
 Exact values и implementation mechanisms остаются открытыми.

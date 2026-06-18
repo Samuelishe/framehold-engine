@@ -12,13 +12,16 @@ Create the initial documentation foundation.
 - dashboard boundary;
 - theme system;
 - media presentation.
+- licensing and data-lifecycle refinement;
+- public media saveability policy.
 
 ## Stage 1: Django/Wagtail foundation
 
 Before permanent initial migrations:
 
 - establish custom User model;
-- decide Wagtail/default/custom image model strategy.
+- use standard Wagtail Image strategy for initial Framehold Photo;
+- keep Portfolio and Album as regular Django domain models.
 
 ## Stage 2: Environment foundation
 
@@ -35,6 +38,7 @@ Before permanent initial migrations:
 - password reset;
 - account states;
 - onboarding.
+- account deletion entry point and confirmation flow.
 
 ## Stage 4: Portfolio domain
 
@@ -51,6 +55,8 @@ Before permanent initial migrations:
 - account/portfolio boundaries;
 - suspension;
 - permission tests.
+- deletion isolation tests.
+- private/public media delivery design before real uploads.
 
 ## Stage 6: Framehold Dashboard
 
@@ -60,6 +66,7 @@ Before permanent initial migrations:
 - photo ordering;
 - theme selection;
 - presentation settings.
+- Delete account and all data flow.
 
 ## Stage 7: Theme registry and first public theme
 
@@ -75,6 +82,8 @@ Before permanent initial migrations:
 - mobile swipe;
 - fullscreen;
 - captions and controlled EXIF.
+- public full-resolution access policy.
+- source original/public delivery boundary.
 
 ## Stage 9: Second theme
 
@@ -92,12 +101,23 @@ Improve Wagtail Admin usability for Site Administrator and polish public present
 - reverse proxy;
 - HTTPS;
 - production email.
+- deletion-aware media cleanup;
+- operator privacy/legal pages.
 
 ## Stage 12: Backup and restore
 
 - PostgreSQL;
 - media;
 - configuration.
+- deletion-aware restore behavior.
+- documented backup retention.
+
+## Stage 12.5: Release governance
+
+- third-party notices audit;
+- license and attribution review;
+- README/license consistency check;
+- bundled asset provenance review.
 
 ## Stage 13: Later improvements
 
@@ -114,3 +134,5 @@ Improve Wagtail Admin usability for Site Administrator and polish public present
 - multilingual support;
 - collaborators;
 - optional stronger anti-abuse mechanisms.
+- data export before deletion.
+- advanced copyright/licensing presentation.

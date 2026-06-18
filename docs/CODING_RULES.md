@@ -30,6 +30,9 @@
 - Public rendering receives already filtered safe context.
 - Direct object access checks must be server-side.
 - Forged IDs in POST data must not cross ownership boundaries.
+- No broad deletion querysets.
+- Destructive operations must be explicitly scoped.
+- User-supplied object IDs require ownership validation.
 
 ## Themes
 
@@ -45,6 +48,24 @@
 - GPS is hidden by default.
 - Uploaded image content must be validated by established image libraries.
 - Originals must not be casually exposed without explicit policy.
+- Media authorization must be server-side.
+- Do not use fake DRM.
+
+## Account deletion
+
+- Future account deletion code must be idempotent and testable.
+- Filesystem/object-storage cleanup cannot rely only on database cascades.
+- Partial cleanup must be retryable.
+- Owner A deletion must never affect Owner B.
+- Public routes and public media URLs controlled by Framehold Engine must stop serving deleted assets.
+
+## Licensing and third-party material
+
+- Preserve SPDX/license headers where introduced.
+- Do not add third-party code or assets without recorded provenance.
+- Do not edit canonical root `LICENSE`.
+- Do not place third-party notices into `LICENSE`; use `THIRD_PARTY_NOTICES.md`.
+- Do not add unverified copied assets, proprietary fonts, unlicensed screenshots or stock media without redistribution rights.
 
 ## Django/Wagtail
 

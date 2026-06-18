@@ -4,6 +4,8 @@
 
 Framehold Engine — self-hosted multi-user, multi-portfolio web gallery engine. Одна установка может хостить много независимых публичных фотопортфолио.
 
+Framehold Engine — free and open-source software. Официальный проект распространяется бесплатно под AGPL-3.0-or-later; это не запрещает commercial use при соблюдении условий лицензии.
+
 Пользователь сможет зарегистрироваться публично, подтвердить email, создать собственное Portfolio, выбрать curated visual theme, загрузить фотографии через приватный Framehold Dashboard, создать альбомы, настроить presentation options и опубликовать портфолио под публичным URL.
 
 ## Зачем он существует
@@ -57,7 +59,13 @@ MVP non-goals:
 - Theme-driven public presentation.
 - Контролируемый viewer/lightbox.
 - Управляемый показ captions, dates и allowlisted EXIF.
+- Self-service Delete account and all data.
+- Публичная философия без DRM: опубликованные фотографии viewable and saveable.
 - Возможное расширение storage, search, tags, private albums и collaborator workflows позже.
+
+## No DRM и пользовательские права
+
+Framehold Engine не обещает защитить опубликованное изображение от копирования из браузера и не должен использовать fake copy protection. User-uploaded photographs не становятся AGPL-licensed автоматически; copyright остается у uploader или другого lawful rights holder.
 
 ## Почему это custom project
 
