@@ -1,67 +1,79 @@
 # TECH_STACK
 
-## Выбранный стек
+## Выбранное направление
 
 ### Python 3.14
 
-Выбран как основная версия языка для проекта. Конкретные ограничения совместимости библиотек нужно будет проверить на этапе инициализации.
+Планируемая основная версия языка. Совместимость библиотек нужно проверить на этапе инициализации.
 
 ### Django
 
-Выбран как стабильная server-side основа с готовыми механизмами auth, ORM, migrations и административной инфраструктуры.
+Server-side основа с ORM, migrations, auth, sessions, password hashing, forms and security mechanisms.
+
+### Custom Django User model
+
+Custom User должен существовать с самого начала, до первых permanent application migrations. Точное поле login/email strategy пока открыто.
+
+### Mature registration/email verification package
+
+Нужна established package для registration, mandatory email verification, password reset and related account flows. Точный выбор не сделан. `django-allauth` является кандидатом, но не выбран окончательно.
 
 ### Wagtail
 
-Выбран как основа для admin/CMS-части, управления изображениями и site settings там, где это дает готовую и устойчивую базу.
+Используется для Wagtail Admin, global CMS content, settings and image-related capabilities where appropriate. Self-registered Portfolio Owners не получают Wagtail Admin access автоматически.
 
 ### PostgreSQL
 
-Выбран как основная production- и development-БД для проекта.
+Primary DB для development и production.
 
 ### Tailwind CSS
 
-Планируется как основной инструмент стилизации публичного frontend.
+Основной styling layer для public pages и Framehold Dashboard.
 
 ### Alpine.js или HTMX
 
-Допускаются для локальной интерактивности без перехода к SPA-first архитектуре.
+Допускаются для небольшой локальной интерактивности без SPA-first архитектуры.
 
 ### PhotoSwipe или альтернатива
 
-Планируется для lightbox-поведения на страницах альбомов.
+Планируется как основа common viewer/lightbox behavior. Точный выбор можно подтвердить перед Stage 8.
 
 ### Pillow или libvips
 
-Планируются для обработки изображений и связанных задач.
+Планируются для decoding/validation, renditions/previews and image processing. Exact choice remains open.
+
+### SMTP-compatible email
+
+Production email delivery planned through SMTP-compatible provider. Provider not selected. Credentials must come from environment variables.
 
 ### Docker Compose
 
-Планируется для локального окружения и later-stage deployment.
+Планируется позже для environment/deployment, но не создается на documentation stage.
 
 ### Nginx или Caddy
 
-Планируются как reverse proxy на VPS.
+Reverse proxy на VPS later.
 
-### Локальное media storage сначала
+### Storage
 
-Первый этап ориентирован на хранение медиа в файловой системе VPS.
+Local VPS filesystem media storage first. S3-compatible storage and Cloudflare R2 are future options, not starting requirements.
 
-### Возможное S3-совместимое storage позже
-
-S3-compatible storage и Cloudflare R2 рассматриваются как будущие расширения, а не стартовое требование.
-
-## Альтернативы, которые не выбраны как основной путь
+## Не выбранные основные пути
 
 - WordPress
 - Piwigo
 - Lychee
 - Immich
 - PhotoPrism
-- pure static site
+- static-only site
 - SPA-first frontend
 - Next.js
 - microservices
 
-## Почему они не выбраны
+## Запреты и ограничения
 
-Эти варианты либо слишком ограничивают кастомный product-flow, либо уводят проект в избыточную сложность, либо хуже подходят для server-rendered photo portfolio с контролируемой административной частью на Django/Wagtail.
+- Не реализовывать custom auth protocol.
+- Не реализовывать custom password hashing.
+- Не реализовывать custom session handling.
+- Не реализовывать custom token cryptography.
+- Не pin dependencies до появления реального проекта и проверки совместимости.

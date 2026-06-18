@@ -2,23 +2,50 @@
 
 ## Статус
 
-Этот документ описывает планируемый деплой. Ничего из перечисленного пока не реализовано.
+Это planned deployment direction. Ничего из перечисленного пока не реализовано.
 
 ## Базовое направление
 
-- Целевая площадка: VPS.
-- Базовый способ запуска: Docker Compose.
-- Отдельный web service для приложения.
-- Отдельный db service для PostgreSQL.
-- Reverse proxy через Caddy или Nginx.
-- HTTPS через Let's Encrypt.
-- Отдельный volume для медиафайлов.
-- Отдельная стратегия backup для базы данных.
-- Отдельная стратегия backup для медиа.
-- Секреты и конфигурация через `.env` или эквивалентный внешний механизм.
+- Target: VPS.
+- Runtime later: Docker Compose.
+- Web service for Django/Wagtail application.
+- DB service for PostgreSQL.
+- Reverse proxy through Caddy or Nginx.
+- HTTPS through Let's Encrypt.
+- Media volume.
+- PostgreSQL backup.
+- Media backup.
+- `.env` or equivalent external secret mechanism.
 
-## Что важно
+## Production email
 
-- Разделять development и production секреты.
-- Не хранить production-конфигурацию с реальными секретами в Git.
-- Продумать восстановление не только БД, но и медиафайлов.
+Production requires:
+
+- SMTP-compatible email delivery;
+- credentials from environment variables;
+- configured public site origin/domain;
+- HTTPS verification links;
+- password reset and email verification through the same controlled mail infrastructure.
+
+Email provider is not selected yet.
+
+## Public origin
+
+Registration, verification and password reset links require a configured public origin/domain. This is planned, not implemented.
+
+## Quotas and media operations
+
+Deployment assumptions must account for:
+
+- default storage quota;
+- media volume capacity;
+- upload size limits;
+- backup and restore for both PostgreSQL and media.
+
+Exact quota values remain open.
+
+## Security and configuration
+
+- Separate development and production secrets.
+- No production credentials in Git.
+- Review media URL/storage policy before production use.

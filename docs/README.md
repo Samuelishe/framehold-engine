@@ -2,23 +2,27 @@
 
 Этот каталог содержит рабочую документацию проекта. На текущем этапе она является главным источником решений, потому что прикладная реализация еще не начата.
 
-- `PROJECT_STATE.md` — текущее состояние проекта, честное описание того, что уже есть и чего еще нет.
-- `PRODUCT_VISION.md` — продуктовая рамка проекта: зачем он нужен, для кого делается и какие у него явные не-цели.
-- `REQUIREMENTS.md` — функциональные и нефункциональные требования, включая роли, публикацию и MVP-объем.
-- `ARCHITECTURE.md` — начальное архитектурное направление, логические зоны системы и важные границы ответственности.
-- `DATA_MODEL.md` — черновой доменный состав сущностей и открытые решения по модели данных.
-- `PERMISSIONS.md` — модель ролей, границы доступа и правила видимости опубликованного и скрытого контента.
-- `PUBLIC_SITE.md` — структура публичных URL, ожидаемые страницы и ограничения публичной выдачи.
-- `ADMIN_WORKFLOW.md` — рабочие сценарии owner/admin и contributor внутри будущей административной части.
-- `UI_DESIGN.md` — визуальное направление публичного интерфейса без притворства, что дизайн уже реализован.
-- `TECH_STACK.md` — выбранный стек, причины выбора и список альтернатив, которые не выбраны как основной путь.
-- `DEVELOPMENT.md` — планируемый локальный процесс разработки, окружения и общие ограничения по данным.
-- `DEPLOYMENT.md` — планируемая схема VPS-деплоя, сервисов, секретов и резервного копирования.
-- `SECURITY_NOTES.md` — базовые правила безопасности и ограничения для будущей реализации и эксплуатации.
-- `ROADMAP.md` — поэтапный план развития от документационного старта до продакшн-деплоя и будущих улучшений.
+- `PROJECT_STATE.md` — текущее состояние проекта, что реализовано, что только запланировано и какие архитектурные вопросы нужно решить следующими.
+- `PRODUCT_VISION.md` — продуктовая рамка: multi-user, multi-portfolio engine, premium portfolio presentation и явные social non-goals.
+- `REQUIREMENTS.md` — функциональные и нефункциональные требования, включая регистрацию, dashboard, ownership, темы, media viewer и upload safety.
+- `ARCHITECTURE.md` — архитектурное направление, логические зоны системы, границы Framehold Dashboard и Wagtail Admin.
+- `DATA_MODEL.md` — черновая модель User, Portfolio, Album, Photo, AlbumPhoto и SiteSettings с открытыми Django/Wagtail решениями.
+- `PERMISSIONS.md` — роли Site Administrator, Portfolio Owner и Public Visitor, account states и suspension rules.
+- `REGISTRATION_AND_ACCOUNTS.md` — registration flow, email verification, account lifecycle, password reset, onboarding и открытый выбор auth package.
+- `OWNERSHIP_AND_ISOLATION.md` — portfolio ownership invariants, server-side scoping, direct object access protection и future permission tests.
+- `PUBLIC_SITE.md` — theme-driven публичные страницы, URL options, public viewer и правила выдачи только опубликованного non-suspended контента.
+- `ADMIN_WORKFLOW.md` — разделение Wagtail Admin и Framehold Dashboard, onboarding и owner content-management flow.
+- `THEME_SYSTEM.md` — trusted curated themes, theme registry, settings schema, responsive contract, fallback behavior и initial theme families.
+- `MEDIA_PRESENTATION.md` — captions, dates, alt text, controlled EXIF, responsive renditions, viewer/lightbox и upload/media policy.
+- `UI_DESIGN.md` — визуальное направление публичного интерфейса, mobile rules, theme families и viewer UX.
+- `TECH_STACK.md` — выбранный стек, custom User model с начала, planned email infrastructure и невыбранные альтернативы.
+- `DEVELOPMENT.md` — планируемый локальный процесс разработки, email backend/mail-catcher и ограничения по отсутствующей реализации.
+- `DEPLOYMENT.md` — планируемый VPS deployment, production email, public origin, quotas и backup assumptions.
+- `SECURITY_NOTES.md` — правила безопасности для registration, verification, ownership, upload safety, EXIF и suspension.
+- `ROADMAP.md` — dependency-aware roadmap от documentation refinement до accounts, dashboard, themes, media и deployment.
 - `WORK_LOG.md` — журнал заметных шагов по проекту.
-- `CODING_RULES.md` — правила кодирования для Python/Django/Wagtail-части будущей реализации.
+- `CODING_RULES.md` — будущие правила кодирования для Django/Wagtail, ownership scoping, auth, themes и EXIF.
 - `FILE_INDEX.md` — индекс файлов документационного каркаса и их назначения.
-- `FUTURE_IDEAS.md` — отложенные идеи, которые не входят в ранние этапы.
+- `FUTURE_IDEAS.md` — отложенные идеи, не входящие в ранние этапы.
 - `CHANGELOG.md` — пользовательский changelog по крупным вехам проекта.
-- `archive/work-log/.gitkeep` — служебной файл для сохранения структуры архивного каталога журнала.
+- `archive/work-log/.gitkeep` — служебный файл для сохранения структуры архивного каталога журнала.

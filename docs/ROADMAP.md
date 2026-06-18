@@ -2,48 +2,115 @@
 
 ## Stage 0: Documentation foundation
 
-Зафиксировать цели, требования, стек, архитектуру, правила разработки и базовую структуру документации.
+Create the initial documentation foundation.
 
-## Stage 1: Django/Wagtail project initialization
+## Stage 0.5: Product refinement
 
-Инициализировать базовый проект Django/Wagtail без преждевременного усложнения.
+- public registration;
+- account lifecycle;
+- portfolio ownership;
+- dashboard boundary;
+- theme system;
+- media presentation.
 
-## Stage 2: Basic settings split and PostgreSQL dev setup
+## Stage 1: Django/Wagtail foundation
 
-Подготовить конфигурацию окружений и dev-настройку PostgreSQL.
+Before permanent initial migrations:
 
-## Stage 3: Gallery domain models
+- establish custom User model;
+- decide Wagtail/default/custom image model strategy.
 
-Реализовать базовые модели авторов, альбомов, фотографий и настроек сайта.
+## Stage 2: Environment foundation
 
-## Stage 4: Wagtail admin registration
+- split settings;
+- PostgreSQL;
+- development email backend;
+- environment variables.
 
-Подключить модели и базовые административные сценарии в Wagtail admin.
+## Stage 3: Accounts
 
-## Stage 5: Public read-only pages
+- public registration;
+- mandatory email verification;
+- login/logout;
+- password reset;
+- account states;
+- onboarding.
 
-Собрать публичные страницы с серверным рендерингом только опубликованного контента.
+## Stage 4: Portfolio domain
 
-## Stage 6: Image renditions and lightbox
+- Portfolio;
+- Album;
+- Photo;
+- AlbumPhoto;
+- SiteSettings;
+- publication states.
 
-Добавить rendition/previews и lightbox-поведение.
+## Stage 5: Ownership isolation
 
-## Stage 7: Contributor permissions and publication workflow
+- server-side scoping;
+- account/portfolio boundaries;
+- suspension;
+- permission tests.
 
-Довести права contributor, владение контентом и режим публикации до рабочего состояния.
+## Stage 6: Framehold Dashboard
 
-## Stage 8: Public visual design pass
+- portfolio profile;
+- uploads;
+- album management;
+- photo ordering;
+- theme selection;
+- presentation settings.
 
-Сделать отдельный проход по публичному дизайну, типографике и визуальной полировке.
+## Stage 7: Theme registry and first public theme
 
-## Stage 9: Production Docker Compose and VPS deployment
+- Minimal Justified;
+- server-rendered public pages;
+- responsive behavior.
 
-Собрать production-окружение для VPS и reverse proxy.
+## Stage 8: Media presentation
 
-## Stage 10: Backup/restore
+- renditions;
+- viewer/lightbox;
+- keyboard navigation;
+- mobile swipe;
+- fullscreen;
+- captions and controlled EXIF.
 
-Зафиксировать и проверить процедуры backup/restore для БД и медиа.
+## Stage 9: Second theme
 
-## Stage 11: Future improvements
+- Classic Grid;
+- theme contract validation;
+- focal point/crop workflow if needed.
 
-Рассмотреть EXIF, теги, поиск, темы, S3-совместимое storage и другие расширения после стабилизации основной системы.
+## Stage 10: Admin usability and public visual polish
+
+Improve Wagtail Admin usability for Site Administrator and polish public presentation after working flows exist.
+
+## Stage 11: Production deployment
+
+- Docker Compose;
+- reverse proxy;
+- HTTPS;
+- production email.
+
+## Stage 12: Backup and restore
+
+- PostgreSQL;
+- media;
+- configuration.
+
+## Stage 13: Later improvements
+
+- Nocturne Mosaic;
+- Journal Feed;
+- tags;
+- search;
+- private albums;
+- password-protected albums;
+- advanced EXIF;
+- S3-compatible storage;
+- Cloudflare R2;
+- analytics;
+- multilingual support;
+- collaborators;
+- optional stronger anti-abuse mechanisms.

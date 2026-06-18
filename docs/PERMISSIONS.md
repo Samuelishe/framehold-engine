@@ -1,80 +1,85 @@
 # PERMISSIONS
 
-## Роли
+## Primary MVP roles
 
-- Owner/Admin
-- Contributor
-- Public/Guest
+- Site Administrator
+- Portfolio Owner
+- Public Visitor
 
-## Owner/Admin
+Возможная будущая роль Collaborator для shared portfolio editing не входит в MVP.
 
-### Разрешено
+## Site Administrator
 
-- Видеть все альбомы и фотографии независимо от статуса.
-- Управлять пользователями и ролями.
-- Управлять глобальными настройками сайта.
-- Создавать, редактировать, публиковать, скрывать и удалять любой контент.
-- Управлять домашней страницей и featured-контентом.
+Global administrator of the whole Framehold Engine installation.
 
-### Запрещено
+Разрешено:
 
-Явных продуктовых ограничений почти нет, кроме общих правил безопасности и аудита изменений.
+- manage all users;
+- inspect and manage all portfolios;
+- suspend or reactivate accounts;
+- suspend or hide portfolios;
+- manage global site settings;
+- manage available themes;
+- manage global CMS content;
+- access Wagtail Admin;
+- perform emergency corrective actions;
+- view and edit any portfolio data when required.
 
-## Contributor
+## Portfolio Owner
 
-### Разрешено
+Publicly registered and email-verified user who owns one Portfolio in the MVP.
 
-- Входить в административную часть.
-- Загружать свои фотографии.
-- Создавать свои альбомы.
-- Редактировать свои альбомы и фотографии.
-- Менять порядок и описания своего контента.
-- Видеть собственные черновики.
+Разрешено:
 
-### Запрещено
+- access private Framehold Dashboard;
+- edit only own Portfolio;
+- choose one available theme;
+- configure presentation settings allowed by that theme;
+- upload and delete own photographs;
+- create and edit own albums;
+- change photo order;
+- edit titles, captions, alt text, dates and permitted metadata;
+- publish and unpublish own content, subject to final publication policy.
 
-- Редактировать чужие альбомы и фотографии.
-- Управлять глобальными настройками сайта.
-- Управлять пользователями.
-- Получать доступ к скрытому чужому контенту без административного основания.
-- Публиковать напрямую, если активирован режим модерации.
+Запрещено:
 
-## Public/Guest
+- access another owner's private data;
+- edit another portfolio;
+- select another owner's media;
+- access global settings;
+- install or upload theme code;
+- receive Wagtail staff/admin access automatically.
 
-### Разрешено
+## Public Visitor
 
-- Просматривать опубликованные альбомы и фотографии.
-- Читать описания альбомов и авторов.
-- Использовать lightbox для просмотра изображений.
+Разрешено:
 
-### Запрещено
+- view published portfolios;
+- view published albums and photographs;
+- open photographs in public viewer/lightbox;
+- read author captions and enabled metadata.
 
-- Видеть `draft` и `hidden` контент.
-- Загружать файлы.
-- Получать доступ к административным разделам.
-- Получать информацию о скрытых URL или приватных данных через frontend.
+Запрещено:
 
-## Видимость статусов
+- upload;
+- access drafts;
+- access private dashboard routes;
+- access Wagtail Admin;
+- access hidden, suspended or unpublished content.
 
-- `draft` — виден owner/admin и, как минимум, владельцу-контрибьютору своего контента.
-- `published` — виден публично и во внутренней части системы.
-- `hidden` — не виден публично; точные правила внутренней видимости определяются администраторским workflow.
+## Account states and restrictions
 
-## Границы владения контентом
+- Pending email verification account cannot finish onboarding, create public Portfolio, upload photographs or publish content.
+- Suspended account cannot perform owner operations.
+- Suspended Portfolio is not public.
+- Self-registered users are regular non-staff users.
 
-- У каждого альбома должен быть понятный владелец.
-- У contributor права редактирования ограничены собственным контентом.
-- Проверка владения должна происходить на сервере, а не только в интерфейсе.
+## Publication and visibility
 
-## Варианты модерации публикации
+- Public queries return only published and non-suspended content.
+- Draft/unpublished content is visible only to its Portfolio Owner and Site Administrator through authorized interfaces.
+- Hidden/suspended content must not leak through public URL guesses, templates or unrestricted querysets.
 
-- Вариант 1: contributor сохраняет черновики, а публикует только owner/admin.
-- Вариант 2: contributor может публиковать сам, если это разрешено конфигурацией проекта.
+## Ownership isolation
 
-На текущем этапе выбран только факт, что эта логика должна быть явной и управляемой. Финальный режим пока не зафиксирован.
-
-## Правила публичной безопасности
-
-- Публичная выдача всегда должна фильтровать неопубликованный контент.
-- Публичные URL и API не должны раскрывать наличие скрытых объектов.
-- Публичные пользователи не получают право загрузки файлов.
+Подробные invariants и будущие permission tests описаны в `docs/OWNERSHIP_AND_ISOLATION.md`. Короткое правило: UI visibility is not a security boundary; all owner operations must be scoped server-side.

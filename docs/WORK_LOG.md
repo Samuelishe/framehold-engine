@@ -7,3 +7,4 @@
 - Подтверждено, что на этом этапе Django/Wagtail-проект еще не инициализируется и прикладной код не создается.
 - Добавлен и вычищен корневой `.gitignore` под Python/Django/Wagtail-проект с акцентом на локальные секреты, кэши, виртуальные окружения, локальные БД, медиа и IDE-local state.
 - Из staged-набора исключены локальные файлы `.idea`, чтобы в коммит не попадали привязки PyCharm к конкретному рабочему окружению.
+- Обновлена документация под revised product model: public registration, mandatory email verification, multi-portfolio ownership, Framehold Dashboard, curated theme system, media presentation, upload safety и ownership isolation.

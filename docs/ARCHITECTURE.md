@@ -3,52 +3,83 @@
 ## Базовое направление
 
 - Основа проекта: Django/Wagtail.
-- Wagtail планируется использовать там, где он дает готовую и устойчивую административную и CMS-инфраструктуру.
-- Кастомная доменная логика галереи должна жить в отдельных Django apps.
-- Основная БД: PostgreSQL.
-- Публичный frontend на первом этапе должен рендериться server-side.
-- Tailwind планируется для стилизации.
-- Alpine.js или HTMX допускаются только для небольшой интерактивности.
-- PhotoSwipe или аналогичный lightbox планируется для просмотра фотографий.
-- Медиафайлы на первом этапе планируются на локальной файловой системе VPS.
-- В дальнейшем возможно S3-совместимое хранилище.
-- Docker Compose планируется для локального и production-окружения позже.
+- Custom Django User model должен быть создан с самого начала, до первых permanent application migrations.
+- Wagtail Admin reserved for Site Administrator and trusted staff.
+- Framehold Dashboard — custom Django UI для Portfolio Owners.
+- Кастомная доменная логика Portfolio, Album, Photo и AlbumPhoto должна жить в Django apps.
+- PostgreSQL — primary DB.
+- Public frontend на первом этапе server-rendered.
+- Tailwind — основной styling layer.
+- Alpine.js или HTMX допускаются только для локальной интерактивности.
+- PhotoSwipe или аналогичный viewer/lightbox планируется для media presentation.
+- Local filesystem media storage first; S3-compatible storage later.
+- Docker Compose planned later.
 
-## Логические области системы
+## Logical areas
 
-### Framehold Core
+### Framehold Accounts
 
-Доменная логика галереи: авторы, альбомы, фотографии, статусы публикации, сортировка и связанные правила.
+Custom User, public registration, email verification, login/logout, password reset, onboarding, account states and suspension.
 
-### Framehold Admin
+### Framehold Portfolio
 
-Интеграция с Wagtail admin и административные workflow для owner/admin и contributor.
+Portfolio ownership, Album, Photo, AlbumPhoto, publication states, presentation defaults, slug/public identity и domain rules.
+
+### Framehold Dashboard
+
+Private custom Django UI for Portfolio Owners. Управляет только текущим Portfolio: uploads, albums, captions, ordering, theme selection и presentation settings.
+
+### Wagtail Admin
+
+Интерфейс Site Administrator и trusted staff для global CMS content, users, system-level data, global settings, themes management и emergency corrections.
+
+### Framehold Theme System
+
+Trusted code-defined curated themes, registry, settings schema, capabilities, responsive contract и fallback behavior.
+
+### Framehold Media Presentation
+
+Responsive renditions/previews, public viewer/lightbox, captions, alt text, dates, controlled EXIF и original media policy.
 
 ### Framehold Public
 
-Публичные маршруты, страницы, шаблоны и выдача только опубликованного контента.
-
-### Framehold Media
-
-Загрузка изображений, выбор обложек, хранение метаданных, preview/rendition-логика и будущая оптимизация.
+Theme-driven public pages, safe public querysets and rendered contexts containing only published, non-suspended content.
 
 ### Framehold Config
 
-Глобальные настройки сайта: заголовки, hero-контент, featured-альбомы, about/contact-данные и тема.
+SiteSettings: registration enabled, publication approval policy, storage quota defaults, global homepage, about/contact data.
 
 ### Deployment/Runtime Layer
 
-Контейнеры, reverse proxy, переменные окружения, тома для медиа, база данных, backup и runtime-конфигурация.
+Containers later, reverse proxy, environment variables, PostgreSQL, media volume, email infrastructure, backups and runtime configuration.
 
-## Архитектурные границы
+## Framehold Dashboard versus Wagtail Admin
 
-- Нельзя держать доменные правила только в шаблонах.
-- Нельзя держать проверки прав только на frontend.
-- Нельзя дублировать auth/session/password-логику поверх Django/Wagtail без отдельного решения.
-- Публичные страницы не должны случайно запрашивать или выдавать черновики.
-- Contributor не должен получать возможность редактировать чужой контент.
-- Реальные приватные данные нельзя хардкодить в seed/demo fixtures.
+Self-registered users must not automatically receive `is_staff`, `is_superuser`, Wagtail Admin access, global Wagtail collection access or page tree permissions.
 
-## Предварительное разбиение
+Framehold Dashboard must remain understandable for non-technical users and must not expose technical Wagtail internals.
 
-Точное количество приложений пока не фиксируется. Направление такое: использовать минимум приложений, который сохраняет чистые границы ответственности, и не дробить систему раньше времени.
+Wagtail Admin remains reserved for Site Administrator and explicitly trusted staff.
+
+## Architecture boundaries
+
+- Do not put domain rules only in templates.
+- Do not put permissions only in frontend.
+- Do not duplicate auth/session/password logic.
+- Do not implement custom auth protocol or custom token cryptography.
+- Do not let public pages query drafts accidentally.
+- Do not let Portfolio Owners edit another portfolio.
+- Do not let templates query unrestricted global Photo or Album collections.
+- Do not hardcode real private data into seed/demo fixtures.
+- Do not allow arbitrary user-supplied theme code in MVP.
+- Do not render raw EXIF publicly.
+
+## Open implementation decisions
+
+- Portfolio and Album representation: regular Django models, Wagtail Page models or hybrid approach.
+- Image representation: default Wagtail Image plus Framehold Photo model, custom Wagtail image model or controlled image asset model.
+- Exact publication states.
+- Whether first public publication requires Site Administrator approval.
+- Canonical public URL scheme.
+
+These decisions must be reviewed before domain implementation and before permanent migration history is established.

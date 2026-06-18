@@ -1,54 +1,59 @@
 # PUBLIC_SITE
 
-## Планируемая структура URL
+## Статус
+
+Публичный сайт пока не реализован. Этот документ описывает planned theme-driven public presentation.
+
+## URL scheme
+
+Canonical public URL scheme остается открытым решением.
+
+Варианты:
+
+- `/photographers/<slug>/`
+- `/portfolio/<slug>/`
+- другой стабильный route
+
+Дополнительные routes могут включать:
 
 - `/`
-- `/photographers/`
-- `/photographers/<slug>/`
-- `/albums/`
-- `/albums/<slug>/`
+- `/portfolios/`
+- `/portfolio/<slug>/albums/<album-slug>/`
 - `/about/`
 - `/contact/`
 
-## Главная страница
+Финальный вариант нужно выбрать до реализации public routes и canonical links.
 
-Планируются следующие секции:
+## Theme-driven portfolio pages
 
-- hero-блок с сильным изображением или выбранным альбомом;
-- выбранные или свежие опубликованные альбомы;
-- краткое позиционирование проекта или авторов;
-- переходы к страницам фотографов, альбомов, about и contact.
+Публичные Portfolio pages рендерятся выбранной curated theme. Theme получает prepared and safely filtered public context и не выполняет unrestricted domain queries.
 
-## Страница фотографов
+Portfolio page может включать:
 
-- Список активных публичных фотографов.
-- Базовое представление имени, обложки и краткого описания.
+- public name;
+- bio;
+- avatar/cover;
+- selected albums;
+- recent or featured photographs;
+- theme-specific navigation;
+- captions, dates and enabled EXIF according to settings.
 
-## Страница конкретного фотографа
+## Album pages
 
-- Публичный профиль автора.
-- Описание, обложка и, возможно, аватар.
-- Список опубликованных альбомов этого автора.
+Album page показывает только published Photo из published Album внутри published non-suspended Portfolio. Layout зависит от theme, но public viewer/lightbox behavior остается common.
 
-## Страница альбомов
+## Public viewer
 
-- Список опубликованных альбомов.
-- Возможность аккуратной сортировки и редакторской подачи будет решаться позже.
+Viewer/lightbox должен поддерживать desktop keyboard navigation, mobile swipe, visible close, fullscreen where supported, focus trapping and restoration, captions and controlled metadata. Подробно: `docs/MEDIA_PRESENTATION.md`.
 
-## Страница альбома
+## Public filtering rules
 
-- Заголовок, описание, даты, возможно локация.
-- Сетка фотографий.
-- Открытие фотографий в lightbox.
+- Only published content is public.
+- Suspended accounts/portfolios are not public.
+- Drafts, hidden content and unpublished media are not public.
+- Public rendering receives already filtered safe context.
+- Public pages must not expose raw EXIF or GPS by default.
 
-## Фото-сетка и lightbox
+## Non-social positioning
 
-- Сетка должна быть адаптивной и ориентированной на изображения.
-- Lightbox планируется через PhotoSwipe или аналог.
-- Предпросмотры и ленивые загрузки считаются ожидаемым направлением, но еще не реализованы.
-
-## Ограничения публичной выдачи
-
-- Публично показывается только опубликованный контент.
-- Черновики и скрытые альбомы/фотографии публично не видны.
-- Публичная часть не должна визуально походить на дефолтную CMS/admin.
+Публичный сайт не включает visitor comments, likes, follows, public activity feed, direct messages, ratings, anonymous uploads или mandatory social sharing buttons в MVP.

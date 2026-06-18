@@ -2,19 +2,50 @@
 
 ## Общие правила
 
-- Использовать type hints там, где это улучшает читаемость и надежность.
-- Держать Django apps сфокусированными по ответственности.
-- Не переносить доменные правила в шаблоны.
-- Проверки прав доступа всегда обеспечивать на сервере.
-- Не использовать `except:` без причины.
-- Не проглатывать исключения молча.
-- Не хардкодить секреты.
-- Не конкатенировать файловые пути вручную там, где лучше `pathlib`.
-- Держать миграции обозримыми и ревьюируемыми.
+- Использовать type hints там, где это улучшает читаемость.
+- Держать Django apps сфокусированными.
+- Не переносить доменные правила в templates.
+- Authorization всегда server-side.
+- Не использовать broad `except` без причины.
+- Не проглатывать exceptions silently.
+- Не хардкодить secrets.
+- Не конкатенировать filesystem paths вручную там, где лучше `pathlib`.
+- Держать migrations reviewable.
 - Избегать overengineering.
-- Не добавлять зависимости без понятной причины.
-- Использовать встроенные механизмы Django/Wagtail для auth, sessions, permissions, admin, migrations и image handling там, где они подходят задаче.
+- Не добавлять dependencies без понятной причины.
 
-## Практический акцент
+## Auth and accounts
 
-Проект должен опираться на надежные стандартные механизмы фреймворков и сохранять кастомизацию там, где она действительно нужна для доменной логики и публичного frontend.
+- Custom User must exist before first permanent application migrations.
+- Use established libraries/mechanisms for registration, email verification and password reset.
+- Do not implement custom password hashing.
+- Do not implement custom session handling.
+- Do not implement custom token cryptography.
+- Self-registered users are not staff by default.
+
+## Ownership and query rules
+
+- Owner-facing queries must always be scoped to authenticated owner's Portfolio.
+- Templates must not perform unrestricted domain queries.
+- Public rendering receives already filtered safe context.
+- Direct object access checks must be server-side.
+- Forged IDs in POST data must not cross ownership boundaries.
+
+## Themes
+
+- No arbitrary theme execution.
+- No user-uploaded theme code in MVP.
+- Theme settings must be validated by schema.
+- Themes must not control authorization, ownership, authentication, publication policy or access to drafts.
+
+## Media and EXIF
+
+- Public EXIF uses an allowlist.
+- Raw EXIF JSON is never rendered publicly.
+- GPS is hidden by default.
+- Uploaded image content must be validated by established image libraries.
+- Originals must not be casually exposed without explicit policy.
+
+## Django/Wagtail
+
+Use Django/Wagtail built-ins for auth, sessions, permissions, admin, migrations and image handling where appropriate, but keep Portfolio Owner UI in Framehold Dashboard, not ordinary Wagtail Admin.

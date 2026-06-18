@@ -1,56 +1,72 @@
 # ADMIN_WORKFLOW
 
-## Базовый план
+## Статус
 
-На первом этапе административная работа планируется через Wagtail admin и встроенные механизмы Django/Wagtail, без отдельной кастомной панели для всех сценариев.
+Интерфейсы пока не реализованы. Документ фиксирует planned separation between Framehold Dashboard and Wagtail Admin.
 
-## Workflow Owner/Admin
+## Framehold Dashboard
 
-- Создает и управляет учетными записями.
-- Настраивает глобальные параметры сайта.
-- Видит все альбомы и фотографии.
-- Проверяет, публикует, скрывает и редактирует контент.
-- Управляет домашней страницей и featured-элементами.
+Framehold Dashboard — core product component, not a future fallback.
 
-## Workflow Contributor
+Назначение:
 
-- Входит в систему под своей учетной записью.
-- Загружает собственные фотографии.
-- Создает и редактирует собственные альбомы.
-- Меняет описания, порядок и потенциальные обложки.
-- Работает со своими черновиками.
+- private account area for Portfolio Owners;
+- custom Django UI;
+- manages only the current owner's Portfolio;
+- handles uploads, albums, captions, ordering, theme selection and presentation settings;
+- enforces ownership on the server;
+- remains understandable for non-technical users;
+- does not expose technical Wagtail internals.
 
-## Upload flow
+## Wagtail Admin
 
-Планируется простой и понятный поток:
+Wagtail Admin reserved for Site Administrator and explicitly trusted staff.
 
-1. Contributor или owner/admin загружает изображения.
-2. Изображения привязываются к альбому.
-3. Для фотографий задаются заголовки, описания, порядок и признаки для выбора обложки.
+Назначение:
 
-Точные формы и UX пока не зафиксированы.
+- manage global CMS content;
+- manage users and system-level data;
+- manage global settings;
+- manage available themes metadata/configuration if applicable;
+- inspect and correct all portfolios when required;
+- perform emergency corrective actions.
 
-## Редактирование альбома
+Publicly registered user must not automatically receive `is_staff`, `is_superuser`, Wagtail Admin access, global Wagtail collection access or page tree permissions.
 
-- Изменение заголовка, slug, описания, дат и локации.
-- Управление статусом публикации.
-- Выбор обложки альбома.
-- Управление порядком фотографий.
+## Owner onboarding flow
 
-## Порядок фотографий
+Planned flow:
 
-Ручная сортировка считается обязательной функцией. Конкретный UI-механизм пока не выбран.
+1. Visitor registers with email and password.
+2. Account remains pending until email verification.
+3. Verified user chooses public display name.
+4. Verified user chooses Portfolio slug.
+5. Verified user selects initial curated theme.
+6. Initial Portfolio is created.
+7. User enters Framehold Dashboard.
 
-## Выбор обложки
+## Portfolio Owner content flow
 
-Должна существовать явная модель выбора cover photo для альбома, а также отдельные обложки автора там, где это требуется.
+- Edit Portfolio profile: public name, bio, avatar, cover image.
+- Upload photographs within quota and format limits.
+- Add title, caption, alt text, captured_at and allowed metadata.
+- Create albums.
+- Add existing own photos to albums through AlbumPhoto.
+- Change album-specific photo order.
+- Select theme and configure validated theme settings.
+- Preview public presentation.
+- Publish/unpublish content subject to final publication policy.
 
-## Workflow публикации
+## Site Administrator flow
 
-- Контент создается как минимум в статусе `draft`.
-- Owner/admin должен иметь контроль над финальной публикацией.
-- Возможность прямой публикации contributor пока остается открытым решением и зависит от будущего режима модерации.
+- Manage users and account states.
+- Disable registrations globally if needed.
+- Suspend/reactivate accounts.
+- Suspend/hide portfolios.
+- Review/correct portfolio data when required.
+- Manage global homepage/about/contact CMS content.
+- Manage global settings such as registration enabled and default quota.
 
-## Возможное будущее упрощение
+## Publication workflow
 
-Позже может появиться отдельный упрощенный dashboard для contributor, если стандартного admin-flow будет недостаточно по UX.
+Open decision: whether first public publication requires Site Administrator approval. This must be decided before implementing publication states and dashboard publish actions.

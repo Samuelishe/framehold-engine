@@ -1,63 +1,87 @@
 # DATA_MODEL
 
-## Статус документа
+## Статус
 
-Это черновая модель предметной области. Она описывает планируемые сущности, но не означает, что структура уже реализована.
+Это концептуальная модель предметной области. Django models не созданы, миграций нет.
 
 ## User
 
-Используется стандартный пользователь Django/Wagtail.
+- technical authentication identity;
+- custom Django user model from the beginning;
+- required unique email;
+- verification and account state handled through established auth mechanisms.
 
-## PhotographerProfile
+Public Portfolio identity must not depend on authentication username. Public URLs use `Portfolio.slug`, not `User.username`.
+
+## Portfolio
 
 Планируемые поля:
 
-- `user`
+- `owner`
 - `slug`
 - `public_name`
 - `bio`
 - `avatar`
-- `cover_photo`
-- `sort_order`
-- `is_active`
+- `cover_image`
+- `theme_key`
+- `theme_settings`
+- `default_caption_visibility`
+- `default_capture_date_visibility`
+- `default_exif_visibility`
+- `publication_state`
+- `suspension_state`
+- `created_at`
+- `updated_at`
 
-Назначение: публичный профиль фотографа и связка с учетной записью для административной работы.
+Назначение: публичная identity и presentation boundary одного Portfolio Owner.
 
 ## Album
 
 Планируемые поля:
 
-- `owner`
+- `portfolio`
 - `title`
 - `slug`
 - `description`
 - `cover_photo`
-- `status` со значениями `draft`, `published`, `hidden`
+- `publication_state`
 - `date_from`
 - `date_to`
 - `location`
+- `sort_order`
 - `created_at`
 - `updated_at`
-- `sort_order`
-
-Назначение: редакторская единица публикации, объединяющая фотографии в одну публичную историю или подборку.
 
 ## Photo
 
 Планируемые поля:
 
-- `album`
-- `image`
+- `portfolio`
+- `image_asset`
 - `title`
-- `description`
-- `exif_json`
-- `sort_order`
+- `caption`
+- `alt_text`
+- `captured_at`
+- `exif_data`
+- `exif_visibility_override`
+- `caption_visibility_override`
+- `publication_state`
 - `uploaded_by`
-- `is_cover_candidate`
 - `created_at`
 - `updated_at`
 
-Назначение: отдельная фотография внутри альбома с порядком, описанием и служебными метаданными.
+Photo belongs to Portfolio, not exclusively to one Album.
+
+## AlbumPhoto
+
+Планируемые поля:
+
+- `album`
+- `photo`
+- `sort_order`
+- optional generic `presentation_hint`
+
+Album and Photo use explicit AlbumPhoto relation. One Photo may appear in multiple albums. AlbumPhoto stores album-specific ordering.
 
 ## SiteSettings
 
@@ -65,19 +89,46 @@
 
 - `site_title`
 - `site_subtitle`
-- `hero_album`
-- `hero_photo`
-- `featured_albums`
-- `about_text`
-- `contact_email`
-- `active_theme`
+- `registration_enabled`
+- possible `publication_approval_policy`
+- `default_storage_quota`
+- global homepage configuration
+- global about/contact data
 
-Назначение: глобальная конфигурация публичной части сайта.
+## Architectural directions
 
-## Открытые решения
+- User and public Portfolio identity are separate concepts.
+- Public URLs must not depend on authentication credentials.
+- Theme selection belongs to Portfolio.
+- Theme code does not belong in the database.
+- Database stores only `theme_key` and validated `theme_settings`.
 
-- Должно ли `Photo.image` ссылаться на Wagtail Image или использовать собственный `ImageField`.
-- Должен ли `Album` быть обычной Django-моделью или Wagtail Page.
-- Является ли модерация публикации обязательной или опциональной.
-- Как именно хранить EXIF: целиком JSON, нормализованные поля, гибридный вариант.
-- Как позже вводить теги, коллекции и дополнительные классификаторы.
+## Open data model decisions
+
+### Portfolio and Album representation
+
+Unresolved:
+
+- regular Django models;
+- Wagtail Page models;
+- hybrid approach.
+
+Wagtail Pages offer revisions and publishing. Regular Django models may simplify self-service ownership isolation and dashboard workflows. This must be decided explicitly before implementation.
+
+### Image representation
+
+Unresolved:
+
+- default Wagtail Image plus Framehold Photo model;
+- custom Wagtail image model;
+- another controlled image asset model.
+
+Changing Wagtail's image model after real migrations/data may be difficult, so this decision must be reviewed before permanent migration history.
+
+### Other open decisions
+
+- Exact publication states.
+- Whether first public publication requires Site Administrator approval.
+- Exact public URL scheme: `/photographers/<slug>/`, `/portfolio/<slug>/` or another stable route.
+- Exact storage quota and upload size limits.
+- Exact representation of email verification state.

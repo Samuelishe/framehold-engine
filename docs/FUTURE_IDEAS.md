@@ -2,21 +2,29 @@
 
 ## Отложенные идеи
 
-- Показ EXIF в публичном интерфейсе.
+- Nocturne Mosaic как более сложная theme family.
+- Journal Feed как дополнительная theme family после первых layouts.
+- User-authored themes или external theme packages.
+- Advanced EXIF exploration.
 - Теги.
 - Поиск.
 - Страницы карт и локаций.
-- Темы оформления.
 - S3-совместимое хранилище.
 - Cloudflare R2.
-- Отдельный contributor dashboard.
 - Продвинутая обработка изображений.
 - Приватные альбомы.
 - Альбомы, защищенные паролем.
 - Аналитика.
 - RSS/Atom.
 - Мультиязычный сайт.
+- Collaborator role for shared portfolio editing.
+- Optional CAPTCHA/Turnstile or stronger anti-abuse mechanisms if real abuse appears.
 
-## Статус
+## Что больше не считается purely future-only
 
-Это список идей на будущее, а не утвержденный объем ближайших этапов.
+- Basic curated theme system.
+- Framehold Dashboard.
+- Basic controlled EXIF display.
+- Public viewer/lightbox.
+
+Эти элементы теперь входят в planned product path.

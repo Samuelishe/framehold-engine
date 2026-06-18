@@ -2,37 +2,54 @@
 
 ## Статус
 
-Этот документ описывает планируемый локальный процесс разработки. Финальные команды и автоматизация будут зафиксированы после появления реального Django/Wagtail-проекта.
+Документ описывает planned local development approach. Финальных команд нет, потому что Django/Wagtail project еще не создан.
 
-## Основной IDE
+## Primary IDE
 
-Основная IDE проекта: JetBrains PyCharm Professional.
+Основная IDE: JetBrains PyCharm Professional.
 
-## Планируемый локальный workflow
+## Planned local workflow
 
 - Python virtual environment как базовый режим локальной разработки.
-- Отдельный Docker Compose workflow планируется позже для более близкого к production окружения.
-- Переменные окружения должны храниться вне Git.
-- Настройки проекта позже стоит разделить по средам, когда появится реальная инициализация.
+- Docker Compose workflow later, после появления реального проекта.
+- Environment variables outside Git.
+- Settings split after project initialization.
+- Custom User model and image-model strategy review before first permanent migrations.
 
-## Миграции
+## Development email
 
-- Миграции будут использоваться как штатный механизм Django.
-- Миграции должны оставаться обозримыми и проверяемыми.
-- На текущем этапе миграций нет, потому что модели еще не созданы.
+Для development planned:
 
-## Тесты
+- console email backend; или
+- local mail-catcher.
 
-- Нужны, но формат и набор инструментов будут определены после появления прикладного кода.
-- Проверки прав доступа и публикационной логики должны быть в числе приоритетных тестов.
+Production credentials must not be used in development and must not be committed.
 
-## Форматирование и линтинг
+## Migrations
 
-- Конкретный набор форматтеров и линтеров пока не зафиксирован.
-- Решение будет принято после инициализации проекта, чтобы не придумывать конфигурацию в пустоте.
+- Миграции будут штатным Django mechanism.
+- First permanent migrations must not be created before custom User and image-model strategy are reviewed.
+- Миграции должны быть reviewable.
 
-## Данные и секреты
+## Tests
 
-- Не хранить реальные секреты в репозитории.
-- Не хранить реальные приватные медиа в репозитории.
-- Не хранить `.env` и дампы БД в Git.
+Будущие priority tests:
+
+- registration and verification restrictions;
+- ownership isolation;
+- upload restrictions;
+- publication/public filtering;
+- suspension behavior;
+- theme fallback;
+- public EXIF allowlist.
+
+## Formatting and linting
+
+Exact formatting/linting tools remain open. Решение будет принято после инициализации проекта.
+
+## Secrets and data
+
+- No real secrets in repository.
+- No `.env` commits.
+- No DB dumps in Git.
+- No private media in Git.
