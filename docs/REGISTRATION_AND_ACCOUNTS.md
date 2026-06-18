@@ -11,7 +11,7 @@
 3. Аккаунт создается в состоянии pending email verification.
 4. По email отправляется time-limited single-use verification link.
 5. До подтверждения email аккаунт не может завершить portfolio onboarding, создать публичное портфолио, загружать фотографии и публиковать контент.
-6. После подтверждения пользователь завершает onboarding: выбирает public display name, public portfolio slug, initial theme и создает первое Portfolio.
+6. После подтверждения пользователь завершает onboarding: выбирает public display name и public portfolio slug; Portfolio создается с safe default theme `minimal_justified`.
 7. Пользователь попадает во Framehold Dashboard.
 
 ## Правила email и пароля
@@ -67,7 +67,7 @@ Changing email should require verifying the new email address. Old unverified ac
 
 ## First-publication moderation
 
-Public registration is allowed, but first public publication should be moderatable. Default policy: verified Portfolio Owner may configure Portfolio and organize content privately, but first public publication requires Site Administrator approval. After approval, owner may publish/unpublish/update their own content unless suspended or stricter policy is enabled.
+Public registration is allowed, and the default publication policy trusts verified Portfolio Owners. Default `publication_approval_policy = none`: verified owner may publish/unpublish/update their own content without manual approval. Optional `first_publication` may be enabled by the operator.
 
 ## Administrative controls
 

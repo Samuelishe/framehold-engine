@@ -28,6 +28,15 @@
 - Repository hygiene now includes `.editorconfig` and `.gitattributes` for stable formatting and LF normalization.
 - Account deletion and all data является core product requirement.
 - Published photographs are expected to be viewable and saveable; Framehold Engine не является DRM/anti-copy продуктом.
+- Default publication approval policy: `none`; moderation is optional and operator-configured.
+- Canonical public URL scheme accepted: `/portfolio/<portfolio_slug>/` and `/portfolio/<portfolio_slug>/albums/<album_slug>/`.
+- Built-in safe default theme: `minimal_justified`.
+- Portfolio main gallery has portfolio-level photo visibility and ordering.
+- Owner-authored content is plain text in MVP.
+- Captions default visible; capture date and EXIF default hidden.
+- No mandatory telemetry, analytics, phone-home behavior, external fonts or public CDN dependency.
+- Account deletion uses a two-phase lifecycle: immediate lockout/public removal, then idempotent cleanup.
+- MVP vertical slice is documented in `PRODUCT_VISION.md` and `REQUIREMENTS.md`.
 - Исходный сценарий Irwyn, Polina и отца Irwyn остается первым intended use case, но не ограничивает продукт.
 
 ## Что уже сделано
@@ -45,11 +54,13 @@
 Перед инициализацией доменной реализации нужно явно решить:
 
 - exact authentication package для registration, verification и password reset;
-- canonical public URL scheme: `/photographers/<slug>/`, `/portfolio/<slug>/` или другой стабильный route.
 - exact quotas and upload limits;
 - exact private-source/public-delivery media storage implementation;
 - exact storage cleanup strategy for source originals, public full-resolution assets and renditions.
+- exact custom User implementation details;
+- dependency management and package versions;
+- decoder/image backend.
 
 ## Следующий шаг
 
-Следующий осмысленный архитектурный шаг — technical spike for standard Wagtail Image, renditions and private-source/public-delivery separation before real upload implementation.
+Следующие шаги: technical documentation readiness pass; dependency/auth/tooling/version decisions; Django/Wagtail foundation implementation; media spike before real uploads.

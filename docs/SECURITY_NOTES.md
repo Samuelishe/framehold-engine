@@ -27,7 +27,7 @@
 - Password reset uses verified email channel.
 - Registration never grants Wagtail Admin access automatically.
 - Administrator can disable new registrations globally.
-- First public publication requires Site Administrator approval by default as a proportional anti-abuse measure.
+- Default publication approval policy is `none`; optional first-publication moderation may be enabled by operator.
 
 Email verification confirms control of a mailbox and prevents repeated registration with the same unique email. It does not prove that one physical person owns only one account and does not prevent deliberate registration with multiple email addresses.
 
@@ -70,15 +70,14 @@ MVP security remains proportional. CAPTCHA, Turnstile, SMS, mandatory 2FA, socia
 
 ## Account deletion security
 
-- Delete account and all data requires authentication.
-- Re-authentication or sufficiently recent authenticated session is required.
-- CSRF protection is required for destructive requests.
-- Deletion must immediately remove public access.
-- Active sessions/tokens must be revoked.
-- Deletion processing must be idempotent.
+- Phase 1 requires authentication, destructive confirmation and CSRF protection.
+- Phase 1 sets account to `deletion_pending`, removes public access, blocks login/upload/editing and revokes sessions/tokens.
+- Phase 2 performs idempotent cleanup of media, domain data, account records and final User identity.
+- User and ownership records must not be permanently removed before cleanup has enough information to identify owned files.
+- Missing files are treated as already removed.
 - Partial cleanup must be detectable and retryable.
 - Destructive querysets must be explicitly scoped to the deleting owner.
-- Deletion must not rely only on database cascades because files/renditions also need cleanup.
+- Cleanup architecture must not depend on Celery.
 
 ## Themes
 
@@ -92,6 +91,14 @@ MVP security remains proportional. CAPTCHA, Turnstile, SMS, mandatory 2FA, socia
 ## Public media and no DRM
 
 Published photographs may be publicly accessible and saveable. Do not use fake DRM, context-menu blocking, overlays, canvas-only rendering or URL hiding as security mechanisms.
+
+## Owner-authored text
+
+Portfolio Owner-authored content is plain text in MVP. No owner-supplied HTML, raw Markdown rendering or rich-text editor. Django template autoescaping must not be disabled. EXIF strings and filenames are untrusted text. Theme templates must not mark owner content safe.
+
+## No mandatory telemetry
+
+Core Framehold Engine and built-in themes must not require telemetry, analytics, project phone-home services, external fonts, public CDN JavaScript or tracking by default. Optional external services require explicit operator configuration and privacy disclosure.
 
 ## Runtime assumptions
 

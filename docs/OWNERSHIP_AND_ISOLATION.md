@@ -21,6 +21,8 @@ Ownership isolation — hard requirement для multi-portfolio Framehold Engine
 - Forged form IDs must not allow selecting another owner's objects.
 - Another owner's image must not be usable as an album cover.
 - Another owner's Wagtail Image asset must not be selectable in owner-facing flows.
+- Forged POSTed Photo ID must not allow selecting another owner's Photo as Album cover.
+- `Album.cover_photo`, when set, must be connected to that Album through AlbumPhoto.
 - Another owner's theme settings must not be editable.
 - Another owner's unpublished content must never appear in dashboard queries.
 - Public queries must return only published and non-suspended content.
@@ -40,6 +42,40 @@ Framehold Dashboard показывает и изменяет только тек
 
 Публичная выдача не должна опираться на скрытие элементов в шаблоне. Querysets и public context должны быть заранее отфильтрованы по publication state и suspension state.
 
+## Public visibility predicates
+
+Portfolio publicly accessible только если:
+
+- User account is active.
+- User account is not suspended.
+- User account is not `deletion_pending`.
+- Portfolio publication state is published.
+- Portfolio is not administratively suspended.
+- Current `publication_approval_policy` is satisfied, if approval is enabled.
+
+Album publicly accessible только если:
+
+- parent Portfolio is publicly accessible.
+- Album publication state is published.
+- Album belongs to that Portfolio.
+
+Photo publicly accessible in main Portfolio gallery только если:
+
+- parent Portfolio is publicly accessible.
+- Photo publication state is published.
+- Photo belongs to that Portfolio.
+- Photo is configured to appear in main Portfolio gallery.
+
+Photo publicly accessible through Album только если:
+
+- parent Portfolio is publicly accessible.
+- Album is published.
+- Photo is published.
+- AlbumPhoto connects that Album and Photo.
+- Album and Photo belong to same Portfolio.
+
+Listed/unlisted affects discovery, not direct public access. Unpublished Portfolio hides nested Albums and Photos regardless of their individual state. Suspension overrides ordinary publication.
+
 ## Required future permission tests
 
 - Owner A cannot list Owner B's photographs.
@@ -47,6 +83,7 @@ Framehold Dashboard показывает и изменяет только тек
 - Owner A cannot update Owner B's photograph by changing a POSTed object ID.
 - Owner A cannot delete Owner B's album.
 - Owner A cannot use Owner B's image as a cover.
+- Owner A cannot forge cover Photo ID outside Album membership.
 - Owner A cannot edit Owner B's theme settings.
 - Public Visitor cannot see drafts.
 - Public Visitor cannot see a suspended portfolio.

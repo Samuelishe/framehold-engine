@@ -79,6 +79,14 @@ Do not accept silently:
 - no-derivatives assets when adaptation or redistribution is required;
 - content copied only because it is publicly visible on the web.
 
+## No mandatory external asset services
+
+Built-in themes and core public UI should serve project assets locally, use locally bundled and properly licensed fonts/icons where needed, or use suitable system font stacks.
+
+They must not require Google Fonts, another third-party font service, public CDN JavaScript, analytics, trackers or communication with project-operated infrastructure.
+
+Operator-configured optional external services may be added later only as explicit choices and must be documented in operator privacy information.
+
 ## Reference screenshots
 
 Screenshots previously used during architecture discussion are visual references only. They must not be added to the repository or shipped with Framehold Engine unless license and redistribution rights are independently verified.

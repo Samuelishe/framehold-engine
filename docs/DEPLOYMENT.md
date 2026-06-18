@@ -76,3 +76,5 @@ The project must not promise immediate selective deletion from immutable backups
 ## Operator responsibility
 
 Each deployment operator is responsible for privacy information, Terms of Service, provider disclosure, retention periods, abuse contact, copyright/content complaints and legal operation of their instance.
+
+No external analytics, telemetry, public CDN, font service or phone-home behavior is required for ordinary gallery operation. If operator enables optional external services later, they must be disclosed in operator privacy information.

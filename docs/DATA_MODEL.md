@@ -38,11 +38,20 @@ MVP cardinality: User has zero or one Portfolio; Portfolio ownership and Site Ad
 - `moderation_state`
 - `discoverability`
 - `allow_search_indexing`
-- possible `original_access_policy`
+- possible `public_full_size_access_policy`
 - `created_at`
 - `updated_at`
 
 Назначение: публичная identity и presentation boundary одного Portfolio Owner.
+
+Accepted defaults:
+
+- `theme_key`: `minimal_justified`;
+- captions visible: true;
+- capture date visible: false;
+- EXIF visible: false;
+- listed by default;
+- `allow_search_indexing` true by default.
 
 MVP cardinality: Portfolio belongs to exactly one User; one User owns at most one Portfolio.
 
@@ -80,6 +89,9 @@ MVP cardinality: Portfolio belongs to exactly one User; one User owns at most on
 - `exif_data`
 - `exif_visibility_override`
 - `caption_visibility_override`
+- `capture_date_visibility_override`
+- `show_in_portfolio_gallery`
+- `portfolio_sort_order`
 - `publication_state`
 - `uploaded_by`
 - `created_at`
@@ -88,6 +100,8 @@ MVP cardinality: Portfolio belongs to exactly one User; one User owns at most on
 Photo belongs to Portfolio, not exclusively to one Album.
 
 MVP cardinality: one Photo corresponds to one Wagtail Image asset. Do not model multiple Photo records pointing to the same Wagtail Image in the MVP.
+
+Photo may exist without Album membership. New Photos default to appearing in the Portfolio gallery when they become published. Portfolio Owner can hide a Photo from main Portfolio gallery while keeping it in Albums.
 
 ## AlbumPhoto
 
@@ -111,8 +125,12 @@ Album and Photo use explicit AlbumPhoto relation. One Photo may appear in multip
 - `AlbumPhoto.album.portfolio` must match `AlbumPhoto.photo.portfolio`.
 - Another owner's Photo must not be usable as an Album cover.
 - Another owner's Wagtail Image asset must not be selectable in owner-facing flows.
+- `Album.cover_photo` is optional, must belong to the same Portfolio, and must be connected to that Album through AlbumPhoto.
 - Deleting Owner A must not delete or detach Owner B's data.
 - Reusing a Photo across albums must not duplicate the underlying image asset.
+- `portfolio_sort_order` controls main Portfolio gallery order.
+- `AlbumPhoto.sort_order` controls order inside a specific Album.
+- Switching themes must not rewrite Photo or AlbumPhoto order.
 - Some invariants require server-side validation and tests, not only database constraints.
 
 ## State axes
@@ -144,7 +162,8 @@ Distinctions:
 - `site_title`
 - `site_subtitle`
 - `registration_enabled`
-- possible `publication_approval_policy`
+- `publication_approval_policy` with MVP values `none` and `first_publication`; default `none`
+- possible `directory_enabled`, default true
 - `default_storage_quota`
 - global homepage configuration
 - global about/contact data
@@ -153,14 +172,31 @@ Distinctions:
 
 - User and public Portfolio identity are separate concepts.
 - Public URLs must not depend on authentication credentials.
+- Canonical Portfolio URL is `/portfolio/<portfolio_slug>/`.
+- Canonical Album URL is `/portfolio/<portfolio_slug>/albums/<album_slug>/`.
 - Theme selection belongs to Portfolio.
 - Theme code does not belong in the database.
 - Database stores only `theme_key` and validated `theme_settings`.
 
+## Owner-authored plain text
+
+MVP owner-authored fields are plain text:
+
+- `Portfolio.public_name`
+- `Portfolio.bio`
+- `Album.title`
+- `Album.description`
+- `Album.location`
+- `Photo.title`
+- `Photo.caption`
+- `Photo.alt_text`
+
+Line breaks may be preserved where appropriate. No owner-supplied HTML, raw Markdown rendering or rich-text editor in MVP.
+
 ## Open data model decisions
 
 - Exact publication states.
-- Exact public URL scheme: `/photographers/<slug>/`, `/portfolio/<slug>/` or another stable route.
+- Exact enum names for publication, moderation and discoverability states.
 - Exact storage quota and upload size limits.
 - Exact representation of email verification state.
 - Exact source original / public full-resolution asset / rendition representation.

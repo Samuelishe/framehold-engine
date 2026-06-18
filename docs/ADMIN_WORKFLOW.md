@@ -41,8 +41,8 @@ Planned flow:
 2. Account remains pending until email verification.
 3. Verified user chooses public display name.
 4. Verified user chooses Portfolio slug.
-5. Verified user selects initial curated theme.
-6. Initial Portfolio is created.
+5. Initial Portfolio is created using built-in safe default theme `minimal_justified`.
+6. Theme can be previewed and changed later.
 7. User enters Framehold Dashboard.
 
 ## Portfolio Owner content flow
@@ -53,6 +53,8 @@ Planned flow:
 - Create albums.
 - Add existing own photos to albums through AlbumPhoto.
 - Change album-specific photo order.
+- Manage main Portfolio gallery ordering separately from AlbumPhoto ordering.
+- Select optional Album cover from Photos already connected to that Album.
 - Select theme and configure validated theme settings.
 - Preview public presentation.
 - Publish/unpublish content subject to final publication policy.
@@ -79,8 +81,8 @@ Deletion and suspension are different operations:
 
 ## Publication workflow
 
-Default policy: first public publication requires Site Administrator approval. A verified Portfolio Owner may configure Portfolio, upload media and organize content privately before approval. After approval, the owner may publish/unpublish/update their own content unless Site Administrator suspends the Portfolio or enables stricter policy.
+Default `publication_approval_policy = none`: verified Portfolio Owner can publish/unpublish/update their own content without manual approval.
 
-Conceptual setting: `first_publication_requires_approval = true`.
+Optional `first_publication` policy: Portfolio Owner may configure and preview content privately, but first transition to public publication requires Site Administrator approval. After approval, the owner may publish/unpublish/update their own content without repeated approval.
 
-The policy should be configurable by the operator. It is a proportional anti-abuse measure because email verification does not prevent spam, illegal content, abuse or free image hosting.
+The policy should be configurable by the operator. Suspension remains an independent administrative action.

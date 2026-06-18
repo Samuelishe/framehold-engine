@@ -62,38 +62,49 @@ Stage 1 and Stage 2 are tightly coupled around custom User, PostgreSQL, settings
 - publication states;
 - discoverability settings.
 
-## Stage 5: Onboarding, ownership isolation, and moderation
+## Stage 5: Onboarding, ownership isolation, optional moderation, and public visibility predicates
 
 - create first Portfolio after verification;
 - owner scoping;
-- first-publication approval;
+- optional first-publication approval;
+- public visibility predicates;
 - suspension;
 - permission tests;
 - deletion isolation tests.
 
-## Stage 6: Framehold Dashboard
-
-- portfolio profile;
-- uploads;
-- albums;
-- photo ordering;
-- theme selection;
-- presentation settings;
-- Delete account and all data flow.
-
-## Stage 7: Private-source/public-delivery media design spike
+## Stage 6: Private-source/public-delivery media design spike
 
 - verify Wagtail Image/renditions constraints;
 - decide source/public storage boundary before real uploads.
 
-## Stage 8: Theme registry and first public theme
+## Stage 7: Theme registry foundation and built-in default theme
+
+- `minimal_justified`;
+- safe default and fallback behavior;
+- theme settings versioning;
+- preview direction;
+- safe rendering contract.
+
+## Stage 8: Framehold Dashboard
+
+- portfolio profile;
+- Photo management and upload after media design is accepted;
+- Album management;
+- Portfolio gallery ordering;
+- theme selection;
+- preview;
+- presentation settings;
+- Delete account and all data flow.
+
+## Stage 9: First public theme and public routes
 
 - Minimal Justified;
-- server-rendered public pages;
-- responsive behavior;
+- `/portfolio/<slug>/`;
+- Album route;
+- listed/unlisted behavior;
 - safe public contexts.
 
-## Stage 9: Media presentation
+## Stage 10: Media presentation
 
 - renditions;
 - viewer/lightbox;
@@ -103,17 +114,17 @@ Stage 1 and Stage 2 are tightly coupled around custom User, PostgreSQL, settings
 - captions and controlled EXIF;
 - public full-resolution access.
 
-## Stage 10: Second theme
+## Stage 11: Second theme and visual refinement
 
 - Classic Grid;
+- focal point/crop behavior;
 - theme contract validation;
-- focal point/crop workflow if needed.
 
-## Stage 11: Admin usability and public visual polish
+## Stage 12: Admin usability and public visual polish
 
 Improve Wagtail Admin usability for Site Administrator and polish public presentation after working flows exist.
 
-## Stage 12: Production deployment
+## Stage 13: Production deployment
 
 - Linux VPS, primarily Ubuntu or Debian-like server;
 - Docker Compose;
@@ -123,7 +134,7 @@ Improve Wagtail Admin usability for Site Administrator and polish public present
 - deletion-aware media cleanup;
 - operator privacy/legal pages.
 
-## Stage 13: Backup and restore
+## Stage 14: Backup and restore
 
 - PostgreSQL;
 - media;
@@ -131,14 +142,14 @@ Improve Wagtail Admin usability for Site Administrator and polish public present
 - deletion-aware restore behavior;
 - documented backup retention.
 
-## Stage 14: Release governance
+## Stage 15: Release governance
 
 - third-party notices audit;
 - license and attribution review;
 - README/license consistency check;
 - bundled asset provenance review.
 
-## Stage 15: Later improvements
+## Stage 16: Later improvements
 
 - Nocturne Mosaic;
 - Journal Feed;

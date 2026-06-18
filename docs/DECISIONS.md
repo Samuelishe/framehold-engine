@@ -61,7 +61,7 @@
 - Статус: Accepted.
 - Дата или этап: Stage 0.5.
 - Контекст: browser-visible images нельзя надежно защитить от копирования.
-- Решение: published photographs intentionally viewable/saveable. Framehold Engine не использует fake copy protection, context-menu blocking, transparent overlays, canvas-only hiding или DRM.
+- Решение: published photographs intentionally viewable/saveable. Public UI uses full-size terminology for public delivery assets and does not imply raw source original exposure. Framehold Engine не использует fake copy protection, context-menu blocking, transparent overlays, canvas-only hiding или DRM.
 - Последствия: media security фокусируется на защите unpublished/deleted/suspended content, а не на притворстве, что browser-visible images нельзя скопировать.
 - Supersedes / Superseded by: none.
 
@@ -70,7 +70,7 @@
 - Статус: Accepted as architectural direction, implementation unresolved.
 - Дата или этап: Stage 0.6.
 - Контекст: raw uploads могут содержать private metadata и не должны автоматически равняться public assets.
-- Решение: различать private source originals, public full-resolution assets и public renditions. Exact storage/delivery implementation остается открытым.
+- Решение: различать private source originals, public full-resolution assets и public renditions. Public full-resolution does not imply raw source exposure. Exact storage/delivery implementation остается открытым.
 - Последствия: metadata sanitization и draft-media protection нужно спроектировать до real uploads.
 - Supersedes / Superseded by: none.
 
@@ -100,3 +100,75 @@
 - Решение: production hosting expected to run on Linux in almost all cases, typically Ubuntu or a similar Debian-like server distribution.
 - Последствия: deployment docs, paths, service assumptions, scripts, reverse proxy setup, permissions, backup и runtime examples должны быть Linux-oriented. Windows остается supported development environment, но не main production target.
 - Supersedes / Superseded by: none.
+
+## DEC-012 — Trust-by-default publication
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.7.
+- Контекст: verified Portfolio Owner должен иметь простой путь публикации без ручного review по умолчанию.
+- Решение: default publication approval policy is `none`. Optional `first_publication` approval may be enabled explicitly by operator.
+- Последствия: verified Portfolio Owners publish independently by default. Suspension remains available to Site Administrator.
+- Supersedes / Superseded by: supersedes first-publication approval as default policy.
+
+## DEC-013 — Canonical public URL scheme
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.7.
+- Контекст: public identity должна быть стабильной и отделенной от authentication credentials.
+- Решение: use `/portfolio/<slug>/` for Portfolio and `/portfolio/<slug>/albums/<album-slug>/` for Album. `/portfolios/` is listed directory.
+- Последствия: public identity stays separate from authentication credentials and system route conflicts are reduced.
+- Supersedes / Superseded by: supersedes open URL scheme decision.
+
+## DEC-014 — Built-in default theme
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.7.
+- Контекст: onboarding не должен блокироваться выбором темы.
+- Решение: `minimal_justified` is non-removable safe default and fallback theme. Theme selection does not block onboarding.
+- Последствия: every Portfolio can render even with missing/invalid theme configuration.
+- Supersedes / Superseded by: supersedes mandatory initial theme selection during onboarding.
+
+## DEC-015 — Portfolio main gallery composition
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.7.
+- Контекст: Portfolio page должна поддерживать фотографии без обязательной привязки к Album.
+- Решение: Photo may appear directly in Portfolio gallery using portfolio-level visibility and ordering, independently of Album membership.
+- Последствия: Albums remain optional organizational/presentation entities. Album ordering remains separate through AlbumPhoto.
+- Supersedes / Superseded by: none.
+
+## DEC-016 — Plain-text Portfolio Owner content
+
+- Статус: Accepted for MVP.
+- Дата или этап: Stage 0.7.
+- Контекст: owner-authored rich text increases XSS and theme consistency risks.
+- Решение: Portfolio Owner-authored biography, descriptions, captions, titles, locations and alt text are plain text with template autoescaping.
+- Последствия: owner-supplied HTML/Markdown/rich text is not supported in MVP, reducing XSS and theme inconsistency.
+- Supersedes / Superseded by: none.
+
+## DEC-017 — Metadata presentation defaults
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.7.
+- Контекст: automatically extracted metadata can expose private information.
+- Решение: captions default visible; capture date and EXIF default hidden. Per-Photo inherit/show/hide overrides may be supported.
+- Последствия: automatically extracted metadata is not published without owner intent.
+- Supersedes / Superseded by: supersedes earlier ambiguous EXIF default wording.
+
+## DEC-018 — No mandatory telemetry or external asset services
+
+- Статус: Accepted.
+- Дата или этап: Stage 0.7.
+- Контекст: self-hosted instances should remain independent and privacy-friendly by default.
+- Решение: core Framehold Engine and built-in themes do not require telemetry, analytics, project phone-home services, external fonts or public CDNs.
+- Последствия: ordinary gallery operation does not depend on project infrastructure or third-party tracking services.
+- Supersedes / Superseded by: none.
+
+## DEC-019 — Two-phase account deletion
+
+- Статус: Accepted as lifecycle architecture.
+- Дата или этап: Stage 0.7.
+- Контекст: deletion must immediately remove public access while preserving enough ownership information for safe cleanup.
+- Решение: deletion first blocks access and removes public visibility, then an idempotent cleanup service removes media, domain data, account records and finally active User identity.
+- Последствия: partial file failures remain retryable without restoring public access or losing ownership information prematurely.
+- Supersedes / Superseded by: supersedes one-step deletion as conceptual model.

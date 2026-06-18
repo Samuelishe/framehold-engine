@@ -29,6 +29,7 @@ Each instance operator remains responsible for:
 - copyright complaints;
 - security incident response;
 - data-erasure handling.
+- optional analytics or external service disclosure when explicitly configured.
 
 ## Planned configurable pages
 
@@ -51,3 +52,4 @@ Do not claim that:
 - an as-is disclaimer replaces a privacy policy;
 - self-hosting automatically guarantees privacy compliance;
 - account deletion automatically satisfies all laws.
+- built-in themes secretly activate analytics, telemetry or external tracking.

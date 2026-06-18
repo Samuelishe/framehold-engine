@@ -18,7 +18,7 @@ User-facing action: **Delete account and all data**.
 6. Account enters deletion processing.
 7. Public access to the portfolio is removed immediately.
 8. Existing sessions and authentication tokens are revoked.
-9. All owned data is deleted.
+9. All owned data is deleted through the cleanup phase.
 10. User receives clear completion or pending-deletion result.
 
 Не требуется: звонить администратору, писать manual support email, заполнять legal form или объяснять reason for deletion.
@@ -72,6 +72,54 @@ Deletion must not affect another user's account, portfolio, media, or unrelated 
 - Cleanup must cover private source originals, public full-resolution assets and public renditions according to the final media architecture.
 - Deletion implementation must be covered by integration tests later.
 
+## Two-phase deletion workflow
+
+### Phase 1 — immediate lockout and public removal
+
+Within controlled database transaction or equivalent atomic state transition:
+
+- verify authentication and destructive confirmation;
+- protect the sole Site Administrator case;
+- set account state to `deletion_pending`;
+- record `deletion_requested_at` or equivalent lifecycle record;
+- make Portfolio unavailable publicly immediately;
+- block login;
+- block upload and editing operations;
+- revoke active sessions and applicable tokens;
+- return a clear result that deletion has started.
+
+### Phase 2 — idempotent cleanup
+
+A dedicated cleanup service later removes:
+
+- public full-resolution assets;
+- public renditions;
+- cached media under application control;
+- private source originals;
+- Wagtail Image assets owned exclusively by the Portfolio;
+- AlbumPhoto relations;
+- Photos;
+- Albums;
+- Portfolio;
+- theme settings;
+- verification/account records;
+- User after owned media cleanup has completed safely.
+
+Rules:
+
+- do not permanently delete User and domain ownership records before cleanup has enough information to identify owned files;
+- missing files are treated as already removed;
+- retrying cleanup is safe;
+- partial failure is recorded and observable;
+- account remains blocked and Portfolio remains non-public during retry;
+- cleanup can run synchronously for small installations;
+- cleanup may run through an idempotent management command;
+- future background worker may call the same service;
+- Celery is not required for MVP;
+- cleanup architecture must not depend on Celery;
+- deletion of Owner A must never affect Owner B;
+- final completion removes remaining active account identity according to chosen auth-package integration.
+
 ## Immediate behavior after confirmation
 
 - Portfolio becomes unavailable publicly.
@@ -119,6 +167,7 @@ The feature supports data-erasure and data-lifecycle requirements. It does not a
 - Deletion immediately unpublishes the portfolio.
 - Existing sessions become invalid.
 - User cannot log in after deletion begins.
+- Account state becomes `deletion_pending` during Phase 1.
 - Portfolio is removed.
 - Albums are removed.
 - Photos are removed.

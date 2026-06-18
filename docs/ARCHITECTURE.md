@@ -9,7 +9,8 @@
 - One domain Photo corresponds to one Wagtail Image asset in the MVP.
 - Custom Wagtail image model is not planned for initial implementation.
 - Preferred initial login direction: email-only login.
-- First public publication requires Site Administrator approval by default, configurable by operator.
+- Default publication approval policy is `none`; moderation is optional and operator-configured.
+- Canonical public routes: `/`, `/portfolios/`, `/portfolio/<portfolio_slug>/`, `/portfolio/<portfolio_slug>/albums/<album_slug>/`, `/accounts/`, `/dashboard/`, `/admin/`.
 - Production assumption: Linux VPS, typically Ubuntu or Debian-like server. Windows remains a supported development environment, not the production target.
 - Wagtail Admin reserved for Site Administrator and trusted staff.
 - Framehold Dashboard — custom Django UI для Portfolio Owners.
@@ -46,7 +47,7 @@ Trusted code-defined curated themes, registry, settings schema, capabilities, re
 
 ### Framehold Media Presentation
 
-Responsive renditions/previews, public viewer/lightbox, captions, alt text, dates, controlled EXIF и original media policy.
+Responsive renditions/previews, public viewer/lightbox, captions, alt text, dates, controlled EXIF и media delivery policy.
 
 Private source originals, public full-resolution assets and public renditions are separate concepts. Conceptual local filesystem direction: `private_media/sources/`, `public_media/full/`, `public_media/renditions/`.
 
@@ -61,6 +62,8 @@ AGPL project license, third-party notices, provenance of included assets, and se
 ### Framehold Public
 
 Theme-driven public pages, safe public querysets and rendered contexts containing only published, non-suspended content.
+
+Public visibility predicates are resolved by application/domain layers before rendering. Themes present prepared data and must not construct unrestricted queries.
 
 ### Framehold Config
 
@@ -87,6 +90,7 @@ Wagtail Admin remains reserved for Site Administrator and explicitly trusted sta
 - Do not let public pages query drafts accidentally.
 - Do not let Portfolio Owners edit another portfolio.
 - Do not let templates query unrestricted global Photo or Album collections.
+- Do not let themes implement publication policy, moderation checks or media authorization.
 - Do not hardcode real private data into seed/demo fixtures.
 - Do not allow arbitrary user-supplied theme code in MVP.
 - Do not render raw EXIF publicly.
@@ -95,11 +99,11 @@ Wagtail Admin remains reserved for Site Administrator and explicitly trusted sta
 - Do not use fake DRM or copy-protection controls as a security feature.
 - Avoid Windows-specific production assumptions, case-insensitive filesystem assumptions and backslash-only paths.
 - Do not edit canonical `LICENSE` text or insert third-party notices into it.
+- Do not require mandatory telemetry, analytics, phone-home behavior, external fonts or public CDN services.
 
 ## Open implementation decisions
 
 - Exact publication states.
-- Canonical public URL scheme.
 - Exact authentication package.
 - Exact quotas and upload limits.
 - Exact private-source/public-delivery media storage implementation.

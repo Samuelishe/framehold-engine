@@ -32,9 +32,9 @@ Conceptual local filesystem direction:
 
 Do not implement these folders until media architecture is reviewed.
 
-## Original access
+## Public full-size access
 
-Published photograph may expose Open original or Download original. Direct URL to a published full-size image is acceptable. Exact original-download controls may later be configurable at Portfolio or Photo level.
+Published photograph may expose Open full size or Download full size. Direct URL to a published full-size image is acceptable. Exact full-size controls may later be configurable at Portfolio or Photo level.
 
 Do not use fake copy protection, browser context-menu disabling, transparent overlays, canvas-only rendering to hide sources, deliberate URL hiding or DRM.
 
@@ -65,15 +65,15 @@ EXIF visibility должен быть opt-in или явно configurable.
 
 GPS coordinates не отображаются по умолчанию. Raw EXIF JSON нельзя рендерить напрямую.
 
-Hiding EXIF in UI does not remove embedded metadata from downloadable files. If raw uploaded source is public, embedded GPS and EXIF may also become downloadable. Raw source-original exposure, if ever allowed, must be an explicit dangerous option with a warning. Final source-original/public-original policy must address metadata sanitization.
+Hiding EXIF in UI does not remove embedded metadata from downloadable files. If raw uploaded source is public, embedded GPS and EXIF may also become downloadable. Raw source-original exposure, if ever allowed, must be an explicit dangerous option with a warning. Final source-original/public-delivery policy must address metadata sanitization.
 
 ## Presentation defaults and overrides
 
 Portfolio defaults:
 
 - show captions;
-- show capture date;
-- show EXIF.
+- hide capture date;
+- hide EXIF.
 
 Per-photo override:
 
@@ -82,6 +82,16 @@ Per-photo override:
 - hide.
 
 Advanced EXIF exploration остается later feature, но basic controlled metadata presentation входит в planned product.
+
+Empty caption displays nothing. Capture date may be extracted or entered but is not displayed unless enabled. EXIF may be extracted and stored but is not displayed unless enabled. GPS is not part of ordinary public EXIF display.
+
+## Common viewer contract
+
+The public viewer/lightbox is one application-level behavior shared across themes. Themes may control visual style, colors, typography, spacing, panel placement and button presentation.
+
+Application-level viewer logic controls open/close behavior, Escape, backdrop close, previous/next navigation, keyboard support, swipe behavior, focus trap, focus restoration, scroll locking, browser/system back integration where applicable, fullscreen request, reduced-motion behavior, media authorization, accessible labels and control semantics.
+
+Each theme must not implement an unrelated viewer engine.
 
 ## Desktop viewer behavior
 
@@ -131,7 +141,7 @@ Advanced EXIF exploration остается later feature, но basic controlled 
 - Failed/partial uploads не должны создавать broken public entries.
 - Original files не используются как ordinary grid thumbnails.
 - Responsive renditions/previews должны генерироваться.
-- Public access to originals — отдельная deliberate policy.
+- Public full-size access — отдельная deliberate policy.
 - Hidden/draft media не считаются private только потому, что на них нет ссылок.
 - Media URL и storage access policy требуют отдельного review.
 - GPS metadata не должна утекать случайно.

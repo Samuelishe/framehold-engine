@@ -91,11 +91,16 @@ Publicly registered and email-verified user who owns one Portfolio in the MVP.
 
 ## First-publication moderation
 
-Default policy: verified Portfolio Owner may create and configure Portfolio, upload and organize content privately, but first public publication requires Site Administrator approval. After approval, owner can publish/unpublish/update their content without manual approval unless Site Administrator suspends the Portfolio or enables stricter policy.
+Default policy: verified Portfolio Owner may publish independently. Manual approval is not required unless operator configures moderation.
 
-Conceptual setting: `first_publication_requires_approval = true`.
+Conceptual setting: `publication_approval_policy`.
 
-Reason: email verification does not prevent spam, illegal content, abuse or use of the server as free image hosting. This is a proportional anti-abuse measure without CAPTCHA/SMS/enterprise identity complexity in MVP.
+Supported MVP values:
+
+- `none` — default; no manual approval required.
+- `first_publication` — first transition to public publication requires Site Administrator approval.
+
+Possible `always` moderation is future-only. Approval is not publication. Suspension is not rejection. Publication policy must not be hidden inside theme code or frontend checks.
 
 ## Ownership isolation
 

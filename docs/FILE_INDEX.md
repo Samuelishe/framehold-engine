@@ -16,6 +16,7 @@
 - `docs/README.md` — карта документации.
 - `docs/PROJECT_STATE.md` — текущее состояние проекта и следующие архитектурные вопросы.
 - `docs/PRODUCT_VISION.md` — продуктовая цель, роли, non-social positioning и первые пользователи.
+- `docs/PRODUCT_PRINCIPLES.md` — принципы принятия продуктовых и архитектурных решений.
 - `docs/REQUIREMENTS.md` — требования к регистрации, dashboard, ownership, темам, media и MVP.
 - `docs/ARCHITECTURE.md` — архитектурные области, границы Dashboard/Admin и открытые решения.
 - `docs/DECISIONS.md` — компактный журнал принятых архитектурных решений.

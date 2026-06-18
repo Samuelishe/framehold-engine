@@ -10,11 +10,13 @@
 - Предоставить Framehold Dashboard для Portfolio Owners.
 - Поддерживать создание, редактирование и публикацию Portfolio, Album и Photo.
 - Поддерживать AlbumPhoto relation для сортировки фотографий внутри альбома.
+- Поддерживать Photo directly in Portfolio main gallery without Album membership.
+- Поддерживать optional Album cover with same-Portfolio and AlbumPhoto membership rules.
 - Поддерживать curated theme selection и safe theme settings.
 - Поддерживать public viewer/lightbox across themes.
 - Поддерживать controlled captions, capture dates, alt text и allowlisted EXIF.
 - Поддерживать account/portfolio suspension Site Administrator.
-- Поддерживать first-publication approval by Site Administrator by default.
+- Поддерживать optional operator-configured moderation.
 - Поддерживать public-but-unlisted Portfolio discoverability.
 - Поддерживать self-service Delete account and all data.
 - Поддерживать public published-image saveability without fake DRM.
@@ -97,9 +99,27 @@
 
 - Verified Portfolio Owner may create and configure Portfolio.
 - Owner may upload and organize content privately.
-- First public publication requires Site Administrator approval by default.
+- Default `publication_approval_policy` is `none`: no manual approval is required.
+- Optional `first_publication` policy may require Site Administrator approval for first public publication.
 - After approval, owner may publish/unpublish/update own content unless suspended or stricter policy is enabled.
 - Operator should be able to configure the policy.
+
+Possible `always` moderation is a future extension, not an MVP requirement.
+
+When moderation is disabled, moderation state may be `not_required`, `not_applicable` or another implementation-neutral equivalent.
+
+## Public URL requirements
+
+- `/` is operator-managed instance homepage.
+- `/portfolios/` is directory of listed public Portfolios when enabled.
+- `/portfolio/<portfolio_slug>/` is canonical public Portfolio URL.
+- `/portfolio/<portfolio_slug>/albums/<album_slug>/` is canonical public Album URL.
+- `/accounts/` is for registration, verification, login, logout and password reset.
+- `/dashboard/` is Framehold Dashboard.
+- `/admin/` is Wagtail Admin.
+- Portfolio URL never depends on User.email or authentication credentials.
+- `/photographers/<slug>/` is not the accepted canonical route.
+- Separate public Photo detail page is not part of MVP.
 
 ## Media and upload requirements
 
@@ -111,12 +131,21 @@
 - Maximum file size and pixel/decompression limits required.
 - Per-account or per-portfolio storage quota required.
 - Responsive renditions/previews generated.
-- Public access to originals is a deliberate policy decision.
+- Public full-size access is a deliberate policy decision.
 - Private source originals and public delivery assets are separate concepts.
 - GPS metadata must not leak accidentally.
 - Draft, hidden, suspended and deleted media must not become public merely because a URL is known.
 - A public `/media/` directory must not accidentally expose every uploaded source file.
-- Public original/download controls may be configurable later.
+- Public full-size controls may be configurable later.
+
+## Owner-authored text requirements
+
+- Portfolio Owner-authored fields are plain text in MVP.
+- No owner-supplied HTML.
+- No raw Markdown rendering.
+- No rich-text editor for owner content in MVP.
+- EXIF strings and filenames are untrusted text.
+- Site Administrator-controlled global CMS pages may use controlled Wagtail RichText.
 
 ## Account deletion requirements
 
@@ -164,6 +193,23 @@
 - Minimal Justified public theme.
 - Renditions and common viewer/lightbox.
 
+## MVP vertical slice
+
+Working MVP means:
+
+1. Visitor registers.
+2. Visitor verifies email.
+3. User creates Portfolio with public name and slug.
+4. Safe default theme is assigned automatically.
+5. Owner uploads a supported photograph when media upload is implemented.
+6. Owner adds optional caption and alt text.
+7. Owner publishes without mandatory approval under default policy.
+8. Public Portfolio is available at `/portfolio/<slug>/`.
+9. Public Visitor opens the gallery.
+10. Public Visitor opens the common viewer and may open/save the public full-size asset.
+11. Owner can unpublish content.
+12. Owner can initiate Delete account and all data.
+
 ## Out of scope for early versions
 
 - Visitor comments, likes, follows, activity feeds, DMs, ratings.
@@ -175,3 +221,4 @@
 - Collaborators.
 - S3/R2 as initial storage.
 - Data export before deletion.
+- Mandatory moderation.

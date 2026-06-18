@@ -13,6 +13,7 @@
 
 - `docs/PROJECT_STATE.md`
 - `docs/PRODUCT_VISION.md`
+- `docs/PRODUCT_PRINCIPLES.md`
 - `docs/ARCHITECTURE.md`
 - `docs/ROADMAP.md`
 - `docs/CODING_RULES.md`
@@ -87,6 +88,7 @@
 - Когда меняется принятое архитектурное решение, обновлять `docs/DECISIONS.md` и затронутые topic docs.
 - Когда меняется архитектура, обновлять `docs/ARCHITECTURE.md`.
 - Когда меняется направление продукта, обновлять `docs/PRODUCT_VISION.md`.
+- Когда меняются product principles, обновлять `docs/PRODUCT_PRINCIPLES.md` и `docs/DECISIONS.md`, если затронуто принятое решение.
 - Когда меняются требования, обновлять `docs/REQUIREMENTS.md`.
 - Когда меняются регистрация, аккаунты, email verification или onboarding, обновлять `docs/REGISTRATION_AND_ACCOUNTS.md`.
 - Когда меняются ownership isolation или server-side scoping, обновлять `docs/OWNERSHIP_AND_ISOLATION.md`.
@@ -96,7 +98,7 @@
 - Когда меняется workflow Site Administrator или Portfolio Owner, обновлять `docs/ADMIN_WORKFLOW.md`.
 - Когда меняется theme system, theme registry или responsive contract, обновлять `docs/THEME_SYSTEM.md` и `docs/UI_DESIGN.md`.
 - Когда меняются viewer/lightbox, captions, EXIF или media policy, обновлять `docs/MEDIA_PRESENTATION.md`.
-- Когда меняется media access, public originals, copyright notice или user-content rights, обновлять `docs/CONTENT_RIGHTS_AND_MEDIA_ACCESS.md`.
+- Когда меняется media access, public full-size delivery, copyright notice или user-content rights, обновлять `docs/CONTENT_RIGHTS_AND_MEDIA_ACCESS.md`.
 - Когда меняются стек или решения по зависимостям, обновлять `docs/TECH_STACK.md`.
 - Когда меняются предположения по деплою, обновлять `docs/DEPLOYMENT.md`.
 - Когда меняются предположения по безопасности, обновлять `docs/SECURITY_NOTES.md`.
@@ -122,5 +124,6 @@
 - Нельзя изменять canonical `LICENSE` text вручную и нельзя добавлять в него third-party notices.
 - User-content rights должны оставаться отдельными от software licensing.
 - Fake DRM/copy-protection work запрещен без явного изменения product direction.
+- Mandatory telemetry, analytics, phone-home behavior, required external CDNs/fonts или hidden tracking запрещены без явного product decision.
 - Нельзя утверждать legal compliance без доказательной базы и выбранной operational policy.
 - Публичный frontend держать кастомным и визуально не связанным с дефолтным видом CMS/admin.

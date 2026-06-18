@@ -37,7 +37,7 @@ Conceptual local filesystem direction:
 
 ## Public access direction
 
-A published photograph may expose an explicit Open original or Download original action. A direct URL to a published full-size image is acceptable. Exact original-download controls may be configurable at Portfolio or Photo level later.
+A published photograph may expose an explicit Open full size or Download full size action. A direct URL to a published full-size image is acceptable. Exact full-size controls may be configurable at Portfolio or Photo level later.
 
 The fact that a photograph is downloadable does not grant permission to reuse or redistribute it.
 
@@ -70,7 +70,7 @@ Before real uploads, create a small technical prototype or architecture spike fo
 
 Hiding EXIF in the UI does not remove metadata embedded in a downloadable source file. If the raw uploaded source is made public, embedded GPS and other EXIF may also become downloadable.
 
-The final source-original/public-original policy must explicitly address metadata sanitization. Raw GPS must not leak accidentally.
+The final source-original/public-delivery policy must explicitly address metadata sanitization. Raw GPS must not leak accidentally.
 
 ## Copyright and user content
 

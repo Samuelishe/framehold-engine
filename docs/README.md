@@ -4,6 +4,7 @@
 
 - `PROJECT_STATE.md` — текущее состояние проекта, что реализовано, что только запланировано и какие архитектурные вопросы нужно решить следующими.
 - `PRODUCT_VISION.md` — продуктовая рамка: multi-user, multi-portfolio engine, premium portfolio presentation и явные social non-goals.
+- `PRODUCT_PRINCIPLES.md` — принципы принятия продуктовых и архитектурных решений.
 - `REQUIREMENTS.md` — функциональные и нефункциональные требования, включая регистрацию, dashboard, ownership, темы, media viewer и upload safety.
 - `ARCHITECTURE.md` — архитектурное направление, логические зоны системы, границы Framehold Dashboard и Wagtail Admin.
 - `DECISIONS.md` — компактный журнал принятых архитектурных решений.

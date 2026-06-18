@@ -14,7 +14,7 @@
 - Высококачественные previews/renditions.
 - Captions and metadata near photographs when enabled.
 - Common viewer/lightbox across themes.
-- Clear Open original / Download original controls when enabled.
+- Clear Open full size / Download full size controls when enabled.
 - Clear visibility controls for public/listed/unlisted semantics where applicable.
 - No visitor comments, likes, follows or activity feed.
 
@@ -60,6 +60,10 @@ Framehold Dashboard settings must include a clear danger-zone flow for Delete ac
 ## Public-but-unlisted UX
 
 UI should explain that unlisted means "available by direct link, hidden from public indexes" and not "private". It must not present unlisted mode as access control.
+
+## Metadata defaults
+
+UI defaults: captions visible, capture date hidden, EXIF hidden. Empty caption displays nothing. Capture date and EXIF require explicit owner enablement.
 
 ## Что важно не делать
 

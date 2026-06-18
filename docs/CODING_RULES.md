@@ -47,6 +47,16 @@
 - Unknown theme settings must not be executed.
 - Changing a theme must not mutate Album or Photo data.
 - Themes must not control authorization, ownership, authentication, publication policy or access to drafts.
+- Themes receive prepared safe context/view-model data and do not perform unrestricted queries.
+- Built-in themes must not require external fonts, public CDNs, analytics, telemetry or phone-home behavior.
+
+## Owner-authored text
+
+- Portfolio Owner-authored fields are plain text in MVP.
+- Do not render owner-supplied HTML or raw Markdown.
+- Do not disable Django template autoescaping for owner content.
+- EXIF strings and filenames are untrusted text.
+- Theme templates must not mark owner content safe.
 
 ## Media and EXIF
 
