@@ -2,7 +2,9 @@
 
 ## Статус
 
-Публичная регистрация с обязательным подтверждением email — принятое продуктовое требование Framehold Engine. Реализации пока нет.
+Публичная регистрация с обязательным подтверждением email — принятое продуктовое требование Framehold Engine.
+
+Foundation уже содержит custom email-only `accounts.User` и django-allauth configuration. Реальные registration/login/password-reset страницы, email verification UX, onboarding и account lifecycle workflows еще не реализованы.
 
 ## Ожидаемый signup flow
 

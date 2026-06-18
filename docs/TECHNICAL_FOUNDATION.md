@@ -4,7 +4,9 @@
 
 Этот документ фиксирует implementation contract для первого Django/Wagtail foundation milestone. `TECH_STACK.md` описывает технологии и причины выбора; этот документ описывает, как именно Stage 1/2 должны быть инициализированы.
 
-Реализация пока не создана: нет `manage.py`, `pyproject.toml`, `uv.lock`, `.python-version`, Django apps, migrations, Docker files или dependency installation.
+Stage 1/2 foundation реализован: созданы `manage.py`, `pyproject.toml`, `uv.lock`, `.python-version`, Django/Wagtail project, `apps.accounts`, `apps.sitecontent`, split settings, initial migrations, `compose.dev.yml`, Ruff/pytest tooling and foundation tests.
+
+Фактическая реализация остается foundation-only: Portfolio, Album, Photo, AlbumPhoto, Framehold Dashboard, public portfolio routes, themes, uploads, account deletion, production Docker infrastructure and media storage implementation не созданы.
 
 ## Runtime versions
 
@@ -12,13 +14,15 @@
 
 Принятый runtime: CPython 3.14 series.
 
-Future `pyproject.toml`:
+Фактически используется локальный CPython 3.14.0 через uv-managed `.venv`.
+
+`pyproject.toml`:
 
 ```toml
 requires-python = ">=3.14,<3.15"
 ```
 
-Future `.python-version`:
+`.python-version`:
 
 ```text
 3.14
@@ -44,6 +48,8 @@ Initial constraint:
 Django>=5.2.15,<5.3
 ```
 
+Resolved version: Django 5.2.15.
+
 Правила:
 
 - при реализации использовать latest available security/bugfix patch из Django 5.2 LTS;
@@ -64,6 +70,8 @@ Initial constraint:
 ```text
 wagtail>=7.4.2,<7.5
 ```
+
+Resolved version: Wagtail 7.4.2.
 
 Правила:
 
@@ -93,7 +101,7 @@ Wagtail не должен тихо становиться Portfolio Owner dashbo
 
 Framehold Engine — deployable web application, не Python library для PyPI.
 
-Future uv project direction:
+Реализованный uv project direction:
 
 - root `pyproject.toml`;
 - `requires-python = ">=3.14,<3.15"`;
@@ -147,6 +155,16 @@ Accepted initial direct runtime dependency set:
 
 `django-environ` принят для typed environment-variable access, `DATABASE_URL` parsing, optional local `.env` loading и strict required settings. Custom environment parser не нужен.
 
+Resolved direct runtime dependencies:
+
+- Django 5.2.15
+- Wagtail 7.4.2
+- django-allauth 65.18.0
+- django-environ 0.13.0
+- psycopg 3.3.4 with psycopg-binary 3.3.4
+
+Wagtail транзитивно добавил Pillow, djangorestframework and other dependencies; они не являются direct Framehold dependencies.
+
 ## django-allauth direction
 
 Принятый package: django-allauth regular account package.
@@ -156,6 +174,8 @@ Initial constraint:
 ```text
 django-allauth>=65.18.0,<66
 ```
+
+Resolved version: django-allauth 65.18.0.
 
 Использовать только:
 
@@ -180,7 +200,7 @@ django-allauth>=65.18.0,<66
 
 ## Accepted django-allauth settings direction
 
-Future settings:
+Implemented settings:
 
 ```python
 ACCOUNT_LOGIN_METHODS = {"email"}
@@ -220,9 +240,9 @@ ACCOUNT_CHANGE_EMAIL = True
 - django-allauth token/HMAC mechanisms не заменяются custom cryptography;
 - exact email templates и UI styling относятся к accounts implementation stage.
 
-Authentication backends позже должны включать Django `ModelBackend` и django-allauth `AuthenticationBackend`.
+Authentication backends включают Django `ModelBackend` и django-allauth `AuthenticationBackend`.
 
-Required middleware позже должен включать `allauth.account.middleware.AccountMiddleware`.
+Required middleware включает `allauth.account.middleware.AccountMiddleware`.
 
 Account routes используют `/accounts/`.
 
@@ -311,7 +331,7 @@ Email normalization:
 AUTH_USER_MODEL = "accounts.User"
 ```
 
-User model должен быть создан в `apps/accounts/migrations/0001_initial.py`.
+User model создан в `apps/accounts/migrations/0001_initial.py`.
 
 Не помещать Portfolio или any Portfolio-dependent model в accounts initial migration.
 
@@ -360,6 +380,8 @@ Initial Python dependency: `psycopg[binary]`.
 - changing driver variant must not change domain code.
 
 Exact future Docker image tag remains implementation detail, but major series is PostgreSQL 18.
+
+Фактическая development image: `postgres:18.4-bookworm`. Проверенная версия сервера: PostgreSQL 18.4. Volume смонтирован в PostgreSQL 18-compatible path `/var/lib/postgresql`.
 
 ## Settings structure
 
@@ -433,7 +455,7 @@ Rules:
 - no Windows-only paths;
 - no secrets in source.
 
-Future `manage.py` default: `framehold.settings.dev`.
+`manage.py` default: `framehold.settings.dev`.
 
 Production explicitly sets `DJANGO_SETTINGS_MODULE=framehold.settings.prod`.
 
@@ -441,7 +463,7 @@ Tests explicitly use `framehold.settings.test`.
 
 ## Environment configuration
 
-Future variables conceptually:
+Implemented variables in `.env.example`:
 
 Core:
 
@@ -470,7 +492,7 @@ PostgreSQL Compose support may also use:
 
 Rules:
 
-- `.env.example` will contain safe placeholders only;
+- `.env.example` содержит safe development placeholders only;
 - real `.env` remains ignored;
 - production may use environment variables или externally mounted secret file supported by deployment;
 - OS environment values take precedence over local `.env`;
@@ -487,7 +509,7 @@ Initial local workflow:
 - launched/debugged from PyCharm Professional or terminal;
 - database runs in Docker Compose.
 
-Future file: `compose.dev.yml`.
+Implemented file: `compose.dev.yml`.
 
 Initial Compose scope:
 
@@ -514,7 +536,7 @@ Fully containerized web service may be introduced later if it provides real valu
 
 ## Initial project layout
 
-Accepted planned root structure:
+Implemented root structure:
 
 ```text
 framehold-engine/
@@ -550,11 +572,11 @@ Initial apps:
 
 1. `apps.accounts`
 
-Create during foundation. Responsibilities: custom User, custom User manager, minimal admin/Wagtail compatibility, future auth/account lifecycle integration.
+Created during foundation. Responsibilities: custom User, custom User manager, minimal admin/Wagtail compatibility, future auth/account lifecycle integration.
 
 2. `apps.sitecontent`
 
-Create during foundation only if required for minimal Wagtail root/home-page structure. Responsibilities: operator-managed global CMS content, minimal HomePage if needed, future About/Contact/legal pages.
+Created during foundation for minimal Wagtail root/home-page structure. Responsibilities: operator-managed global CMS content, minimal HomePage, future About/Contact/legal pages.
 
 It must not contain Portfolio, Album, Photo, owner Dashboard logic or account logic.
 
@@ -670,7 +692,7 @@ Do not add initially:
 
 Reason: Ruff covers initial formatting/import/lint needs. pytest-django provides focused Django test support. Static typing infrastructure can be added after real domain code stabilizes. Duplicate formatters/linters create unnecessary conflict.
 
-Future development dependency group conceptually contains:
+Development dependency group contains:
 
 - `ruff`
 - `pytest`
@@ -739,15 +761,16 @@ Forbidden ordering:
 - do not add Portfolio models to User migration;
 - do not create real user data in migrations.
 
-Custom User must appear in first migration of accounts app.
+This order was followed for Stage 1/2. Custom User appears in `apps/accounts/migrations/0001_initial.py`; first migrations were applied to PostgreSQL, not SQLite.
 
 ## Planned foundation validation commands
 
-Do not run these commands in this documentation task. The implementation task is expected to run them.
+Stage 1/2 validation ran these commands.
 
 Environment/dependencies:
 
 - `python --version`
+- `py -3.14 --version`
 - `uv --version`
 - `uv lock --check`
 - `uv sync --locked`
@@ -779,18 +802,20 @@ Compose:
 - PostgreSQL readiness check;
 - `docker compose -f compose.dev.yml down`
 
+Observed production deploy-check warnings remaining after temporary valid environment values:
+
+- `security.W004`: `SECURE_HSTS_SECONDS` intentionally remains unset until final HTTPS/reverse proxy policy.
+- `security.W008`: `SECURE_SSL_REDIRECT` intentionally remains unset until final reverse proxy deployment policy.
+
 ## Dependency and license governance
 
-Packages named here are accepted planned direct dependencies, but they are not yet installed or bundled.
+Direct dependencies are now installed and locked by uv.
 
 Therefore:
 
-- do not claim they are currently included;
-- do not add invented resolved versions;
-- do not populate `THIRD_PARTY_NOTICES.md` as though implementation already exists;
-- do not copy third-party license texts yet without verified requirement;
-- foundation implementation must verify direct dependency names, versions, upstream URLs and licenses;
-- after dependencies are actually added, update `THIRD_PARTY_NOTICES.md` where required by repository policy;
+- `THIRD_PARTY_NOTICES.md` now lists verified direct runtime dependencies and development tools;
+- do not copy third-party license texts without verified requirement;
+- dependency changes must verify direct dependency names, versions, upstream URLs and licenses;
 - uv and Ruff are development tools, not Framehold runtime services;
 - transitive dependencies remain under their own licenses;
 - no proprietary dependency is accepted.

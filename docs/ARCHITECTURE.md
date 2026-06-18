@@ -2,12 +2,12 @@
 
 ## Базовое направление
 
-- Основа проекта: Django/Wagtail.
+- Основа проекта: Django/Wagtail; Stage 1/2 foundation реализован.
 - Runtime foundation: CPython 3.14, Django 5.2 LTS, Wagtail 7.4 LTS.
-- Dependency management: uv with root `pyproject.toml`, committed `uv.lock`, `.python-version` and project-local `.venv`.
-- Custom Django User model должен быть создан с самого начала, до первых permanent application migrations.
-- Accepted custom User contract: `apps.accounts`, `accounts.User(AbstractUser)`, no `username`, unique normalized email as `USERNAME_FIELD`.
-- Account flows use django-allauth regular accounts with `allauth` and `allauth.account` only.
+- Dependency management implemented with uv, root `pyproject.toml`, committed `uv.lock`, `.python-version` and project-local `.venv`.
+- Custom Django User model создан с самого начала, до первых permanent application migrations.
+- Implemented custom User contract: `apps.accounts`, `accounts.User(AbstractUser)`, no `username`, unique normalized email as `USERNAME_FIELD`.
+- django-allauth foundation uses `allauth` and `allauth.account` only.
 - Portfolio и Album являются regular Django domain models в принятой initial architecture.
 - Photo является Framehold domain model and references the standard Wagtail Image model initially.
 - One domain Photo corresponds to one Wagtail Image asset in the MVP.
@@ -19,20 +19,20 @@
 - Wagtail Admin reserved for Site Administrator and trusted staff.
 - Framehold Dashboard — custom Django UI для Portfolio Owners.
 - Кастомная доменная логика Portfolio, Album, Photo и AlbumPhoto должна жить в Django apps.
-- PostgreSQL 18 — primary DB. Psycopg 3 with `psycopg[binary]` is initial driver direction.
+- PostgreSQL 18 — primary DB. Psycopg 3 with `psycopg[binary]` is implemented for foundation.
 - No SQLite fallback in dev, test or production settings.
 - Public frontend на первом этапе server-rendered.
 - Tailwind — основной styling layer.
 - Alpine.js или HTMX допускаются только для локальной интерактивности.
 - PhotoSwipe или аналогичный viewer/lightbox планируется для media presentation.
 - Local filesystem media storage first; S3-compatible storage later.
-- Initial development Compose planned as database-only `compose.dev.yml` with PostgreSQL `db`; production Docker Compose planned later.
+- Initial development Compose implemented as database-only `compose.dev.yml` with PostgreSQL `db`; production Docker Compose planned later.
 
 ## Logical areas
 
 ### Framehold Accounts
 
-Custom User, django-allauth account flows, email-only/password login, public registration, email verification, login/logout, password reset, onboarding, account states, suspension and deletion.
+Custom User and django-allauth foundation configuration are implemented. Public registration UX, email verification flow, login/logout, password reset, onboarding, account states, suspension and deletion remain later stages.
 
 ### Framehold Portfolio
 
@@ -76,7 +76,7 @@ SiteSettings: registration enabled, publication approval policy, storage quota d
 
 ### Deployment/Runtime Layer
 
-uv project metadata, split settings, environment variables, PostgreSQL 18, database-only development Compose, containers later, reverse proxy, media volume, email infrastructure, backups and runtime configuration.
+uv project metadata, split settings, environment variables, PostgreSQL 18 and database-only development Compose are implemented. Containers later, reverse proxy, media volume, production email infrastructure, backups and runtime configuration remain later stages.
 
 ## Framehold Dashboard versus Wagtail Admin
 

@@ -25,38 +25,37 @@ Initial documentation foundation.
 - Linux production assumption;
 - repository formatting rules.
 
-## Stage 1: Technical foundation implementation
+## Stage 1: Technical foundation implementation — implemented
 
-- initialize uv application project;
-- create `pyproject.toml`;
-- create `uv.lock`;
-- create `.python-version`;
-- install selected runtime/dev dependencies;
-- scaffold Django/Wagtail;
-- create `apps.accounts` custom User;
-- create minimal `apps.sitecontent` only if required for Wagtail root/global CMS;
-- configure Wagtail Admin;
-- do not migrate yet until PostgreSQL/settings are ready.
+- initialized uv application project;
+- created `pyproject.toml`;
+- created `uv.lock`;
+- created `.python-version`;
+- installed selected runtime/dev dependencies;
+- scaffolded/adapted Django/Wagtail foundation;
+- created `apps.accounts` custom User;
+- created minimal `apps.sitecontent` for Wagtail root/global CMS;
+- configured Wagtail Admin.
 
 Selected foundation stack: CPython 3.14, Django 5.2 LTS, Wagtail 7.4 LTS, django-allauth regular accounts, django-environ, PostgreSQL 18, Psycopg 3, Ruff and pytest.
 
 Stage 1 and Stage 2 are tightly coupled around custom User, PostgreSQL, settings and first migrations.
 
-## Stage 2: Environment foundation and initial migrations
+## Stage 2: Environment foundation and initial migrations — implemented
 
 - split settings: `base/dev/test/prod`;
 - django-environ;
 - `.env.example`;
 - PostgreSQL 18 via `compose.dev.yml`;
 - Psycopg 3;
-- development email backend;
+- development console email backend;
 - test settings;
-- first PostgreSQL migrations only after custom User is configured;
-- email-based superuser;
+- first PostgreSQL migrations after custom User was configured;
+- email-based superuser validation;
 - Wagtail Admin smoke test;
 - Ruff/pytest checks.
 
-Stage 1 and Stage 2 may be implemented in one tightly scoped Codex task because migration ordering crosses both stages.
+Stage 1 and Stage 2 were implemented in one tightly scoped task because migration ordering crossed both stages.
 
 ## Stage 3: Accounts foundation
 

@@ -4,7 +4,7 @@
 
 ### Python 3.14
 
-Accepted runtime: CPython 3.14 series. Future metadata uses `requires-python = ">=3.14,<3.15"` and `.python-version` contains `3.14`.
+Accepted runtime: CPython 3.14 series. Metadata uses `requires-python = ">=3.14,<3.15"` and `.python-version` contains `3.14`. Local foundation validation used CPython 3.14.0.
 
 Use latest stable Python 3.14 patch available. Do not use Python 3.15 pre-release, free-threaded CPython baseline, or Python 3.10-3.13 support matrix in initial metadata.
 
@@ -13,6 +13,8 @@ Use latest stable Python 3.14 patch available. Do not use Python 3.15 pre-releas
 Accepted initial framework branch: Django 5.2 LTS.
 
 Initial constraint direction: `Django>=5.2.15,<5.3`.
+
+Resolved foundation version: Django 5.2.15.
 
 Django provides server-side ORM, migrations, auth, sessions, password hashing, forms and security mechanisms. Do not select Django 6.0 for foundation.
 
@@ -28,6 +30,8 @@ Initial implementation uses the standard Wagtail Image model referenced by Frame
 
 Accepted package: `django-allauth>=65.18.0,<66`.
 
+Resolved foundation version: django-allauth 65.18.0.
+
 Use only `allauth` and `allauth.account` in foundation. Do not enable `allauth.socialaccount`, social providers, MFA, headless API, magic-code login, phone auth, WebAuthn or JWT flows without separate decision.
 
 ### Wagtail 7.4 LTS
@@ -36,11 +40,13 @@ Accepted initial Wagtail branch: Wagtail 7.4 LTS.
 
 Initial constraint direction: `wagtail>=7.4.2,<7.5`. Wagtail 7.4.0 and 7.4.1 are not acceptable for initial foundation.
 
+Resolved foundation version: Wagtail 7.4.2.
+
 Используется для Wagtail Admin, global CMS content, settings and image-related capabilities where appropriate. Self-registered Portfolio Owners не получают Wagtail Admin access автоматически.
 
 ### uv dependency management
 
-Accepted dependency workflow: uv, root `pyproject.toml`, committed `uv.lock`, committed `.python-version`, project-local `.venv`, `[tool.uv] package = false`.
+Accepted and implemented dependency workflow: uv, root `pyproject.toml`, committed `uv.lock`, committed `.python-version`, project-local `.venv`, `[tool.uv] package = false`.
 
 Do not maintain parallel requirements files. Do not use Poetry or PDM alongside uv. Do not manually edit `uv.lock`.
 
@@ -48,11 +54,13 @@ Do not maintain parallel requirements files. Do not use Poetry or PDM alongside 
 
 Primary DB для development и production: PostgreSQL 18 series. Driver: Psycopg 3 with initial dependency `psycopg[binary]>=3.3.4,<4`.
 
+Resolved foundation versions: PostgreSQL 18.4 via `postgres:18.4-bookworm`, Psycopg 3.3.4 and psycopg-binary 3.3.4.
+
 No SQLite fallback in dev, test or production settings.
 
 ### django-environ
 
-Accepted for typed environment-variable access, `DATABASE_URL` parsing, optional local `.env` loading and strict required settings. Initial constraint: `django-environ>=0.13,<0.14`.
+Accepted for typed environment-variable access, `DATABASE_URL` parsing, optional local `.env` loading and strict required settings. Initial constraint: `django-environ>=0.13,<0.14`; resolved foundation version: 0.13.0.
 
 ### Linux production target
 
@@ -80,13 +88,13 @@ Production email delivery planned through SMTP-compatible provider. Provider not
 
 ### Docker Compose
 
-Initial development Compose direction: future `compose.dev.yml` contains PostgreSQL `db` service only. Django runs directly through uv-managed `.venv` for PyCharm/terminal debugging.
+Initial development Compose implemented: `compose.dev.yml` contains PostgreSQL `db` service only. Django runs directly through uv-managed `.venv` for PyCharm/terminal debugging.
 
 Production Docker Compose remains later deployment stage.
 
 ### Ruff and pytest
 
-Accepted initial development tooling: Ruff, pytest, pytest-django and pytest-cov.
+Accepted initial development tooling: Ruff, pytest, pytest-django and pytest-cov. Resolved foundation versions: Ruff 0.15.18, pytest 9.1.0, pytest-django 4.12.0 and pytest-cov 7.1.0.
 
 Do not add Black, isort, Flake8, pylint, mypy, django-stubs, pre-commit, tox or nox during the foundation milestone.
 

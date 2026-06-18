@@ -2,9 +2,9 @@
 
 ## Статус
 
-Документ описывает planned local development approach. Финальных команд нет, потому что Django/Wagtail project еще не создан.
+Stage 1/2 foundation реализован. Этот документ описывает проверенный локальный workflow для текущего pre-alpha состояния.
 
-Точный контракт Stage 1/2 описан в `docs/TECHNICAL_FOUNDATION.md`.
+Точный контракт и результаты Stage 1/2 описаны в `docs/TECHNICAL_FOUNDATION.md`.
 
 ## Primary IDE
 
@@ -12,12 +12,12 @@
 
 Windows remains a valid development environment. Production assumptions are Linux-oriented.
 
-## Planned local workflow
+## Local workflow
 
 - uv-managed project-local `.venv` как базовый режим локальной разработки.
-- Root `pyproject.toml`, committed `uv.lock` and `.python-version` are planned for foundation implementation.
+- Root `pyproject.toml`, committed `uv.lock` and `.python-version` созданы.
 - Application runs directly from PyCharm Professional or terminal through uv.
-- Initial `compose.dev.yml` later contains PostgreSQL `db` service only.
+- `compose.dev.yml` contains PostgreSQL `db` service only.
 - Environment variables outside Git.
 - Settings split: `framehold.settings.base/dev/test/prod`.
 - Custom User model and standard Wagtail Image strategy before first permanent migrations.
@@ -27,9 +27,57 @@ Windows remains a valid development environment. Production assumptions are Linu
 - No SQLite fallback in dev or test settings.
 - Do not use Poetry, PDM or parallel requirements files alongside uv.
 
+## Проверенные команды
+
+Подготовить зависимости:
+
+```powershell
+uv sync --locked
+```
+
+Создать локальный `.env` из safe example:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Запустить PostgreSQL 18:
+
+```powershell
+docker compose -f compose.dev.yml up -d db
+```
+
+Применить миграции:
+
+```powershell
+uv run python manage.py migrate
+```
+
+Проверить проект:
+
+```powershell
+uv run python manage.py check
+uv run python manage.py makemigrations --check --dry-run
+uv run ruff check .
+uv run ruff format --check .
+uv run pytest
+```
+
+Запустить development server:
+
+```powershell
+uv run python manage.py runserver
+```
+
+Остановить PostgreSQL без удаления named volume:
+
+```powershell
+docker compose -f compose.dev.yml down
+```
+
 ## Development email
 
-Для development planned:
+Для development:
 
 - console email backend initially.
 
@@ -47,12 +95,14 @@ Production credentials must not be used in development and must not be committed
 
 Accepted tooling: pytest, pytest-django and pytest-cov.
 
-Future pytest direction:
+Current pytest direction:
 
 - `DJANGO_SETTINGS_MODULE = "framehold.settings.test"`;
 - tests use PostgreSQL test database;
 - test filenames use `test_*.py`;
 - no mandatory coverage percentage before meaningful application code exists.
+
+Текущие foundation tests покрывают custom User, django-allauth settings, Wagtail homepage/admin, PostgreSQL test DB и settings imports.
 
 Будущие priority tests:
 
@@ -102,6 +152,6 @@ Repository hygiene:
 - No DB dumps in Git.
 - No private media in Git.
 
-## Planned foundation validation
+## Foundation validation
 
-Implementation task should run the validation commands documented in `docs/TECHNICAL_FOUNDATION.md`, including uv locked checks, Django checks, migrations checks, Ruff and pytest. Do not run them before the implementation files exist.
+Stage 1/2 validation commands documented in `docs/TECHNICAL_FOUNDATION.md` were run successfully, except production deploy-check intentionally still reports HSTS/HTTPS redirect warnings pending final reverse proxy policy.

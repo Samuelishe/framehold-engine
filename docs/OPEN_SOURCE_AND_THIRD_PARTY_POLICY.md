@@ -40,9 +40,9 @@ AGPL does not automatically apply to:
 
 The canonical project `LICENSE` must not be used as a third-party notice list. `THIRD_PARTY_NOTICES.md` is the human-readable source of truth for intentionally included or adapted third-party components and assets.
 
-At the documentation-only stage there may be no bundled dependencies or assets. Do not pretend planned technologies are already vendored. Do not invent authors, versions, URLs or license identifiers.
+After Stage 1/2 foundation, direct Python dependencies and development tools are resolved in `uv.lock` and listed in `THIRD_PARTY_NOTICES.md`. Do not invent authors, versions, URLs or license identifiers.
 
-Accepted foundation dependencies and tools documented in `docs/TECHNICAL_FOUNDATION.md` are planned selections, not bundled material until dependency metadata and lockfile are actually created. Do not populate `THIRD_PARTY_NOTICES.md` as though Django, Wagtail, django-allauth, django-environ, Psycopg, uv, Ruff or pytest are already included.
+Transitive dependencies remain recorded in `uv.lock` and under their own licenses. Add or expand human-readable notices when repository policy or a dependency's license/notice requirements make that relevant.
 
 ## Software policy
 

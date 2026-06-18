@@ -2,15 +2,18 @@
 
 ## Текущее состояние
 
-- Проект остается на стадии документационного фундамента и product refinement.
-- Django-проект еще не инициализирован.
-- Wagtail еще не инициализирован.
-- Прикладного кода нет.
-- `pyproject.toml` еще не создан.
-- `uv.lock` еще не создан.
-- `.python-version` еще не создан.
-- Dependencies не установлены.
-- Миграций, моделей, views, templates, CSS, JavaScript, форм, тестов, email integration и Docker configuration нет.
+- Проект находится на pre-alpha technical foundation stage.
+- Django/Wagtail foundation инициализирован.
+- Создан `manage.py`, пакет `framehold`, split settings `framehold.settings.base/dev/test/prod`.
+- Создан custom User в `apps.accounts`: `accounts.User(AbstractUser)` без `username`, с уникальным нормализованным email как `USERNAME_FIELD`.
+- Создан minimal `apps.sitecontent` с Wagtail `HomePage` для корневой страницы.
+- Созданы `pyproject.toml`, `uv.lock` и `.python-version`.
+- Dependencies установлены через uv; `.venv` остается локальным ignored артефактом.
+- Созданы первые миграции `accounts.0001_initial`, `sitecontent.0001_initial`, `sitecontent.0002_create_homepage`.
+- Первые миграции выполнены на PostgreSQL 18, не на SQLite.
+- Создан database-only `compose.dev.yml` для PostgreSQL `db` service.
+- Созданы foundation tests для custom User, django-allauth configuration, Wagtail foundation, PostgreSQL test DB и settings imports.
+- Portfolio, Album, Photo, AlbumPhoto, Framehold Dashboard, public portfolio routes, themes, uploads, account deletion, Tailwind/CSS/JS frontend и production containers еще не реализованы.
 - Production deployment еще не существует.
 - Корневой `README.md` теперь является GitHub landing page на английском языке.
 
@@ -41,14 +44,14 @@
 - No mandatory telemetry, analytics, phone-home behavior, external fonts or public CDN dependency.
 - Account deletion uses a two-phase lifecycle: immediate lockout/public removal, then idempotent cleanup.
 - MVP vertical slice is documented in `PRODUCT_VISION.md` and `REQUIREMENTS.md`.
-- Technical foundation decisions accepted: CPython 3.14, Django 5.2 LTS, Wagtail 7.4 LTS with minimum patch 7.4.2.
-- Dependency management direction accepted: uv, root `pyproject.toml`, committed `uv.lock`, `.python-version`, project-local `.venv`.
+- Technical foundation implemented with CPython 3.14.0 in the local environment, Django 5.2.15, Wagtail 7.4.2, django-allauth 65.18.0, django-environ 0.13.0, Psycopg 3.3.4, PostgreSQL image `postgres:18.4-bookworm`, Ruff 0.15.18, pytest 9.1.0, pytest-django 4.12.0 and pytest-cov 7.1.0.
+- Dependency management implemented with uv, root `pyproject.toml`, committed `uv.lock`, `.python-version`, project-local `.venv`.
 - Accepted direct foundation dependencies: Django, Wagtail, django-allauth, django-environ and `psycopg[binary]`.
 - Account foundation uses django-allauth regular accounts with email-plus-password login, mandatory email verification and no `socialaccount` in foundation.
 - Custom User contract accepted: `apps.accounts`, `accounts.User(AbstractUser)`, no `username`, unique normalized email as `USERNAME_FIELD`.
 - Database direction accepted: PostgreSQL 18 with Psycopg 3; no SQLite fallback in dev/test/production settings.
 - Settings split accepted: `framehold.settings.base/dev/test/prod` with django-environ.
-- Development Compose direction accepted: future `compose.dev.yml` contains PostgreSQL `db` service only; Django runs directly through uv/PyCharm/terminal.
+- Development Compose implemented as `compose.dev.yml` with PostgreSQL `db` service only; Django runs directly through uv/PyCharm/terminal.
 - Development tooling accepted: Ruff, pytest, pytest-django and pytest-cov.
 - Initial app boundaries accepted: `apps.accounts` during foundation and `apps.sitecontent` only if required for minimal Wagtail global CMS/root page.
 - First migrations must be PostgreSQL-first and after custom User, split settings and database configuration are ready.
@@ -63,7 +66,7 @@
 - Обновлена документация под модель public registration, Portfolio Owner, Framehold Dashboard, curated themes и media presentation.
 - Добавлены документы по account deletion/data lifecycle, content rights/media access, open-source/third-party policy и privacy/operator responsibilities.
 - Добавлены root `LICENSE`, `THIRD_PARTY_NOTICES.md` и `licenses/README.md`.
-- Добавлен `docs/TECHNICAL_FOUNDATION.md` с контрактом Stage 1/2 foundation implementation.
+- Реализован Stage 1/2 foundation: uv project metadata, dependency lock, Django/Wagtail scaffold, custom User, split settings, PostgreSQL development service, minimal Wagtail site, first migrations and foundation tests.
 
 ## Следующие архитектурные вопросы
 
@@ -74,13 +77,8 @@
 - exact storage cleanup strategy for source originals, public full-resolution assets and renditions.
 - decoder/image backend.
 
-Перед foundation implementation технически остаются уточнения исполнения, но не архитектурного выбора:
-
-- exact latest compatible patch versions resolved by `uv.lock`;
-- exact initial Wagtail scaffold cleanup;
-- whether `apps.sitecontent` is required immediately for minimal root/home page;
 - exact production cache backend for allauth rate limits, later.
 
 ## Следующий шаг
 
-Следующий шаг: Stage 1/2 foundation implementation. Следующая задача должна создать uv project metadata, dependency lock, Django/Wagtail scaffold, custom User, settings split, PostgreSQL development service, minimal Wagtail site, first migrations and foundation tests. Media spike remains required before real uploads, but does not block foundation implementation.
+Следующий шаг: Stage 3 accounts foundation. Следующая задача должна реализовать django-allauth account-flow UX: public registration pages, mandatory email verification flow, login/logout, password reset, account tests and safe redirects. Media spike remains required before real uploads, but does not block accounts foundation.

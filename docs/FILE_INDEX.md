@@ -10,6 +10,50 @@
 - `LICENSE` — canonical GNU Affero General Public License version 3 text for Framehold Engine.
 - `THIRD_PARTY_NOTICES.md` — human-readable inventory and attribution source for included/adapted third-party components and assets.
 - `licenses/README.md` — пояснение назначения каталога для будущих third-party license texts.
+- `.python-version` — uv/Python version pin for CPython 3.14.
+- `.env.example` — safe development environment-variable template.
+- `pyproject.toml` — uv project metadata, direct dependencies, Ruff and pytest configuration.
+- `uv.lock` — machine-generated uv dependency lockfile.
+- `manage.py` — Django management entry point using `framehold.settings.dev` by default.
+- `compose.dev.yml` — database-only development Compose file for PostgreSQL 18.
+
+## Django/Wagtail foundation
+
+- `framehold/__init__.py` — package marker for the Django project.
+- `framehold/asgi.py` — ASGI entry point.
+- `framehold/wsgi.py` — WSGI entry point.
+- `framehold/urls.py` — foundation URL routing for Wagtail Admin, Wagtail documents, django-allauth accounts and Wagtail public pages.
+- `framehold/settings/__init__.py` — package marker for split settings.
+- `framehold/settings/base.py` — common Django/Wagtail/allauth/settings foundation.
+- `framehold/settings/dev.py` — development settings.
+- `framehold/settings/test.py` — pytest/Django test settings using PostgreSQL.
+- `framehold/settings/prod.py` — fail-fast production settings skeleton.
+- `apps/__init__.py` — package marker for project apps.
+- `apps/accounts/__init__.py` — package marker for accounts app.
+- `apps/accounts/apps.py` — Django app config for `accounts`.
+- `apps/accounts/managers.py` — custom User manager with email normalization.
+- `apps/accounts/models.py` — custom `accounts.User` without username.
+- `apps/accounts/display.py` — django-allauth user display helper.
+- `apps/accounts/admin.py` — minimal Django admin integration for custom User.
+- `apps/accounts/migrations/__init__.py` — accounts migrations package marker.
+- `apps/accounts/migrations/0001_initial.py` — first custom User migration.
+- `apps/accounts/tests/__init__.py` — accounts tests package marker.
+- `apps/accounts/tests/test_user_model.py` — custom User and manager tests.
+- `apps/accounts/tests/test_allauth_configuration.py` — django-allauth foundation configuration tests.
+- `apps/sitecontent/__init__.py` — package marker for minimal Wagtail global content app.
+- `apps/sitecontent/apps.py` — Django app config for `sitecontent`.
+- `apps/sitecontent/models.py` — minimal Wagtail `HomePage`.
+- `apps/sitecontent/migrations/__init__.py` — sitecontent migrations package marker.
+- `apps/sitecontent/migrations/0001_initial.py` — initial `HomePage` model migration.
+- `apps/sitecontent/migrations/0002_create_homepage.py` — migration creating the default Wagtail homepage and Site.
+- `apps/sitecontent/templates/sitecontent/home_page.html` — minimal homepage template.
+- `apps/sitecontent/tests/__init__.py` — sitecontent tests package marker.
+- `apps/sitecontent/tests/test_wagtail_foundation.py` — Wagtail homepage/admin access tests.
+- `templates/base.html` — minimal base HTML template without external assets.
+- `static/.gitkeep` — keeps the empty static directory in Git.
+- `tests/__init__.py` — root tests package marker.
+- `tests/test_database_settings.py` — verifies PostgreSQL is used in tests.
+- `tests/test_settings_imports.py` — verifies settings import behavior and production fail-fast secret handling.
 
 ## Каталог docs
 

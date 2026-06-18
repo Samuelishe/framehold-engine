@@ -2,7 +2,9 @@
 
 ## Статус
 
-Это planned deployment direction. Ничего из перечисленного пока не реализовано.
+Это planned production deployment direction. Production deployment пока не реализован.
+
+Development-only PostgreSQL Compose уже создан в `compose.dev.yml`; это не production Docker infrastructure.
 
 ## Базовое направление
 
@@ -40,7 +42,7 @@ No SQLite fallback is accepted for production, development or tests.
 
 ## Public origin
 
-Registration, verification and password reset links require a configured public origin/domain. This is planned, not implemented.
+Registration, verification and password reset links require a configured public origin/domain. `FRAMEHOLD_PUBLIC_ORIGIN` уже присутствует в settings foundation, но реальные account flows и production deployment еще не реализованы.
 
 ## Quotas and media operations
 
@@ -81,7 +83,7 @@ Account/media cleanup must account for Linux filesystem permissions. Future Dock
 
 ## Development Compose distinction
 
-The first development Compose file is planned as `compose.dev.yml` with PostgreSQL `db` only. It is not production Docker infrastructure and does not include Django web service, reverse proxy, Redis, mail server or object storage.
+The first development Compose file exists as `compose.dev.yml` with PostgreSQL `db` only. It is not production Docker infrastructure and does not include Django web service, reverse proxy, Redis, mail server or object storage.
 
 ## Backup retention and deletion-aware restore
 

@@ -2,13 +2,13 @@
 
 ## Статус
 
-Это концептуальная модель предметной области. Django models не созданы, миграций нет.
+Это концептуальная модель предметной области. Foundation custom User уже создан как Django model; Portfolio, Album, Photo, AlbumPhoto и SiteSettings domain models еще не созданы.
 
 ## User
 
 - technical authentication identity;
-- custom Django user model from the beginning;
-- implementation contract: `apps.accounts`, model `accounts.User`;
+- custom Django user model created from the beginning;
+- implemented contract: `apps.accounts`, model `accounts.User`;
 - base class: `django.contrib.auth.models.AbstractUser`;
 - no `username` field in accepted initial model;
 - required unique normalized email;
@@ -16,7 +16,7 @@
 - `USERNAME_FIELD = "email"`;
 - `EMAIL_FIELD = "email"`;
 - `REQUIRED_FIELDS = []`;
-- verification and account state handled through established auth mechanisms.
+- verification and account state handled through established auth mechanisms; full account flows are not implemented yet.
 
 Public Portfolio identity must not depend on authentication username. Public URLs use `Portfolio.slug`, not `User.username`.
 

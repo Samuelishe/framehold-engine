@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Stage 1/2 technical foundation implementation
+
+- Created uv application metadata: `pyproject.toml`, `uv.lock` and `.python-version`.
+- Added a minimal Django/Wagtail foundation with split settings and Wagtail Admin.
+- Implemented `accounts.User(AbstractUser)` without `username` and with unique normalized email.
+- Configured django-allauth foundation for email-plus-password accounts without `socialaccount`.
+- Added PostgreSQL 18 database-only `compose.dev.yml` and first PostgreSQL migrations.
+- Added minimal `sitecontent.HomePage`, base template, Ruff and pytest foundation tests.
+- Updated README, project state, technical documentation and third-party notices to reflect actual resolved dependencies.
+
 ## Technical foundation readiness
 
 - Added `docs/TECHNICAL_FOUNDATION.md`.

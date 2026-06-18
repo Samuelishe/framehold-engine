@@ -26,9 +26,9 @@ dist/
 # Local environment and secrets
 .env
 .env.*
-!.env.example
 *.env
 *.env.*
+!.env.example
 secrets/
 
 # Local databases and dumps

@@ -4,7 +4,7 @@ A self-hosted, multi-user photo portfolio engine built around curated themes and
 
 ## Overview
 
-Framehold Engine is planned as a self-hosted web gallery engine where one installation can host multiple independent public photography portfolios.
+Framehold Engine is a self-hosted web gallery engine where one installation is intended to host multiple independent public photography portfolios.
 
 Users will register publicly, verify their email address, create one portfolio in the MVP, choose a curated theme, upload photographs through the private Framehold Dashboard, create albums, configure presentation options, and publish public portfolio pages.
 
@@ -12,9 +12,11 @@ Public visitors see published portfolios, albums, and photographs. Site Administ
 
 ## Project Status
 
-Framehold Engine is currently in the documentation and architecture stage. It is pre-alpha.
+Framehold Engine is pre-alpha. The Stage 1/2 technical foundation now exists.
 
-The Django/Wagtail application has not been initialized yet. There is no production-ready release, no application code, and no deployment configuration. Features described in the documentation are planned unless explicitly marked as implemented.
+The repository contains a minimal Django/Wagtail foundation with uv metadata, locked dependencies, split settings, a custom email-only User model, django-allauth foundation configuration, PostgreSQL development Compose, initial PostgreSQL migrations, a minimal Wagtail homepage/admin, Ruff, and pytest.
+
+There is no production-ready release. Registration UX, Portfolio models, Framehold Dashboard, public portfolio pages, themes, media uploads, and account deletion are not implemented yet. Features described in the documentation are planned unless explicitly marked as implemented.
 
 ## Product Direction
 
@@ -39,13 +41,20 @@ Framehold Engine is also not a DRM or anti-copy product. It does not promise tha
 
 ## Planned Architecture
 
-The planned stack is:
+The foundation stack is:
 
 - Python 3.14;
-- Django;
-- Wagtail;
-- PostgreSQL;
-- custom Django User model from the beginning;
+- Django 5.2 LTS;
+- Wagtail 7.4 LTS;
+- PostgreSQL 18;
+- Psycopg 3;
+- uv with `pyproject.toml` and `uv.lock`;
+- custom Django User model without `username`;
+- django-allauth account foundation;
+- Ruff and pytest.
+
+The planned product architecture still includes:
+
 - Portfolio and Album as regular Django domain models;
 - Photo as a Framehold domain model referencing the standard Wagtail Image model initially;
 - server-rendered public frontend;
@@ -56,6 +65,56 @@ The planned stack is:
 - local media storage first, with possible S3-compatible storage later.
 
 Unresolved implementation details are documented in the architecture docs.
+
+## Development Setup
+
+This project currently uses Python 3.14, uv, Docker Compose, and PostgreSQL 18.
+
+Prepare dependencies:
+
+```powershell
+uv sync --locked
+```
+
+Create a local environment file from the safe example and set development-only values:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Start the development database:
+
+```powershell
+docker compose -f compose.dev.yml up -d db
+```
+
+Run migrations:
+
+```powershell
+uv run python manage.py migrate
+```
+
+Run checks and tests:
+
+```powershell
+uv run python manage.py check
+uv run python manage.py makemigrations --check --dry-run
+uv run ruff check .
+uv run ruff format --check .
+uv run pytest
+```
+
+Start the development server:
+
+```powershell
+uv run python manage.py runserver
+```
+
+Stop the development database without deleting the named volume:
+
+```powershell
+docker compose -f compose.dev.yml down
+```
 
 ## Account and Privacy Principles
 
@@ -78,6 +137,7 @@ Detailed project documentation is in Russian:
 - [Documentation map](docs/README.md)
 - [Project state](docs/PROJECT_STATE.md)
 - [Architecture](docs/ARCHITECTURE.md)
+- [Technical foundation](docs/TECHNICAL_FOUNDATION.md)
 - [Data model](docs/DATA_MODEL.md)
 - [Registration and accounts](docs/REGISTRATION_AND_ACCOUNTS.md)
 - [Ownership and isolation](docs/OWNERSHIP_AND_ISOLATION.md)
@@ -102,7 +162,7 @@ Framehold Engine is provided as-is, without warranty, to the extent permitted by
 
 Third-party components and assets retain their own licenses. The project inventory and attribution policy are tracked in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-At this documentation-only stage, no bundled third-party components or assets are currently listed as included.
+Direct runtime dependencies and development tools are listed in `THIRD_PARTY_NOTICES.md`. Third-party components retain their own licenses.
 
 ## User Content
 

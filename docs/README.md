@@ -1,6 +1,6 @@
 # Документация Framehold Engine
 
-Этот каталог содержит рабочую документацию проекта. На текущем этапе она является главным источником решений, потому что прикладная реализация еще не начата.
+Этот каталог содержит рабочую документацию проекта. На текущем этапе она остается главным источником решений; Stage 1/2 technical foundation уже реализован, а продуктовая доменная реализация еще не начата.
 
 - `PROJECT_STATE.md` — текущее состояние проекта, что реализовано, что только запланировано и какие архитектурные вопросы нужно решить следующими.
 - `PRODUCT_VISION.md` — продуктовая рамка: multi-user, multi-portfolio engine, premium portfolio presentation и явные social non-goals.
@@ -23,7 +23,7 @@
 - `UI_DESIGN.md` — визуальное направление публичного интерфейса, mobile rules, theme families и viewer UX.
 - `TECH_STACK.md` — выбранный стек, custom User model с начала, planned email infrastructure и невыбранные альтернативы.
 - `TECHNICAL_FOUNDATION.md` — точный контракт Stage 1/2: версии, uv, dependencies, custom User, settings, PostgreSQL, migrations и validation commands.
-- `DEVELOPMENT.md` — планируемый локальный процесс разработки, email backend/mail-catcher и ограничения по отсутствующей реализации.
+- `DEVELOPMENT.md` — проверенный локальный foundation workflow, PostgreSQL через Compose, uv/Ruff/pytest команды и ограничения текущей реализации.
 - `DEPLOYMENT.md` — планируемый VPS deployment, production email, public origin, quotas и backup assumptions.
 - `SECURITY_NOTES.md` — правила безопасности для registration, verification, ownership, upload safety, EXIF и suspension.
 - `ROADMAP.md` — dependency-aware roadmap от documentation refinement до accounts, dashboard, themes, media и deployment.
