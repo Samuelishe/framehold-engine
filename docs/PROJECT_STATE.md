@@ -21,6 +21,11 @@
 - Portfolio и Album приняты как regular Django domain models, не Wagtail Pages.
 - Photo принят как Framehold domain model, который initially references the standard Wagtail Image model.
 - Custom Wagtail image model не планируется для initial implementation.
+- Preferred initial login direction: email-only login; public identity belongs to Portfolio through `slug` and `public_name`.
+- One domain `Photo` corresponds to one standard Wagtail Image asset in the MVP; reuse across albums happens through `AlbumPhoto`.
+- Private source originals, public full-resolution assets and public renditions are separate architectural concepts.
+- Production hosting assumption: Linux VPS, typically Ubuntu or another Debian-like server.
+- Repository hygiene now includes `.editorconfig` and `.gitattributes` for stable formatting and LF normalization.
 - Account deletion and all data является core product requirement.
 - Published photographs are expected to be viewable and saveable; Framehold Engine не является DRM/anti-copy продуктом.
 - Исходный сценарий Irwyn, Polina и отца Irwyn остается первым intended use case, но не ограничивает продукт.
@@ -40,12 +45,11 @@
 Перед инициализацией доменной реализации нужно явно решить:
 
 - exact authentication package для registration, verification и password reset;
-- publication approval policy: требуется ли approval Site Administrator для первой публичной публикации;
 - canonical public URL scheme: `/photographers/<slug>/`, `/portfolio/<slug>/` или другой стабильный route.
 - exact quotas and upload limits;
 - exact private-source/public-delivery media storage implementation;
-- email-only login versus email plus internal username.
+- exact storage cleanup strategy for source originals, public full-resolution assets and renditions.
 
 ## Следующий шаг
 
-Следующий осмысленный архитектурный шаг — спроектировать private-source versus public-delivery media storage до реализации реальных upload flows.
+Следующий осмысленный архитектурный шаг — technical spike for standard Wagtail Image, renditions and private-source/public-delivery separation before real upload implementation.

@@ -9,9 +9,12 @@
 - technical authentication identity;
 - custom Django user model from the beginning;
 - required unique email;
+- email is the preferred login identifier in the initial direction;
 - verification and account state handled through established auth mechanisms.
 
 Public Portfolio identity must not depend on authentication username. Public URLs use `Portfolio.slug`, not `User.username`.
+
+MVP cardinality: User has zero or one Portfolio; Portfolio ownership and Site Administrator privileges are not mutually exclusive.
 
 ## Portfolio
 
@@ -27,16 +30,21 @@ Public Portfolio identity must not depend on authentication username. Public URL
 - `cover_image`
 - `theme_key`
 - `theme_settings`
+- `theme_settings_version`
 - `default_caption_visibility`
 - `default_capture_date_visibility`
 - `default_exif_visibility`
 - `publication_state`
-- `suspension_state`
+- `moderation_state`
+- `discoverability`
+- `allow_search_indexing`
 - possible `original_access_policy`
 - `created_at`
 - `updated_at`
 
 Назначение: публичная identity и presentation boundary одного Portfolio Owner.
+
+MVP cardinality: Portfolio belongs to exactly one User; one User owns at most one Portfolio.
 
 ## Album
 
@@ -79,6 +87,8 @@ Public Portfolio identity must not depend on authentication username. Public URL
 
 Photo belongs to Portfolio, not exclusively to one Album.
 
+MVP cardinality: one Photo corresponds to one Wagtail Image asset. Do not model multiple Photo records pointing to the same Wagtail Image in the MVP.
+
 ## AlbumPhoto
 
 Планируемые поля:
@@ -89,6 +99,43 @@ Photo belongs to Portfolio, not exclusively to one Album.
 - optional generic `presentation_hint`
 
 Album and Photo use explicit AlbumPhoto relation. One Photo may appear in multiple albums. AlbumPhoto stores album-specific ordering.
+
+## Cardinalities and invariants
+
+- `Portfolio.owner` is unique in MVP.
+- `Portfolio.slug` is globally unique, preferably case-insensitive.
+- One Portfolio has many Albums; each Album belongs to one Portfolio.
+- One Portfolio has many Photos; each Photo belongs to one Portfolio.
+- `Album.slug` is unique within Portfolio.
+- `AlbumPhoto` is unique per `(album, photo)`.
+- `AlbumPhoto.album.portfolio` must match `AlbumPhoto.photo.portfolio`.
+- Another owner's Photo must not be usable as an Album cover.
+- Another owner's Wagtail Image asset must not be selectable in owner-facing flows.
+- Deleting Owner A must not delete or detach Owner B's data.
+- Reusing a Photo across albums must not duplicate the underlying image asset.
+- Some invariants require server-side validation and tests, not only database constraints.
+
+## State axes
+
+Do not collapse unrelated states into one overloaded `status`.
+
+Conceptual axes:
+
+- User account state: `active`, `email_unverified` or `pending_verification`, `suspended`, `deletion_pending`, `deleted` or physically removed from active data.
+- Portfolio publication state: `draft`, `published`, `unpublished`.
+- Portfolio moderation state: `pending_approval`, `approved`, `rejected`, `suspended`.
+- Discoverability: `listed`, `unlisted`.
+- Search indexing preference: `allow_search_indexing` true/false.
+
+Distinctions:
+
+- `suspended` is administrative.
+- `unpublished` is owner/publication action.
+- `unlisted` means accessible by direct public URL but omitted from public catalog/index pages.
+- `allow_search_indexing` is advisory and should affect robots/meta/sitemap behavior later.
+- deletion is not suspension.
+- approval is not publication.
+- publication is not discoverability.
 
 ## SiteSettings
 
@@ -112,10 +159,7 @@ Album and Photo use explicit AlbumPhoto relation. One Photo may appear in multip
 
 ## Open data model decisions
 
-## Open data model decisions
-
 - Exact publication states.
-- Whether first public publication requires Site Administrator approval.
 - Exact public URL scheme: `/photographers/<slug>/`, `/portfolio/<slug>/` or another stable route.
 - Exact storage quota and upload size limits.
 - Exact representation of email verification state.

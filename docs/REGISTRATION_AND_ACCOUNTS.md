@@ -19,6 +19,10 @@
 - Email обязателен.
 - Email должен быть уникальным case-insensitively.
 - Email должен нормализоваться единообразно.
+- Email is the preferred technical login identifier in the initial direction.
+- Public username is not required in MVP.
+- `Portfolio.slug` is public URL identity.
+- `Portfolio.public_name` is display identity.
 - Password hashing выполняет только Django.
 - Password validation использует установленные механизмы Django.
 - Password reset использует verified email channel.
@@ -45,6 +49,25 @@
 - possibly disabled/deactivated.
 
 Self-registered users являются regular non-staff users. Регистрация никогда не должна автоматически давать `is_staff`, `is_superuser`, Wagtail Admin access, глобальный доступ к Wagtail collections или page tree permissions.
+
+Site Administrator privileges and Portfolio ownership are not mutually exclusive: a User may own a Portfolio and also have Site Administrator permissions.
+
+## Email-only login direction
+
+Accepted initial direction: email-only login.
+
+Why:
+
+- avoids duplicate identity concepts;
+- avoids confusion between username and portfolio slug;
+- simplifies registration;
+- keeps public identity separate from authentication credentials.
+
+Changing email should require verifying the new email address. Old unverified accounts may require scheduled cleanup later. Unverified users cannot create or publish a Portfolio. Registration can be globally disabled. Password reset uses the verified email channel.
+
+## First-publication moderation
+
+Public registration is allowed, but first public publication should be moderatable. Default policy: verified Portfolio Owner may configure Portfolio and organize content privately, but first public publication requires Site Administrator approval. After approval, owner may publish/unpublish/update their own content unless suspended or stricter policy is enabled.
 
 ## Administrative controls
 
@@ -104,9 +127,9 @@ MVP security должен оставаться пропорциональным.
 
 ## Открытые решения
 
-- Login будет email-only или email plus internal username.
 - Какая mature authentication package реализует registration и verification.
 - Будет ли выбран `django-allauth` или другое established solution.
+- Exact custom User base class.
 - Точное представление email verification state.
 - Email reuse after deletion.
 - Public slug reuse after deletion.

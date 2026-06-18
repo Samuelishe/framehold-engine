@@ -22,6 +22,8 @@
 - Data export before deletion.
 - Advanced copyright/licensing presentation.
 - Advanced per-photo licensing display.
+- Operator-installed third-party themes.
+- User-authored/external themes after separate security review.
 
 ## Что больше не считается purely future-only
 
@@ -31,5 +33,7 @@
 - Public viewer/lightbox.
 - Basic account deletion.
 - Basic public image saving.
+- Email-only login.
+- Public-but-unlisted portfolio discoverability.
 
 Эти элементы теперь входят в planned product path.

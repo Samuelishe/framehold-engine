@@ -6,7 +6,11 @@
 - Custom Django User model должен быть создан с самого начала, до первых permanent application migrations.
 - Portfolio и Album являются regular Django domain models в принятой initial architecture.
 - Photo является Framehold domain model and references the standard Wagtail Image model initially.
+- One domain Photo corresponds to one Wagtail Image asset in the MVP.
 - Custom Wagtail image model is not planned for initial implementation.
+- Preferred initial login direction: email-only login.
+- First public publication requires Site Administrator approval by default, configurable by operator.
+- Production assumption: Linux VPS, typically Ubuntu or Debian-like server. Windows remains a supported development environment, not the production target.
 - Wagtail Admin reserved for Site Administrator and trusted staff.
 - Framehold Dashboard — custom Django UI для Portfolio Owners.
 - Кастомная доменная логика Portfolio, Album, Photo и AlbumPhoto должна жить в Django apps.
@@ -22,11 +26,11 @@
 
 ### Framehold Accounts
 
-Custom User, public registration, email verification, login/logout, password reset, onboarding, account states and suspension.
+Custom User, email-only login direction, public registration, email verification, login/logout, password reset, onboarding, account states, suspension and deletion.
 
 ### Framehold Portfolio
 
-Portfolio ownership, Album, Photo, AlbumPhoto, publication states, presentation defaults, slug/public identity и domain rules.
+Portfolio ownership, Album, Photo, AlbumPhoto, publication state, moderation state, discoverability, presentation defaults, slug/public identity и domain rules.
 
 ### Framehold Dashboard
 
@@ -43,6 +47,8 @@ Trusted code-defined curated themes, registry, settings schema, capabilities, re
 ### Framehold Media Presentation
 
 Responsive renditions/previews, public viewer/lightbox, captions, alt text, dates, controlled EXIF и original media policy.
+
+Private source originals, public full-resolution assets and public renditions are separate concepts. Conceptual local filesystem direction: `private_media/sources/`, `public_media/full/`, `public_media/renditions/`.
 
 ### Framehold Data Lifecycle
 
@@ -85,17 +91,17 @@ Wagtail Admin remains reserved for Site Administrator and explicitly trusted sta
 - Do not allow arbitrary user-supplied theme code in MVP.
 - Do not render raw EXIF publicly.
 - Do not treat a public media directory as authorization.
+- Do not rely on unguessable URLs as authorization.
 - Do not use fake DRM or copy-protection controls as a security feature.
+- Avoid Windows-specific production assumptions, case-insensitive filesystem assumptions and backslash-only paths.
 - Do not edit canonical `LICENSE` text or insert third-party notices into it.
 
 ## Open implementation decisions
 
 - Exact publication states.
-- Whether first public publication requires Site Administrator approval.
 - Canonical public URL scheme.
 - Exact authentication package.
-- Email-only login versus email plus internal username.
 - Exact quotas and upload limits.
 - Exact private-source/public-delivery media storage implementation.
 
-Private-source versus public-delivery storage must be decided before real uploads. Portfolio/Album as Wagtail Pages and custom Wagtail image model are not part of the accepted initial architecture.
+Private-source versus public-delivery storage must be decided before real uploads, preferably through a small technical prototype with standard Wagtail Image, renditions and local filesystem storage. Portfolio/Album as Wagtail Pages and custom Wagtail image model are not part of the accepted initial architecture.

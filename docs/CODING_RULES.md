@@ -10,6 +10,8 @@
 - Не проглатывать exceptions silently.
 - Не хардкодить secrets.
 - Не конкатенировать filesystem paths вручную там, где лучше `pathlib`.
+- Do not rely on case-insensitive filesystem behavior.
+- Deployment/runtime docs and examples should use POSIX-style paths.
 - Держать migrations reviewable.
 - Избегать overengineering.
 - Не добавлять dependencies без понятной причины.
@@ -22,6 +24,7 @@
 - Do not implement custom session handling.
 - Do not implement custom token cryptography.
 - Self-registered users are not staff by default.
+- Email-only login is the preferred initial direction.
 
 ## Ownership and query rules
 
@@ -33,12 +36,16 @@
 - No broad deletion querysets.
 - Destructive operations must be explicitly scoped.
 - User-supplied object IDs require ownership validation.
+- Some invariants require server-side validation and tests, not only database constraints.
 
 ## Themes
 
 - No arbitrary theme execution.
 - No user-uploaded theme code in MVP.
 - Theme settings must be validated by schema.
+- Theme settings need versioning through `theme_settings_version`.
+- Unknown theme settings must not be executed.
+- Changing a theme must not mutate Album or Photo data.
 - Themes must not control authorization, ownership, authentication, publication policy or access to drafts.
 
 ## Media and EXIF
@@ -48,6 +55,7 @@
 - GPS is hidden by default.
 - Uploaded image content must be validated by established image libraries.
 - Originals must not be casually exposed without explicit policy.
+- Private source originals and public delivery assets are separate concepts.
 - Media authorization must be server-side.
 - Do not use fake DRM.
 

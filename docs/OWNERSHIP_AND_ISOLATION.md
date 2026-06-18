@@ -10,6 +10,8 @@ Ownership isolation — hard requirement для multi-portfolio Framehold Engine
 - One Portfolio belongs to exactly one Portfolio Owner.
 - One-account-one-portfolio limitation may be relaxed later.
 - Site Administrator may manage all portfolios.
+- A User may be Site Administrator and also own a Portfolio.
+- Site Administrator abilities must not bypass deletion-isolation expectations accidentally.
 
 ## Server-side invariants
 
@@ -18,6 +20,7 @@ Ownership isolation — hard requirement для multi-portfolio Framehold Engine
 - Direct access to another owner's edit/delete URL must be rejected.
 - Forged form IDs must not allow selecting another owner's objects.
 - Another owner's image must not be usable as an album cover.
+- Another owner's Wagtail Image asset must not be selectable in owner-facing flows.
 - Another owner's theme settings must not be editable.
 - Another owner's unpublished content must never appear in dashboard queries.
 - Public queries must return only published and non-suspended content.
@@ -26,6 +29,8 @@ Ownership isolation — hard requirement для multi-portfolio Framehold Engine
 - Deleting Owner A must never remove Owner B's data.
 - Deletion cleanup must be scoped to the deleting owner's account and Portfolio.
 - Direct media URLs for deleted content controlled by Framehold Engine must stop working.
+- Reusing a Photo across albums must not duplicate the underlying image asset.
+- `AlbumPhoto.album.portfolio` must match `AlbumPhoto.photo.portfolio`.
 
 ## Dashboard isolation
 

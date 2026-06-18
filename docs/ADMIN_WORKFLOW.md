@@ -79,4 +79,8 @@ Deletion and suspension are different operations:
 
 ## Publication workflow
 
-Open decision: whether first public publication requires Site Administrator approval. This must be decided before implementing publication states and dashboard publish actions.
+Default policy: first public publication requires Site Administrator approval. A verified Portfolio Owner may configure Portfolio, upload media and organize content privately before approval. After approval, the owner may publish/unpublish/update their own content unless Site Administrator suspends the Portfolio or enables stricter policy.
+
+Conceptual setting: `first_publication_requires_approval = true`.
+
+The policy should be configurable by the operator. It is a proportional anti-abuse measure because email verification does not prevent spam, illegal content, abuse or free image hosting.

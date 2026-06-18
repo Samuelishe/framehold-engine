@@ -19,6 +19,7 @@
 
 - Email required and unique case-insensitively.
 - Email normalized consistently.
+- Email-only login is the preferred initial direction.
 - Verification links expire and are single-use.
 - Resend verification has cooldown.
 - Signup, login, verification resend and password reset must be rate-limited.
@@ -26,6 +27,7 @@
 - Password reset uses verified email channel.
 - Registration never grants Wagtail Admin access automatically.
 - Administrator can disable new registrations globally.
+- First public publication requires Site Administrator approval by default as a proportional anti-abuse measure.
 
 Email verification confirms control of a mailbox and prevents repeated registration with the same unique email. It does not prove that one physical person owns only one account and does not prevent deliberate registration with multiple email addresses.
 
@@ -55,6 +57,8 @@ MVP security remains proportional. CAPTCHA, Turnstile, SMS, mandatory 2FA, socia
 - Media URL/storage policy must be reviewed separately.
 - Public `/media/` must not accidentally expose every uploaded source file.
 - Source original, public full-resolution asset and public rendition are separate concepts.
+- Raw source originals are private uploaded files and are not served directly by ordinary public media root.
+- Public full-resolution assets may differ from raw upload and may be metadata-sanitized.
 
 ## EXIF and metadata
 
@@ -88,3 +92,7 @@ MVP security remains proportional. CAPTCHA, Turnstile, SMS, mandatory 2FA, socia
 ## Public media and no DRM
 
 Published photographs may be publicly accessible and saveable. Do not use fake DRM, context-menu blocking, overlays, canvas-only rendering or URL hiding as security mechanisms.
+
+## Runtime assumptions
+
+Production security guidance should assume Linux VPS, typically Ubuntu or Debian-like server. Avoid relying on case-insensitive filesystem behavior, Windows-specific paths or backslash-only paths.

@@ -8,6 +8,8 @@
 
 Возможная будущая роль Collaborator для shared portfolio editing не входит в MVP.
 
+Роли не являются взаимоисключающими. Site Administrator — это permission/capability level, а не отдельный тип человека. Один User может быть Site Administrator и одновременно владеть Portfolio. Ordinary Portfolio Owners are not staff/admin.
+
 ## Site Administrator
 
 Global administrator of the whole Framehold Engine installation.
@@ -81,9 +83,19 @@ Publicly registered and email-verified user who owns one Portfolio in the MVP.
 
 - Public queries return only published and non-suspended content.
 - Published media may be publicly accessible and saveable.
+- A Portfolio may be public but unlisted: direct URL works, but it is omitted from public catalog/index pages.
+- Public-but-unlisted is a discoverability setting, not a security boundary.
 - Draft/unpublished content is visible only to its Portfolio Owner and Site Administrator through authorized interfaces.
 - Hidden/suspended content must not leak through public URL guesses, templates or unrestricted querysets.
 - Draft, hidden, suspended and deleted media must not be protected only by absence of links.
+
+## First-publication moderation
+
+Default policy: verified Portfolio Owner may create and configure Portfolio, upload and organize content privately, but first public publication requires Site Administrator approval. After approval, owner can publish/unpublish/update their content without manual approval unless Site Administrator suspends the Portfolio or enables stricter policy.
+
+Conceptual setting: `first_publication_requires_approval = true`.
+
+Reason: email verification does not prevent spam, illegal content, abuse or use of the server as free image hosting. This is a proportional anti-abuse measure without CAPTCHA/SMS/enterprise identity complexity in MVP.
 
 ## Ownership isolation
 

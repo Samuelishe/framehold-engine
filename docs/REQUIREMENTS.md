@@ -4,6 +4,7 @@
 
 - Поддерживать public self-registration.
 - Требовать mandatory email verification до portfolio onboarding, uploads и publication.
+- Использовать email-only login as preferred initial direction.
 - Поддерживать one verified user account owns one Portfolio в MVP.
 - Поддерживать много независимых публичных portfolios в одной установке.
 - Предоставить Framehold Dashboard для Portfolio Owners.
@@ -13,6 +14,8 @@
 - Поддерживать public viewer/lightbox across themes.
 - Поддерживать controlled captions, capture dates, alt text и allowlisted EXIF.
 - Поддерживать account/portfolio suspension Site Administrator.
+- Поддерживать first-publication approval by Site Administrator by default.
+- Поддерживать public-but-unlisted Portfolio discoverability.
 - Поддерживать self-service Delete account and all data.
 - Поддерживать public published-image saveability without fake DRM.
 - Поддерживать separation между source original, public full-resolution asset и public rendition.
@@ -71,12 +74,32 @@
 - Email required.
 - Email unique case-insensitively.
 - Email normalized consistently.
+- Email is technical login identifier in accepted initial direction.
+- Public identity uses `Portfolio.slug` and `Portfolio.public_name`.
 - Verification links expire and are single-use.
 - Resend verification has cooldown.
 - Signup, login, verification resend and password reset are rate-limited.
 - Administrator can disable new registrations globally.
 - Password reset uses verified email channel.
 - Exact auth package, rate limits and expiration values remain open.
+
+## State requirements
+
+- User account state is separate from Portfolio publication and moderation state.
+- Portfolio publication state is separate from discoverability.
+- `unlisted` means accessible by direct public URL but omitted from public catalog/index pages.
+- Search indexing preference is advisory and should affect robots/meta/sitemap behavior later.
+- Deletion is not suspension.
+- Approval is not publication.
+- Publication is not discoverability.
+
+## First-publication moderation requirements
+
+- Verified Portfolio Owner may create and configure Portfolio.
+- Owner may upload and organize content privately.
+- First public publication requires Site Administrator approval by default.
+- After approval, owner may publish/unpublish/update own content unless suspended or stricter policy is enabled.
+- Operator should be able to configure the policy.
 
 ## Media and upload requirements
 
@@ -89,6 +112,7 @@
 - Per-account or per-portfolio storage quota required.
 - Responsive renditions/previews generated.
 - Public access to originals is a deliberate policy decision.
+- Private source originals and public delivery assets are separate concepts.
 - GPS metadata must not leak accidentally.
 - Draft, hidden, suspended and deleted media must not become public merely because a URL is known.
 - A public `/media/` directory must not accidentally expose every uploaded source file.
@@ -125,6 +149,7 @@
 - Themes are trusted code-defined presets shipped with Framehold Engine.
 - Portfolio Owner may select installed themes but may not upload theme code.
 - Theme settings are stored as validated safe configuration.
+- Theme settings include versioning through `theme_settings_version`.
 - Themes must provide desktop, tablet and mobile behavior.
 - Missing theme falls back to a safe default theme.
 

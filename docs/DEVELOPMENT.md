@@ -8,15 +8,18 @@
 
 Основная IDE: JetBrains PyCharm Professional.
 
+Windows remains a valid development environment. Production assumptions are Linux-oriented.
+
 ## Planned local workflow
 
 - Python virtual environment как базовый режим локальной разработки.
 - Docker Compose workflow later, после появления реального проекта.
 - Environment variables outside Git.
 - Settings split after project initialization.
-- Custom User model and image-model strategy review before first permanent migrations.
+- Custom User model and standard Wagtail Image strategy before first permanent migrations.
 - Portfolio and Album are accepted as regular Django domain models.
 - Standard Wagtail Image is accepted as the initial image strategy for Framehold Photo.
+- Use POSIX-style paths in deployment-oriented documentation and avoid relying on case-insensitive filesystem behavior.
 
 ## Development email
 
@@ -30,7 +33,7 @@ Production credentials must not be used in development and must not be committed
 ## Migrations
 
 - Миграции будут штатным Django mechanism.
-- First permanent migrations must not be created before custom User and image-model strategy are reviewed.
+- First permanent migrations must not be created before custom User, PostgreSQL/dev settings and standard Wagtail Image strategy are ready.
 - Миграции должны быть reviewable.
 
 ## Tests
@@ -59,6 +62,12 @@ Production credentials must not be used in development and must not be committed
 ## Formatting and linting
 
 Exact formatting/linting tools remain open. Решение будет принято после инициализации проекта.
+
+Repository hygiene:
+
+- `.editorconfig` sets UTF-8, LF line endings, final newline and trailing whitespace trimming for repository text files.
+- `.gitattributes` normalizes repository text files to LF and marks common binary formats.
+- CRLF conversion warnings may appear on Windows depending on Git `autocrlf`; committed content should remain normalized.
 
 ## Secrets and data
 

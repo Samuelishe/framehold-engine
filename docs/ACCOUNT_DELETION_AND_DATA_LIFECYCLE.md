@@ -69,6 +69,7 @@ Deletion must not affect another user's account, portfolio, media, or unrelated 
 - Deletion must not leave orphaned originals or renditions.
 - Public routes must stop serving the deleted portfolio.
 - Direct public media URLs controlled by Framehold Engine must stop serving deleted assets.
+- Cleanup must cover private source originals, public full-resolution assets and public renditions according to the final media architecture.
 - Deletion implementation must be covered by integration tests later.
 
 ## Immediate behavior after confirmation
@@ -124,6 +125,7 @@ The feature supports data-erasure and data-lifecycle requirements. It does not a
 - AlbumPhoto relations are removed.
 - Wagtail Image assets owned exclusively by the portfolio are removed according to final ownership rules.
 - Originals are removed.
+- Public full-resolution assets are removed.
 - Renditions are removed.
 - Avatars and cover media are removed.
 - Owner A deletion does not affect Owner B.

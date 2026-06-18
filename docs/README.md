@@ -6,6 +6,7 @@
 - `PRODUCT_VISION.md` — продуктовая рамка: multi-user, multi-portfolio engine, premium portfolio presentation и явные social non-goals.
 - `REQUIREMENTS.md` — функциональные и нефункциональные требования, включая регистрацию, dashboard, ownership, темы, media viewer и upload safety.
 - `ARCHITECTURE.md` — архитектурное направление, логические зоны системы, границы Framehold Dashboard и Wagtail Admin.
+- `DECISIONS.md` — компактный журнал принятых архитектурных решений.
 - `DATA_MODEL.md` — черновая модель User, Portfolio, Album, Photo, AlbumPhoto и SiteSettings с открытыми Django/Wagtail решениями.
 - `PERMISSIONS.md` — роли Site Administrator, Portfolio Owner и Public Visitor, account states и suspension rules.
 - `REGISTRATION_AND_ACCOUNTS.md` — registration flow, email verification, account lifecycle, password reset, onboarding и открытый выбор auth package.

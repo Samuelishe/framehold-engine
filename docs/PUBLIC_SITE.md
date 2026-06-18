@@ -38,6 +38,23 @@ Portfolio page может включать:
 - theme-specific navigation;
 - captions, dates and enabled EXIF according to settings.
 
+## Public-but-unlisted portfolios
+
+A Portfolio may be public but unlisted.
+
+Meaning:
+
+- direct URL works;
+- published content is viewable by visitors with the link;
+- Portfolio is not shown in public catalog/index pages;
+- this is not the same as private/password-protected albums;
+- this is not a security boundary;
+- it is a discoverability setting.
+
+Conceptual settings: publication state or `is_public`, `is_listed`, `allow_search_indexing`.
+
+Example: photographer shares a portfolio link with specific people without appearing on global `/portfolios/` or `/photographers/` index.
+
 ## Album pages
 
 Album page показывает только published Photo из published Album внутри published non-suspended Portfolio. Layout зависит от theme, но public viewer/lightbox behavior остается common.
@@ -64,6 +81,7 @@ A published photograph may expose Open original or Download original. A direct U
 
 - Only published content is public.
 - Suspended accounts/portfolios are not public.
+- Unlisted public portfolios are public by direct URL, but omitted from indexes/catalog pages.
 - Drafts, hidden content and unpublished media are not public.
 - Public rendering receives already filtered safe context.
 - Public pages must not expose raw EXIF or GPS by default.

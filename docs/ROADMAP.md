@@ -2,43 +2,55 @@
 
 ## Stage 0: Documentation foundation
 
-Create the initial documentation foundation.
+Initial documentation foundation.
 
-## Stage 0.5: Product refinement
+## Stage 0.5: Product, licensing, and data-lifecycle refinement
 
 - public registration;
 - account lifecycle;
 - portfolio ownership;
 - dashboard boundary;
 - theme system;
-- media presentation.
-- licensing and data-lifecycle refinement;
+- media presentation;
+- AGPL licensing;
+- account deletion and data lifecycle;
 - public media saveability policy.
 
-## Stage 1: Django/Wagtail foundation
+## Stage 0.6: Architecture cleanup before code
 
-Before permanent initial migrations:
+- decisions log;
+- data model invariants;
+- email-only login decision;
+- media architecture direction;
+- Linux production assumption;
+- repository formatting rules.
 
-- establish custom User model;
-- use standard Wagtail Image strategy for initial Framehold Photo;
-- keep Portfolio and Album as regular Django domain models.
+## Stage 1: Django/Wagtail foundation planning and project initialization
 
-## Stage 2: Environment foundation
+Must establish:
+
+- project package;
+- custom User model;
+- standard Wagtail Image strategy;
+- no permanent migrations before PostgreSQL/dev settings are ready.
+
+Stage 1 and Stage 2 are tightly coupled around custom User, PostgreSQL, settings and first migrations.
+
+## Stage 2: Environment foundation and initial migrations
 
 - split settings;
 - PostgreSQL;
 - development email backend;
-- environment variables.
+- environment variables;
+- first permanent migrations only after custom User is configured.
 
-## Stage 3: Accounts
+## Stage 3: Accounts foundation
 
 - public registration;
 - mandatory email verification;
-- login/logout;
+- email-only login/logout;
 - password reset;
-- account states;
-- onboarding.
-- account deletion entry point and confirmation flow.
+- account states.
 
 ## Stage 4: Portfolio domain
 
@@ -47,79 +59,86 @@ Before permanent initial migrations:
 - Photo;
 - AlbumPhoto;
 - SiteSettings;
-- publication states.
+- publication states;
+- discoverability settings.
 
-## Stage 5: Ownership isolation
+## Stage 5: Onboarding, ownership isolation, and moderation
 
-- server-side scoping;
-- account/portfolio boundaries;
+- create first Portfolio after verification;
+- owner scoping;
+- first-publication approval;
 - suspension;
-- permission tests.
+- permission tests;
 - deletion isolation tests.
-- private/public media delivery design before real uploads.
 
 ## Stage 6: Framehold Dashboard
 
 - portfolio profile;
 - uploads;
-- album management;
+- albums;
 - photo ordering;
 - theme selection;
-- presentation settings.
+- presentation settings;
 - Delete account and all data flow.
 
-## Stage 7: Theme registry and first public theme
+## Stage 7: Private-source/public-delivery media design spike
+
+- verify Wagtail Image/renditions constraints;
+- decide source/public storage boundary before real uploads.
+
+## Stage 8: Theme registry and first public theme
 
 - Minimal Justified;
 - server-rendered public pages;
-- responsive behavior.
+- responsive behavior;
+- safe public contexts.
 
-## Stage 8: Media presentation
+## Stage 9: Media presentation
 
 - renditions;
 - viewer/lightbox;
 - keyboard navigation;
 - mobile swipe;
 - fullscreen;
-- captions and controlled EXIF.
-- public full-resolution access policy.
-- source original/public delivery boundary.
+- captions and controlled EXIF;
+- public full-resolution access.
 
-## Stage 9: Second theme
+## Stage 10: Second theme
 
 - Classic Grid;
 - theme contract validation;
 - focal point/crop workflow if needed.
 
-## Stage 10: Admin usability and public visual polish
+## Stage 11: Admin usability and public visual polish
 
 Improve Wagtail Admin usability for Site Administrator and polish public presentation after working flows exist.
 
-## Stage 11: Production deployment
+## Stage 12: Production deployment
 
+- Linux VPS, primarily Ubuntu or Debian-like server;
 - Docker Compose;
 - reverse proxy;
 - HTTPS;
-- production email.
+- production email;
 - deletion-aware media cleanup;
 - operator privacy/legal pages.
 
-## Stage 12: Backup and restore
+## Stage 13: Backup and restore
 
 - PostgreSQL;
 - media;
-- configuration.
-- deletion-aware restore behavior.
+- configuration;
+- deletion-aware restore behavior;
 - documented backup retention.
 
-## Stage 12.5: Release governance
+## Stage 14: Release governance
 
 - third-party notices audit;
 - license and attribution review;
 - README/license consistency check;
 - bundled asset provenance review.
 
-## Stage 13: Later improvements
+## Stage 15: Later improvements
 
 - Nocturne Mosaic;
 - Journal Feed;
@@ -133,6 +152,6 @@ Improve Wagtail Admin usability for Site Administrator and polish public present
 - analytics;
 - multilingual support;
 - collaborators;
-- optional stronger anti-abuse mechanisms.
-- data export before deletion.
+- optional stronger anti-abuse mechanisms;
+- data export before deletion;
 - advanced copyright/licensing presentation.

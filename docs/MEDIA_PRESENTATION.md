@@ -14,15 +14,23 @@ Framehold Engine is not an anti-copy or DRM-oriented product. Published photogra
 
 ### Source original
 
-Файл, originally uploaded by Portfolio Owner. Может содержать full EXIF, GPS, editing metadata и private metadata.
+Private uploaded source file, not served directly by ordinary public media root. Может содержать full EXIF, GPS, editing metadata, original filename concerns и private metadata.
 
 ### Public full-resolution asset
 
-Highest-quality version intentionally made available to Public Visitors. It may be the source original or a generated/sanitized equivalent. Exact implementation remains open.
+Highest-quality version intentionally made available to Public Visitors. It may be generated from the source original, may be metadata-sanitized, and may differ from the raw upload. Exact implementation remains open.
 
 ### Public rendition
 
 Resized/cropped formats for grids, feeds, cards and viewer.
+
+Conceptual local filesystem direction:
+
+- `private_media/sources/`
+- `public_media/full/`
+- `public_media/renditions/`
+
+Do not implement these folders until media architecture is reviewed.
 
 ## Original access
 
@@ -57,7 +65,7 @@ EXIF visibility должен быть opt-in или явно configurable.
 
 GPS coordinates не отображаются по умолчанию. Raw EXIF JSON нельзя рендерить напрямую.
 
-Hiding EXIF in UI does not remove embedded metadata from downloadable source files. If raw uploaded source is public, embedded GPS and EXIF may also become downloadable. Final source-original/public-original policy must address metadata sanitization.
+Hiding EXIF in UI does not remove embedded metadata from downloadable files. If raw uploaded source is public, embedded GPS and EXIF may also become downloadable. Raw source-original exposure, if ever allowed, must be an explicit dangerous option with a warning. Final source-original/public-original policy must address metadata sanitization.
 
 ## Presentation defaults and overrides
 
@@ -131,3 +139,7 @@ Advanced EXIF exploration остается later feature, но basic controlled 
 - Public `/media/` must not accidentally expose every uploaded source file.
 
 Exact values и implementation mechanisms остаются открытыми.
+
+## Prototype requirement before real uploads
+
+Before implementing real uploads, create a small technical prototype or architecture spike to verify how standard Wagtail Image, renditions, local filesystem storage, and private-source/public-delivery separation can coexist.

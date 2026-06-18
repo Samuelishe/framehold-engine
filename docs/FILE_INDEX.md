@@ -5,6 +5,8 @@
 - `README.md` — краткое описание Framehold Engine как self-hosted multi-user, multi-portfolio gallery engine.
 - `AGENTS.md` — правила для будущих агентских и Codex-сессий.
 - `.gitignore` — правила исключения локальных артефактов, секретов, медиа, кэшей и IDE-local state из Git.
+- `.editorconfig` — базовые правила кодировки, LF line endings, final newline и indentation для редакторов.
+- `.gitattributes` — Git normalization rules для LF line endings и binary assets.
 - `LICENSE` — canonical GNU Affero General Public License version 3 text for Framehold Engine.
 - `THIRD_PARTY_NOTICES.md` — human-readable inventory and attribution source for included/adapted third-party components and assets.
 - `licenses/README.md` — пояснение назначения каталога для будущих third-party license texts.
@@ -16,6 +18,7 @@
 - `docs/PRODUCT_VISION.md` — продуктовая цель, роли, non-social positioning и первые пользователи.
 - `docs/REQUIREMENTS.md` — требования к регистрации, dashboard, ownership, темам, media и MVP.
 - `docs/ARCHITECTURE.md` — архитектурные области, границы Dashboard/Admin и открытые решения.
+- `docs/DECISIONS.md` — компактный журнал принятых архитектурных решений.
 - `docs/DATA_MODEL.md` — концептуальная модель User, Portfolio, Album, Photo, AlbumPhoto и SiteSettings.
 - `docs/PERMISSIONS.md` — роли Site Administrator, Portfolio Owner, Public Visitor и ограничения доступа.
 - `docs/REGISTRATION_AND_ACCOUNTS.md` — регистрация, email verification, account lifecycle, onboarding и auth decisions.

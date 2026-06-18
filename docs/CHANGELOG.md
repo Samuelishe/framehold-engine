@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Architecture cleanup and repository hygiene
+
+- Added `docs/DECISIONS.md` architectural decision log.
+- Refactored `AGENTS.md` into baseline and task-specific reading rules.
+- Clarified User/Portfolio/Album/Photo/Wagtail Image cardinalities and invariants.
+- Accepted email-only login as the preferred initial direction.
+- Documented public-but-unlisted Portfolio discoverability.
+- Documented first-publication approval as default moderation policy.
+- Refined private-source/public-delivery media architecture.
+- Added theme settings versioning.
+- Added Linux VPS / Ubuntu-like production assumption.
+- Added `.editorconfig` and `.gitattributes`.
+
 ## Licensing and data lifecycle refinement
 
 - Added AGPL-3.0-or-later project license.

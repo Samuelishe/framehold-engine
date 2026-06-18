@@ -12,7 +12,7 @@ Server-side основа с ORM, migrations, auth, sessions, password hashing, f
 
 ### Custom Django User model
 
-Custom User должен существовать с самого начала, до первых permanent application migrations. Точное поле login/email strategy пока открыто.
+Custom User должен существовать с самого начала, до первых permanent application migrations. Preferred initial direction is email-only login.
 
 ### Standard Wagtail Image initially
 
@@ -29,6 +29,10 @@ Initial implementation uses the standard Wagtail Image model referenced by Frame
 ### PostgreSQL
 
 Primary DB для development и production.
+
+### Linux production target
+
+Production hosting is expected to run on Linux in almost all cases, typically Ubuntu or another Debian-like distribution. Windows remains a valid development environment, especially with PyCharm Professional, but production docs and examples should be Linux-oriented.
 
 ### Tailwind CSS
 
@@ -86,3 +90,4 @@ Project license: GNU Affero General Public License version 3 or later, SPDX `AGP
 - Не реализовывать custom token cryptography.
 - Не pin dependencies до появления реального проекта и проверки совместимости.
 - Не выбирать private/public media storage implementation без отдельного review.
+- Не полагаться на case-insensitive filesystem behavior или Windows-specific production assumptions.

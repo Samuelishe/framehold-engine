@@ -19,21 +19,29 @@ Watermarks are not required by the core product.
 
 ### Source original
 
-The file originally uploaded by the Portfolio Owner. It may contain full EXIF, GPS, editing metadata, and other private metadata.
+Private uploaded source file, not served directly by the ordinary public media root. It may contain full EXIF, GPS, editing metadata, original filename concerns, and other private metadata.
 
 ### Public full-resolution asset
 
-The highest-quality version intentionally made available to public visitors. It may be the source original or a generated/sanitized equivalent. Exact implementation remains open.
+The highest-quality version intentionally made available to public visitors. It may be generated from the source original, may be metadata-sanitized, and may differ from the raw upload. Exact implementation remains open.
 
 ### Public rendition
 
 Resized/cropped formats used in grids, feeds, cards, and the viewer.
+
+Conceptual local filesystem direction:
+
+- `private_media/sources/`
+- `public_media/full/`
+- `public_media/renditions/`
 
 ## Public access direction
 
 A published photograph may expose an explicit Open original or Download original action. A direct URL to a published full-size image is acceptable. Exact original-download controls may be configurable at Portfolio or Photo level later.
 
 The fact that a photograph is downloadable does not grant permission to reuse or redistribute it.
+
+Future UI language should prefer "Open full size" or "Download full size" and avoid implying that the raw uploaded source original is always exposed.
 
 ## Security boundary
 
@@ -43,6 +51,7 @@ The fact that a photograph is downloadable does not grant permission to reuse or
 - A public `/media/` directory must not accidentally expose every uploaded source file.
 - Private-source versus public-delivery storage strategy must be decided before real upload implementation.
 - Security through unguessable filenames alone is not sufficient.
+- Raw source-original exposure, if ever allowed, must be an explicit dangerous option with a warning.
 
 ## Unresolved implementation options
 
@@ -50,9 +59,12 @@ The fact that a photograph is downloadable does not grant permission to reuse or
 - Permission-checked media delivery.
 - Separate private and public storage backends.
 - Publication-time copying or rendition generation.
+- Wagtail Image storage constraints and prototype requirements.
 - Another reviewed design.
 
 No option is selected in this documentation task.
+
+Before real uploads, create a small technical prototype or architecture spike for standard Wagtail Image, renditions, local filesystem storage and private-source/public-delivery separation.
 
 ## EXIF/GPS interaction
 

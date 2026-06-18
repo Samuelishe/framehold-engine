@@ -7,6 +7,7 @@
 ## Базовое направление
 
 - Target: VPS.
+- Production OS assumption: Linux, primarily Ubuntu or another Debian-like server distribution.
 - Runtime later: Docker Compose.
 - Web service for Django/Wagtail application.
 - DB service for PostgreSQL.
@@ -16,6 +17,8 @@
 - PostgreSQL backup.
 - Media backup.
 - `.env` or equivalent external secret mechanism.
+
+Windows remains a valid development environment, but production docs, paths, permissions, service assumptions, reverse proxy setup, backups and cron/systemd-like notes should be Linux-oriented. Use POSIX-style paths in deployment docs and avoid backslash-only paths.
 
 ## Production email
 
@@ -54,7 +57,15 @@ Exact quota values remain open.
 
 Production deployment must not expose every uploaded source file through a public `/media/` directory by accident. Private-source versus public-delivery media strategy must be selected before real uploads.
 
+Conceptual local filesystem direction:
+
+- `private_media/sources/`
+- `public_media/full/`
+- `public_media/renditions/`
+
 After account deletion, public delivery assets controlled by Framehold Engine must stop serving. Source originals, generated renditions, thumbnails and cached media under application control must be removed or queued for retryable cleanup according to the final storage design.
+
+Account/media cleanup must account for Linux filesystem permissions. Future Docker Compose production examples target Linux.
 
 ## Backup retention and deletion-aware restore
 
